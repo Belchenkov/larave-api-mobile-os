@@ -5,10 +5,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateUsersTable
- * Users
+ * Class CreateUserTokensTable
  */
-class CreateUsersTable extends Migration
+class CreateUserTokensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,12 +16,13 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('user_tokens', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->passthru('varchar', 'ad_login', 'varchar(100)');
-            $table->passthru('varchar', 'tab_no', 'varchar(100)');
-            $table->passthru('varchar', 'id_person', 'varchar(100)');
+            $table->passthru('bigint', 'user_id')->unsigned();
+            $table->passthru('varchar', 'pin_code', 'varchar(4)')->unique();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -33,6 +33,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('user_tokens');
     }
 }
