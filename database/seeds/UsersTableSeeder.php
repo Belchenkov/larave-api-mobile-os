@@ -1,7 +1,8 @@
 <?php
 
+use App\Models\UserJwtToken;
 use App\Models\UserToken;
-use App\User;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -14,7 +15,9 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         factory(User::class, 5)->create()->each(function ($user) {
-            return  factory(UserToken::class)->create();
+            $user->userToken()->save(factory(UserToken::class)->make());
+            $user->userJwtToken()->save(factory(UserJwtToken::class)->make());
+            return;
         });
     }
 }

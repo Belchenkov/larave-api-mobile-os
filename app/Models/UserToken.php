@@ -19,4 +19,13 @@ class UserToken extends Model
     protected $fillable = [
         'user_id', 'pin_code',
     ];
+
+    /**
+     * Get User
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
 }
