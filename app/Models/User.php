@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+
+    protected $table = 'users';
+    protected $dateFormat = 'Y-m-d H:i:s';
 
     /**
      * The attributes that are mass assignable.
@@ -19,22 +22,21 @@ class User extends Authenticatable
         'ad_login', 'tab_no', 'id_person',
     ];
 
-
     /**
      * Get User Token(PIN)
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function userToken()
+    public function pinCode() : HasOne
     {
-        return $this->hasOne('App\Models\UserToken', 'user_id');
+        return $this->hasOne(UserPinCode::class, 'user_id');
     }
 
     /**
      * Get User JWT Token
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function userJwtToken()
+    public function jwtToken() : HasOne
     {
-        return $this->hasOne('App\Models\UserJwtToken', 'user_id');
+        return $this->hasOne(UserJwtToken::class, 'user_id');
     }
 }

@@ -12,5 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return response()->json([
+        'result' => true,
+        'data' => 'Welcome to GKOsnova Mobile Server'
+    ]);
 });

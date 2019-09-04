@@ -2,8 +2,13 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Api\ApiException;
+use App\Exceptions\Api\ApiNotFoundException;
+use App\Exceptions\Api\ApiValidationException;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +51,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof ApiException) {
+            return $exception->getResponse();
+        }
+
+        if ($exception instanceof ValidationException) {
+            throw new ApiValidationException($exception->validator->errors()->messages());
+        }
+
         return parent::render($request, $exception);
     }
 }

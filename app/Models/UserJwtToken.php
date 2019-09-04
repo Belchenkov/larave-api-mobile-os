@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class UserJwtToken
@@ -11,6 +12,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserJwtToken extends Model
 {
+
+    protected $table = 'user_jwt_tokens';
+    protected $dateFormat = 'Y-m-d H:i:s';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,8 +29,8 @@ class UserJwtToken extends Model
      * Get User
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user() : BelongsTo
     {
-        return $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

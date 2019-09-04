@@ -3,14 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class UserToken
  * @package App\Models
  * Users Tokens(PIN_CODES)
  */
-class UserToken extends Model
+class UserPinCode extends Model
 {
+
+    protected $table = 'user_tokens';
+    protected $dateFormat = 'Y-m-d H:i:s';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,8 +29,8 @@ class UserToken extends Model
      * Get User
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user() : BelongsTo
     {
-        return $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
