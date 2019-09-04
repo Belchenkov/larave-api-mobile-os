@@ -34,6 +34,8 @@ class UpdatePinCodeAction extends BaseAction
             ]
         );
 
+        $this->setActionResult(true);
+
         return $this;
     }
 
