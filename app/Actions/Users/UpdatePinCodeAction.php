@@ -34,7 +34,7 @@ class UpdatePinCodeAction extends BaseAction
             ]
         );
 
-        return $this->apiSuccess();
+        return $this;
     }
 
 }
