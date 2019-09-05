@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources\Api\v1;
 
+use App\Http\Resources\JsonApiResourse;
 use Carbon\Carbon;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserJwtToken extends JsonResource
+class UserJwtToken extends JsonApiResourse
 {
     /**
      * Transform the resource into an array.
