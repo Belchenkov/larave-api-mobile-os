@@ -7,7 +7,6 @@
 namespace App\Actions\Users;
 
 use App\Actions\BaseAction;
-use App\Exceptions\Api\ApiException;
 use App\Http\Requests\Api\v1\Callback\ReceivePinCodeRequest;
 use App\Models\User;
 
