@@ -1,7 +1,5 @@
 <?php
 
-Route::get('/', 'Api\v1\TestController@index');
-
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('test', function() {
         dd(Auth::user());
@@ -10,6 +8,7 @@ Route::group(['middleware' => 'auth:api'], function() {
 
 Route::group(['prefix' => 'auth', 'middleware' => 'guest:api'], function() {
     Route::post('login', 'Api\v1\AuthorizationController@loginJwt');
+    Route::post('refresh', 'Api\v1\AuthorizationController@refreshJwt');
 });
 
 Route::group(['prefix' => 'callback'], function() {
