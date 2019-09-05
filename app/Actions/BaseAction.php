@@ -12,4 +12,16 @@ use App\Http\Resources\JsonApiTrait;
 class BaseAction
 {
     use JsonApiTrait;
+
+    private $actionResult = null;
+
+    public function setActionResult($actionResult): void
+    {
+        $this->actionResult = $actionResult;
+    }
+
+    public function getActionResult()
+    {
+        return $this->actionResult;
+    }
 }

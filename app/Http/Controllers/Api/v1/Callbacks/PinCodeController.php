@@ -16,7 +16,7 @@ class PinCodeController extends Controller
             ->execute(
                 $request,
                 User::where('ad_login', $request->ad_login)->first()
-            );
+            )->apiSuccess();
     }
 
 }

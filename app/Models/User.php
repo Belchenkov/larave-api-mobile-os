@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Services\Auth\JwtAuthenticatable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, JwtAuthenticatable;
 
     protected $table = 'users';
     protected $dateFormat = 'Y-m-d H:i:s';
