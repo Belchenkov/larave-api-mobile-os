@@ -3,17 +3,16 @@
 //Route::get('/', 'Api\v1\TestController@index');
 
 // JWT Auth routes
-Route::group(['prefix' => 'auth', 'middleware' => 'guest:api'], function() {
-    Route::post('login', 'Api\v1\AuthorizationController@loginJwt');
-    Route::post('refresh', 'Api\v1\AuthorizationController@refreshJwt');
-});
+Route::prefix('auth')
+    ->middleware('guest:api')
+    ->group(base_path('routes/api/v1/auth.php'));
 
 // Callbacks routes
-Route::group(['prefix' => 'callback'], function() {
-    Route::post('pin/update', 'Api\v1\Callbacks\PinCodeController@receivePinCode');
-});
+Route::prefix('callback')
+    ->group(base_path('routes/api/v1/callbacks.php'));
 
 // Auth middleware routes
+// ToDo - move to associate files
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('test', function() {
         dd(Auth::user);
