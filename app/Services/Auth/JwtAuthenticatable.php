@@ -33,10 +33,11 @@ trait JwtAuthenticatable
             [
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
-                'access_expire_at' => Carbon::now()->addHours(6),
-                'refresh_expire_at' => Carbon::now()->addDays(3),
+                'access_expire_at' => Carbon::now()->addHours(6)->format('Y-m-d H:i:s'),
+                'refresh_expire_at' => Carbon::now()->addDays(3)->format('Y-m-d H:i:s'),
             ]
         );
+
     }
 
 }

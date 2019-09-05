@@ -21,8 +21,8 @@ class CreateUserJwtTokensTable extends Migration
             $table->passthru('bigint', 'user_id')->unsigned();
             $table->passthru('varchar', 'access_token', 'varchar(255)');
             $table->passthru('varchar', 'refresh_token', 'varchar(255)');
-            $table->passthru('datetime', 'access_expire_at')->unsigned();
-            $table->passthru('datetime', 'refresh_expire_at')->unsigned();
+            $table->passthru('smalldatetime', 'access_expire_at');
+            $table->passthru('smalldatetime', 'refresh_expire_at');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -14,7 +14,7 @@ class UserJwtToken extends Model
 {
 
     protected $table = 'user_jwt_tokens';
-    protected $dateFormat = 'Y-m-d H:i:s';
+    //protected $dateFormat = 'Y-m-d H:i:s';
 
     /**
      * The attributes that are mass assignable.

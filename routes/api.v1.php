@@ -16,7 +16,7 @@ Route::group(['prefix' => 'callback'], function() {
 // Auth middleware routes
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('test', function() {
-        dd(Auth::user());
+        dd(Auth::user);
     });
 });
 
