@@ -30,12 +30,9 @@ class JwtGuard implements Guard
     public function user()
     {
         $user = null;
-
         if ($token = UserJwtToken::where('access_token', request()->bearerToken())
             ->where('access_expire_at', '>', Carbon::now())->first()) {
             $user = $token->user;
-        } else {
-            throw new ApiAuthorizationException();
         }
 
         return $this->user = $user;

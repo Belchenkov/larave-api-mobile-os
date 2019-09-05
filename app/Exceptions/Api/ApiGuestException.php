@@ -7,10 +7,10 @@
 namespace App\Exceptions\Api;
 
 
-class ApiAuthorizationException extends ApiException
+class ApiGuestException extends ApiException
 {
     public function __construct()
     {
-        parent::__construct(401, 'Unauthorized.', null, [], 0);
+        parent::__construct(403, 'Permission denied: guest only.', null, [], 0);
     }
 }

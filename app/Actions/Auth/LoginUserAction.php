@@ -11,10 +11,12 @@ use App\Actions\BaseAction;
 use App\Exceptions\Api\ApiException;
 use App\Http\Requests\Api\v1\Auth\LoginRequest;
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
 
 class LoginUserAction extends BaseAction
 {
+    /**
+     * @var User
+     */
     private $user = null;
 
     public function execute(LoginRequest $request)
@@ -23,7 +25,7 @@ class LoginUserAction extends BaseAction
             // ToDo add lifetime
             if ($user->pinCode && $user->pinCode->pin_code == $request->pin_code) {
                 $this->user = $user;
-                app(GenerateJwtAction::class)->execute($this->user);
+                $this->user->generateJwt();
                 $this->setActionResult($this->user->jwtToken);
             } else
                 throw new ApiException(422, 'Invalid pin code');

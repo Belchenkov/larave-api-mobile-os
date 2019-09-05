@@ -8,7 +8,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     });
 });
 
-Route::group(['prefix' => 'auth', 'middleware' => 'guest'], function() {
+Route::group(['prefix' => 'auth', 'middleware' => 'guest:api'], function() {
     Route::post('login', 'Api\v1\AuthorizationController@loginJwt');
 });
 

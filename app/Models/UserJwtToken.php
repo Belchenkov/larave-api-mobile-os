@@ -22,7 +22,7 @@ class UserJwtToken extends Model
      * @var array
      */
     protected $fillable = [
-        'access_token', 'refresh_token', 'user_id', 'expires_in',
+        'access_token', 'refresh_token', 'user_id', 'access_expire_at', 'refresh_expire_at',
     ];
 
     /**
