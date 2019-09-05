@@ -10,6 +10,7 @@ $factory->define(UserJwtToken::class, function (Faker $faker) {
     return [
         'access_token' => \Str::random(30),
         'refresh_token' => \Str::random(30),
-        'expires_in' => 3600
+        'access_expire_at' => 10800,
+        'refresh_expire_at' => 259200
     ];
 });

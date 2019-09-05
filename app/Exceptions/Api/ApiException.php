@@ -12,10 +12,9 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ApiException extends HttpException
 {
-
     public function getResponse($message = null)
     {
-        return JsonApiResourse::apiResponse(false, null, $message ? $message : $this->getMessage())
+        return JsonApiResourse::apiResponse(false, null, $message ?: $this->getMessage())
             ->setStatusCode($this->getStatusCode());
     }
 }

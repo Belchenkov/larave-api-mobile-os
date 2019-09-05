@@ -15,8 +15,8 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         factory(User::class, 5)->create()->each(function ($user) {
-            $user->userToken()->save(factory(UserPinCode::class)->make());
-            $user->userJwtToken()->save(factory(UserJwtToken::class)->make());
+            $user->pinCode()->save(factory(UserPinCode::class)->make());
+            $user->jwtToken()->save(factory(UserJwtToken::class)->make());
             return;
         });
     }
