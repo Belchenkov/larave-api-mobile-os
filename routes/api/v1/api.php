@@ -4,7 +4,6 @@
 
 // JWT Auth routes
 Route::prefix('auth')
-    ->middleware('guest:api')
     ->group(base_path('routes/api/v1/auth.php'));
 
 // Callbacks routes
@@ -15,7 +14,7 @@ Route::prefix('callback')
 // ToDo - move to associate files
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('test', function() {
-        dd(Auth::user);
+        dd(\Auth::user());
     });
 });
 

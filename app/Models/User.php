@@ -12,7 +12,6 @@ class User extends Authenticatable
     use Notifiable, JwtAuthenticatable;
 
     protected $table = 'users';
-    protected $dateFormat = 'Y-m-d H:i:s';
 
     /**
      * The attributes that are mass assignable.
