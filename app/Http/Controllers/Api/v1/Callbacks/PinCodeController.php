@@ -10,13 +10,11 @@ use App\Models\User;
 class PinCodeController extends Controller
 {
 
-    public function receivePinCode(ReceivePinCodeRequest $request)
+    public function receivePinCode(ReceivePinCodeRequest $request, UpdatePinCodeAction $action)
     {
-        return app(UpdatePinCodeAction::class)
-            ->execute(
-                $request,
-                User::where('ad_login', $request->ad_login)->first()
-            )->apiSuccess();
+        return $action->execute($request,
+            User::where('ad_login', $request->ad_login)->first()
+        )->apiSuccess();
     }
 
 }

@@ -11,9 +11,7 @@ use App\Http\Requests\Api\v1\Auth\RefreshRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\v1\User;
 use App\Http\Resources\Api\v1\UserJwtToken;
-use App\Http\Resources\JsonApiResourse;
 use App\Http\Resources\JsonApiTrait;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthorizationController extends Controller
@@ -24,11 +22,10 @@ class AuthorizationController extends Controller
      * @return UserJwtToken
      * Login User
      */
-    public function loginJwt(LoginRequest $request)
+    public function loginJwt(LoginRequest $request, LoginUserAction $action)
     {
         return new UserJwtToken(
-            app(LoginUserAction::class)
-            ->execute($request)->getActionResult()
+            $action->execute($request)->getActionResult()
         );
     }
 
@@ -37,11 +34,10 @@ class AuthorizationController extends Controller
      * @return UserJwtToken
      * Refresh JWT Token
      */
-    public function refreshJwt(RefreshRequest $request)
+    public function refreshJwt(RefreshRequest $request, RefreshUserAction $action)
     {
         return new UserJwtToken(
-            app(RefreshUserAction::class)
-                ->execute($request)->getActionResult()
+            $action->execute($request)->getActionResult()
         );
     }
 
@@ -50,9 +46,9 @@ class AuthorizationController extends Controller
      * @return JsonApiTrait
      * Logout User
      */
-    public function logout(LogoutRequest $request)
+    public function logout(LogoutRequest $request, LogoutUserAction $action)
     {
-        return app(LogoutUserAction::class)->execute($request);
+        return $action->execute($request)->apiSuccess();
     }
 
     /**

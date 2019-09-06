@@ -34,5 +34,7 @@ class LogoutUserAction extends BaseAction
         } else {
             throw new ApiException(422, 'User not found');
         }
+
+        return $this;
     }
 }
