@@ -28,7 +28,7 @@ class ReceivePinCodeRequest extends FormRequest
             'tab_no' => 'required|max:100',
             'ad_login' => 'required|max:100',
             'pin_code' => 'required|size:4',
-            'created_at' => 'required|numeric'
+            'created_at' => 'required'
         ];
     }
 }
