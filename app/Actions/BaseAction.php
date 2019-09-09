@@ -6,7 +6,6 @@
 
 namespace App\Actions;
 
-
 use App\Http\Resources\JsonApiTrait;
 
 class BaseAction

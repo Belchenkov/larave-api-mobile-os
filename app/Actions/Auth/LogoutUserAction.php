@@ -6,7 +6,7 @@ namespace App\Actions\Auth;
 use App\Actions\BaseAction;
 use App\Exceptions\Api\ApiException;
 use App\Http\Requests\Api\v1\Auth\LogoutRequest;
-use App\Models\UserJwtToken;
+use App\Models\User\UserJwtToken;
 use Illuminate\Support\Facades\Auth;
 
 /**

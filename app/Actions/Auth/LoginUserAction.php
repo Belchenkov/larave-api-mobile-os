@@ -6,11 +6,10 @@
 
 namespace App\Actions\Auth;
 
-
 use App\Actions\BaseAction;
 use App\Exceptions\Api\ApiException;
 use App\Http\Requests\Api\v1\Auth\LoginRequest;
-use App\Models\User;
+use App\Models\User\User;
 
 class LoginUserAction extends BaseAction
 {

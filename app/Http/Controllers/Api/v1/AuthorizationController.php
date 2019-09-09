@@ -11,7 +11,6 @@ use App\Http\Requests\Api\v1\Auth\RefreshRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\v1\User;
 use App\Http\Resources\Api\v1\UserJwtToken;
-use App\Http\Resources\JsonApiTrait;
 use Illuminate\Support\Facades\Auth;
 
 class AuthorizationController extends Controller
@@ -19,6 +18,7 @@ class AuthorizationController extends Controller
 
     /**
      * @param LoginRequest $request
+     * @param LoginUserAction $action
      * @return UserJwtToken
      * Login User
      */
@@ -31,6 +31,7 @@ class AuthorizationController extends Controller
 
     /**
      * @param RefreshRequest $request
+     * @param RefreshUserAction $action
      * @return UserJwtToken
      * Refresh JWT Token
      */
@@ -43,7 +44,8 @@ class AuthorizationController extends Controller
 
     /**
      * @param LogoutRequest $request
-     * @return JsonApiTrait
+     * @param LogoutUserAction $action
+     * @return \Illuminate\Http\JsonResponse Logout User
      * Logout User
      */
     public function logout(LogoutRequest $request, LogoutUserAction $action)

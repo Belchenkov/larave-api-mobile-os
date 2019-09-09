@@ -7,7 +7,7 @@
 namespace App\Services\Auth;
 
 
-use App\Models\UserJwtToken;
+use App\Models\User\UserJwtToken;
 use Carbon\Carbon;
 
 trait JwtAuthenticatable

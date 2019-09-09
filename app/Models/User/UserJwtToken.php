@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Class UserToken
+ * Class UserJwtToken
  * @package App\Models
- * Users Tokens(PIN_CODES)
+ *  User JWT Tokens
  */
-class UserPinCode extends Model
+class UserJwtToken extends Model
 {
 
-    protected $table = 'user_tokens';
-    protected $dateFormat = 'Y-m-d H:i:s';
+    protected $table = 'user_jwt_tokens';
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +21,7 @@ class UserPinCode extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'pin_code',
+        'access_token', 'refresh_token', 'user_id', 'access_expire_at', 'refresh_expire_at',
     ];
 
     /**

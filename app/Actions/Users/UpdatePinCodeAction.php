@@ -8,7 +8,7 @@ namespace App\Actions\Users;
 
 use App\Actions\BaseAction;
 use App\Http\Requests\Api\v1\Callback\ReceivePinCodeRequest;
-use App\Models\User;
+use App\Models\User\User;
 
 class UpdatePinCodeAction extends BaseAction
 {
