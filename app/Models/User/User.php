@@ -39,4 +39,5 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserJwtToken::class, 'user_id');
     }
+
 }
