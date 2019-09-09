@@ -12,6 +12,7 @@
 */
 
 Route::get('/', function () {
+
     return response()->json([
         'result' => true,
         'data' => 'Welcome to GKOsnova Mobile Server'

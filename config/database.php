@@ -91,6 +91,19 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'sqlsrv_transition' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_TRANSITION_HOST', 'localhost'),
+            'port' => env('DB_TRANSITION_PORT', '1433'),
+            'database' => env('DB_TRANSITION_DATABASE', 'forge'),
+            'username' => env('DB_TRANSITION_USERNAME', 'forge'),
+            'password' => env('DB_TRANSITION_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
     ],
 
     /*
