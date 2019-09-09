@@ -4,7 +4,7 @@
  * Date: 09/09/2019
  */
 
-namespace App\Services\Models;
+namespace App\Models\Transit_1C;
 
 
 use Illuminate\Database\Eloquent\Model;

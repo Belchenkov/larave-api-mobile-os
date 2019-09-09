@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Models\User\User;
+namespace App\Models\Transit_1C;
 
-use App\Models\Transit_1C\Transit1cPhPerson;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class CoreUserData extends Model
+class CoreUserData extends TransitionModel
 {
     protected $table = 'ITS.Core_UserData';
 

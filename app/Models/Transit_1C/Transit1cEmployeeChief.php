@@ -2,9 +2,7 @@
 
 namespace App\Models\Transit_1C;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Transit1cEmployeeChief extends Model
+class Transit1cEmployeeChief extends TransitionModel
 {
     protected $table = 'transit_1c_employee_chief';
 

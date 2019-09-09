@@ -2,12 +2,9 @@
 
 namespace App\Models\Transit_1C;
 
-use App\Models\User\User\CoreUserData;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Transit1cPhPerson extends Model
+class Transit1cPhPerson extends TransitionModel
 {
     protected $table = 'transit_1c_PhPerson';
 
