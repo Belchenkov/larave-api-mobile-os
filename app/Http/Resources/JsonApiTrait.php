@@ -6,7 +6,6 @@
 
 namespace App\Http\Resources;
 
-
 use Illuminate\Http\JsonResponse;
 
 trait JsonApiTrait

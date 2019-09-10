@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Transit DB itservice->ITS.Core_UserData
+ * Desc: Общая информация о пользователе
+ * Источник: 1С ЗУП
+ */
+
 namespace App\Models\Transit;
 
 use App\Models\Transit\_1C\Transit1cPhPerson;
@@ -43,4 +49,5 @@ class CoreUserData extends TransitionModel
     {
         return $this->hasOne(Transit1cPhPerson::class, 'id_phperson');
     }
+
 }

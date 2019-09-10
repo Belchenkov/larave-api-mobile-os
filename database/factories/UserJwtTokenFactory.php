@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\User\UserJwtToken;
+use App\Models\UserJwtToken;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 

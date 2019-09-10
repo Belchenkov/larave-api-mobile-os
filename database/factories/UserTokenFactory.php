@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\User\UserPinCode;
+use App\Models\UserPinCode;
 use Faker\Generator as Faker;
 
 $factory->define(UserPinCode::class, function (Faker $faker) {

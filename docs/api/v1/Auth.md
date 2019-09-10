@@ -166,6 +166,35 @@ User-Agent: *
     </tbody>
 </table>
 
+#### POST /api/v1/auth/logout
+
+Метод для выхода из аккаунта.
+
+<b>HEADERS</b>
+
+```
+Authorization: Bearer <accessToken>
+```
+
+<b>RESPONSE</b>
+
++ 200 OK
+
+
+#### GET /api/v1/auth/me
+
+Получение информации об авторизованном пользователе.
+
+<b>HEADERS</b>
+
+```
+Authorization: Bearer <accessToken>
+```
+
+<b>RESPONSE</b>
+
++ 200 OK
+
 ### Формат ответов с ошибкой
 
 + 422 Unprocessable Entity
@@ -183,4 +212,5 @@ User-Agent: *
 }
 ```
 , где `fieldName` - название поля с ошибкой имеет массив ошибок с текстом, что нарушено.
+
 

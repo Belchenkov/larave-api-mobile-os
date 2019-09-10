@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Transit DB itservice->transit_1c_employee_chief
+ * Desc: функциональные руководители
+ * Источник: 1С ЗУП
+ */
+
 namespace App\Models\Transit\_1C;
 
 use App\Models\Transit\TransitionModel;

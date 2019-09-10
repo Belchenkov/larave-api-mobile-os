@@ -1,18 +1,18 @@
 <?php
 
 /**
- * Transit DB itservice->transit_1c_schedule_employee
- * Desc: привязка сотрудников к графикам
+ * Transit DB itservice->transit_1c_schedule
+ * Desc: Графики работы
  * Источник: 1С ЗУП
  */
 
 namespace App\Models\Transit\_1C;
 
-use App\Models\Transit\TransitionModel;
+use Illuminate\Database\Eloquent\Model;
 
-class Transit1cScheduleEmployee extends TransitionModel
+class Transit1CSchedule extends Model
 {
-    protected $table = 'transit_1c_schedule_employee';
+    protected $table = 'transit_1c_schedule';
 
     /**
      * The attributes that are mass assignable.
@@ -20,11 +20,12 @@ class Transit1cScheduleEmployee extends TransitionModel
      * @var array
      */
     protected $fillable = [
-        'tab_no',
+        'weekday',
         'schedule_name',
         'date_in',
         'date_out',
         'dt',
+        'Dinner',
         'base'
     ];
 }

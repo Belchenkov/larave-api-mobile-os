@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\User\UserJwtToken;
-use App\Models\User\UserPinCode;
-use App\Models\User\User;
+use App\Models\UserJwtToken;
+use App\Models\UserPinCode;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder

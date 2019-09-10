@@ -6,7 +6,6 @@
 
 namespace App\Models\Transit;
 
-
 use Illuminate\Database\Eloquent\Model;
 
 class TransitionModel extends Model

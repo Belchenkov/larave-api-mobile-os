@@ -50,7 +50,7 @@ class AuthorizationController extends Controller
      */
     public function logout(LogoutRequest $request, LogoutUserAction $action)
     {
-        return $action->execute($request)->apiSuccess();
+        return $action->execute($request);
     }
 
     /**

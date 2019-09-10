@@ -9,7 +9,7 @@ namespace App\Actions\Auth;
 use App\Actions\BaseAction;
 use App\Exceptions\Api\ApiAuthorizationException;
 use App\Http\Requests\Api\v1\Auth\RefreshRequest;
-use App\Models\User\User;
+use App\Models\User;
 use App\Models\UserJwtToken;
 use Carbon\Carbon;
 

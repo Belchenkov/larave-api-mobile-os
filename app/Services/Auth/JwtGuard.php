@@ -6,9 +6,8 @@
 
 namespace App\Services\Auth;
 
-
 use App\Exceptions\Api\ApiAuthorizationException;
-use App\Models\User\UserJwtToken;
+use App\Models\UserJwtToken;
 use Carbon\Carbon;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\Guard;

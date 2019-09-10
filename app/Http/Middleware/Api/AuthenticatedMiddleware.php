@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware\Api;
 
-
 use App\Exceptions\Api\ApiAuthorizationException;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
