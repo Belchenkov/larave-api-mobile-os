@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models\Transit_1C;
+namespace App\Models\Transit\_1C;
 
+use App\Models\Transit\TransitionModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transit1cPhPerson extends TransitionModel

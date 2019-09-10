@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models\Transit_1C;
+namespace App\Models\Transit;
 
+use App\Models\Transit\_1C\Transit1cPhPerson;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CoreUserData extends TransitionModel
