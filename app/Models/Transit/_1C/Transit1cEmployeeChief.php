@@ -9,6 +9,7 @@
 namespace App\Models\Transit\_1C;
 
 use App\Models\Transit\TransitionModel;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Transit1cEmployeeChief extends TransitionModel
 {
@@ -25,4 +26,13 @@ class Transit1cEmployeeChief extends TransitionModel
         'dt',
         'tab_no_chief'
     ];
+
+    /**
+     * Get Employee from transit_1c_employee (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function employeeChiefInfo() : HasOne
+    {
+        return $this->hasOne(Transit1cEmployee::class, 'tab_no', 'tab_no_chief');
+    }
 }

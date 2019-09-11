@@ -10,8 +10,11 @@ Route::prefix('auth')
 Route::prefix('callback')
     ->group(base_path('routes/api/v1/callbacks.php'));
 
+// Profile routes
+Route::prefix('profile')
+    ->group(base_path('routes/api/v1/profile.php'));
+
 // Auth middleware routes
-// ToDo - move to associate files
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('test', function() {
         dd(\Auth::user());

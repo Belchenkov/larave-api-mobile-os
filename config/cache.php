@@ -20,6 +20,9 @@ return [
 
     'default' => env('CACHE_DRIVER', 'file'),
 
+
+    'cache_time' => env('CACHE_TIME', 60),
+
     /*
     |--------------------------------------------------------------------------
     | Cache Stores

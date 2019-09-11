@@ -13,7 +13,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CoreUserData extends TransitionModel
 {
-    protected $table = 'ITS.Core_UserData';
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->table = \DB::raw('"ITS.Core_UserData"');
+    }
 
     /**
      * The attributes that are mass assignable.
