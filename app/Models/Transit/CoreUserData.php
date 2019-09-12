@@ -9,6 +9,7 @@
 namespace App\Models\Transit;
 
 use App\Models\Transit\_1C\Transit1cPhPerson;
+use App\Services\MsSQL\DottedQueryBuilder;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CoreUserData extends TransitionModel
@@ -18,6 +19,13 @@ class CoreUserData extends TransitionModel
         parent::__construct($attributes);
 
         $this->table = \DB::raw('"ITS.Core_UserData"');
+    }
+
+    protected function newBaseQueryBuilder()
+    {
+        return new DottedQueryBuilder(
+            $this->getConnection(), $this->getConnection()->getQueryGrammar(), $this->getConnection()->getPostProcessor()
+        );
     }
 
     /**

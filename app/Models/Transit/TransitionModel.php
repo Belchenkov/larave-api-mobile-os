@@ -12,5 +12,6 @@ class TransitionModel extends Model
 {
 
     protected $connection = 'sqlsrv_transition';
+    protected $dateFormat = 'Y-m-d H:i:s';
 
 }

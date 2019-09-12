@@ -15,6 +15,7 @@ use App\Models\Transit\_1C\Transit1cScheduleEmployee;
 use App\Models\Transit\CoreUserData;
 use App\Services\Auth\JwtAuthenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Services\MsSQL\OriginalColumns;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,7 +25,7 @@ class User extends Authenticatable
     use Notifiable, JwtAuthenticatable;
 
     protected $table = 'users';
-
+    protected $dateFormat = 'Y-m-d H:i:s';
     /**
      * The attributes that are mass assignable.
      *
