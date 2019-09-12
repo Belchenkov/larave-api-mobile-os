@@ -11,8 +11,10 @@ use App\Models\Transit\_1C\Transit1cEmployee;
 use App\Models\Transit\_1C\Transit1cEmployeeChief;
 use App\Models\Transit\_1C\Transit1cEmployeeStatus;
 use App\Models\Transit\_1C\Transit1cPhPerson;
+use App\Models\Transit\_1C\Transit1cScheduleEmployee;
 use App\Models\Transit\CoreUserData;
 use App\Services\Auth\JwtAuthenticatable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -102,6 +104,15 @@ class User extends Authenticatable
     public function employeeChief() : HasOne
     {
         return $this->hasOne(Transit1cEmployeeChief::class, 'tab_no_employee', 'tab_no');
+    }
+
+    /**
+     * Get Statistic Visit Info from transit_1c_schedule_employee (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function scheduleEmployee() : HasMany
+    {
+        return $this->hasMany(Transit1cScheduleEmployee::class, 'tab_no', 'tab_no');
     }
 
 }

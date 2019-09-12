@@ -14,6 +14,10 @@ Route::prefix('callback')
 Route::prefix('profile')
     ->group(base_path('routes/api/v1/profile.php'));
 
+// Statistics Visit routes
+Route::prefix('statistic-visit')
+    ->group(base_path('routes/api/v1/statisticsVisit.php'));
+
 // Auth middleware routes
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('test', function() {
