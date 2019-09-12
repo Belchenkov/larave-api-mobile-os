@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->passthru('varchar', 'ad_login', 'varchar(100)');
-            $table->passthru('varchar', 'tab_no', 'varchar(100)');
+            $table->passthru('nvarchar', 'tab_no', 'varchar(100)');
             $table->passthru('varchar', 'id_person', 'varchar(100)');
             $table->timestamps();
         });
