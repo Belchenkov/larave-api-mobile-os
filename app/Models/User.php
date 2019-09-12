@@ -13,6 +13,7 @@ use App\Models\Transit\_1C\Transit1cEmployeeStatus;
 use App\Models\Transit\_1C\Transit1cPhPerson;
 use App\Models\Transit\CoreUserData;
 use App\Services\Auth\JwtAuthenticatable;
+use App\Services\MsSQL\OriginalColumns;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;

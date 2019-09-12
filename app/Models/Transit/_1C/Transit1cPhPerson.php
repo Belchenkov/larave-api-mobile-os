@@ -11,10 +11,14 @@ namespace App\Models\Transit\_1C;
 use App\Models\Transit\CoreUserData;
 use App\Models\Transit\TransitionModel;
 use App\Models\User;
+use App\Services\MsSQL\OriginalColumns;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transit1cPhPerson extends TransitionModel
 {
+    use OriginalColumns;
+
+    private $originalColumns = ['id'];
     protected $table = 'transit_1c_PhPerson';
 
     /**
@@ -70,6 +74,6 @@ class Transit1cPhPerson extends TransitionModel
      */
     public function user() : BelongsTo
     {
-        return $this->belongsTo(User::class, 'id_phperson');
+        return $this->belongsTo(User::class, 'id_person');
     }
 }
