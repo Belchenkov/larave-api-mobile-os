@@ -7,10 +7,9 @@ Route::group([
 
     // Статистика посещаемости
     Route::group([
-        'prefix' => '/statistic-visit'
+        'prefix' => '/statistic'
     ], function () {
-        Route::get('/', 'Api\v1\ProfileController@getStatisticsVisitInfo');
+        Route::get('/visit', 'Api\v1\ProfileController@getStatisticsVisitInfo');
     });
-
 });
 

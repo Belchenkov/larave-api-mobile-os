@@ -87,6 +87,9 @@ class ProfileController
 
             return $result;
         });
-        return $scheduleEmployeeGroupDate->first();
+
+        return  Cache::remember('getStatisticsVisitInfo', config('cache.cache_time'), function () use ($scheduleEmployeeGroupDate) {
+            return $scheduleEmployeeGroupDate->first();
+        });
     }
 }
