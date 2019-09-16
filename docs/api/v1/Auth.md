@@ -195,6 +195,50 @@ Authorization: Bearer <accessToken>
 
 + 200 OK
 
+```
+{
+    "data": {
+        "id": {Number},
+        "ad_login": {String},
+        "tab_no": {String},
+        "id_person": {String},
+        "created_at": {datetime}
+    },
+    "result": {Boolean}
+}
+```
+
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+        </tr>
+    </thead>
+    <tbody>
+         <tr>
+            <td>data.id</td>
+            <td>ID</td>
+        </tr>
+        <tr>
+            <td>data.ad_login</td>
+            <td>Логин/Email</td>
+        </tr>
+        <tr>
+            <td>data.tab_no</td>
+            <td>Табельный номер</td>
+        </tr>
+        <tr>
+            <td>data.id_person</td>
+            <td>ID из таблицы PhPerson</td>
+        </tr>
+        <tr>
+            <td>data.created_at</td>
+            <td>Дата обновления пин-кода</td>
+        </tr>
+    </tbody>
+</table>
+
 ### Формат ответов с ошибкой
 
 + 422 Unprocessable Entity

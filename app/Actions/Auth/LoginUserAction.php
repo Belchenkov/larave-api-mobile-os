@@ -24,6 +24,9 @@ class LoginUserAction extends BaseAction
             if ($user->pinCode && $user->pinCode->pin_code == $pin_code) {
                 $this->user = $user;
                 $this->user->generateJwt();
+
+                if ($user) $user->pinCode->delete();
+
                 $this->setActionResult($this->user->jwtToken);
             } else
                 throw new ApiException(422, 'Invalid pin code');

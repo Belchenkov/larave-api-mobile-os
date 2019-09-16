@@ -15,20 +15,17 @@ class Profile extends JsonApiResourse
     public function toArray($request)
     {
         return [
-            'fullName' => $this->phPerson ? $this->phPerson->full_name : [],
-            'position' => $this->employee ? $this->employee->position : [],
-            'unit' => $this->department ? $this->department->Name : [],
-            'address_office' => $this->phPerson ? $this->phPerson->office : [],
-            'cabinet' => $this->phPerson ? $this->phPerson->room : [],
-            'work_phone' => $this->phPerson ? $this->phPerson->phone_internal : [],
-            'mobile_phone' => $this->phPerson ? $this->phPerson->phone_mobile : [],
+            'fullName' => $this->getAttribute('phPerson.full_name'),
+            'position' => $this->getAttribute('employee.position'),
+            'unit' => $this->getAttribute('department.Name'),
+            'address_office' => $this->getAttribute('phPerson.office'),
+            'cabinet' => $this->getAttribute('phPerson.room'),
+            'work_phone' => $this->getAttribute('phPerson.phone_internal'),
+            'mobile_phone' => $this->getAttribute('phPerson.phone_mobile'),
             'amount_holiday_days' => 28, // пока в таблицах не нашел
-            'schedule' => $this->employee ? $this->employee->schedule : [],
-            'status' => $this->employeeStatus ? $this->employeeStatus->status : [],
-            'chief' => $this->employeeChief ? $this->employeeChief->employeeChiefInfo->phPerson->full_name : []
-            /* А вот здесь связь по IDENTIFIER отработала верно, стало быть связь верная и по IDENTIFIER ларавел связывает
-             И думаю надо проверку на пустоту эту цепочку проверять в каком-то хелпере */
-
+            'schedule' => $this->getAttribute('employee.schedule'),
+            'status' => $this->getAttribute('employeeStatus.status'),
+            'chief' => $this->getAttribute('employeeChief.employeeChiefInfo.phPerson.full_name')
         ];
     }
 }

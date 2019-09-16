@@ -26,6 +26,7 @@ class User extends Authenticatable
 
     protected $table = 'users';
     protected $dateFormat = 'Y-m-d H:i:s';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -115,5 +116,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Transit1cScheduleEmployee::class, 'tab_no', 'tab_no');
     }
-
 }

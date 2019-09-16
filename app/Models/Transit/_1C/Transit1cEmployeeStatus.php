@@ -8,6 +8,8 @@
 namespace App\Models\Transit\_1C;
 
 use App\Models\Transit\TransitionModel;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transit1cEmployeeStatus extends TransitionModel
 {
@@ -31,4 +33,13 @@ class Transit1cEmployeeStatus extends TransitionModel
         'Guid1C',
         'number_order'
     ];
+
+    /**
+     * Get User Data from users (Mobile DB)
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class, 'tab_no', 'tab_no');
+    }
 }

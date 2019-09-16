@@ -27,7 +27,7 @@ class ReceivePinCodeRequest extends FormRequest
             'id_phperson' => 'required|max:100',
             'tab_no' => 'required|max:100',
             'ad_login' => 'required|max:100',
-            'pin_code' => 'required|size:4',
+            'pin_code' => 'required|size:4|unique:user_tokens',
             'created_at' => 'required'
         ];
     }
