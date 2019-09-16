@@ -8,7 +8,6 @@ namespace App\Actions\Auth;
 
 use App\Actions\BaseAction;
 use App\Exceptions\Api\ApiException;
-use App\Http\Requests\Api\v1\Auth\LoginRequest;
 use App\Models\User;
 
 class LoginUserAction extends BaseAction
@@ -18,11 +17,11 @@ class LoginUserAction extends BaseAction
      */
     private $user = null;
 
-    public function execute(LoginRequest $request)
+    public function execute($login, $pin_code)
     {
-        if ($user = User::where('ad_login', $request->login)->first()) {
+        if ($user = User::where('ad_login', $login)->first()) {
             // ToDo add lifetime
-            if ($user->pinCode && $user->pinCode->pin_code == $request->pin_code) {
+            if ($user->pinCode && $user->pinCode->pin_code == $pin_code) {
                 $this->user = $user;
                 $this->user->generateJwt();
                 $this->setActionResult($this->user->jwtToken);

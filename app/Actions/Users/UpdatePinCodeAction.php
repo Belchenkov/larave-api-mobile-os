@@ -7,19 +7,25 @@
 namespace App\Actions\Users;
 
 use App\Actions\BaseAction;
-use App\Http\Requests\Api\v1\Callback\ReceivePinCodeRequest;
+use App\Exceptions\Api\ApiException;
+use App\Models\Transit\CoreUserData;
 use App\Models\User;
 
 class UpdatePinCodeAction extends BaseAction
 {
 
-    public function execute(ReceivePinCodeRequest $request, ?User $user)
+    public function execute($ad_login, $tab_no, $id_person, $pin_code, $created_at, ?User $user)
     {
+        // Check real user data
+        if (!CoreUserData::where('tab_no', $tab_no)->first()) {
+            throw new ApiException(404, 'User not found.');
+        }
+
         if (!$user) {
             $user = new User([
-                'ad_login' => $request->ad_login,
-                'tab_no' => $request->tab_no,
-                'id_person' => $request->id_phperson,
+                'ad_login' => $ad_login,
+                'tab_no' => $tab_no,
+                'id_person' => $id_person,
             ]);
             $user->save();
         }
@@ -29,8 +35,8 @@ class UpdatePinCodeAction extends BaseAction
                 'user_id' => $user->id
             ],
             [
-                'pin_code' => $request->pin_code,
-                'created_at' => $request->created_at,
+                'pin_code' => $pin_code,
+                'created_at' => $created_at,
             ]
         );
 
