@@ -25,7 +25,7 @@ class AuthorizationController extends Controller
     public function loginJwt(LoginRequest $request, LoginUserAction $action)
     {
         return new UserJwtToken(
-            $action->execute($request)->getActionResult()
+            $action->execute($request->login, $request->pin_code)->getActionResult()
         );
     }
 
@@ -38,7 +38,7 @@ class AuthorizationController extends Controller
     public function refreshJwt(RefreshRequest $request, RefreshUserAction $action)
     {
         return new UserJwtToken(
-            $action->execute($request)->getActionResult()
+            $action->execute($request->refresh_token)->getActionResult()
         );
     }
 
@@ -50,7 +50,7 @@ class AuthorizationController extends Controller
      */
     public function logout(LogoutRequest $request, LogoutUserAction $action)
     {
-        return $action->execute($request);
+        return $action->execute(Auth::user())->apiSuccess();
     }
 
     /**

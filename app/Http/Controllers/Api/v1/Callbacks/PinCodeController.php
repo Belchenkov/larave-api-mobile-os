@@ -12,7 +12,12 @@ class PinCodeController extends Controller
 
     public function receivePinCode(ReceivePinCodeRequest $request, UpdatePinCodeAction $action)
     {
-        return $action->execute($request,
+        return $action->execute(
+            $request->ad_login,
+            $request->tab_no,
+            $request->id_phperson,
+            $request->pin_code,
+            $request->created_at,
             User::where('ad_login', $request->ad_login)->first()
         )->apiSuccess();
     }
