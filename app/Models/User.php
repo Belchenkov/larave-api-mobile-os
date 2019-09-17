@@ -13,6 +13,8 @@ use App\Models\Transit\_1C\Transit1cEmployeeStatus;
 use App\Models\Transit\_1C\Transit1cPhPerson;
 use App\Models\Transit\_1C\Transit1cScheduleEmployee;
 use App\Models\Transit\CoreUserData;
+use App\Models\Transit\TransitSkudEvent;
+use App\Models\Transit\TransitSprOffice;
 use App\Services\Auth\JwtAuthenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Services\MsSQL\OriginalColumns;
@@ -115,5 +117,23 @@ class User extends Authenticatable
     public function scheduleEmployee() : HasMany
     {
         return $this->hasMany(Transit1cScheduleEmployee::class, 'tab_no', 'tab_no');
+    }
+
+    /**
+     * Get Offices Info from transit_spr_offices (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function sprOffice() : hasOne
+    {
+        return $this->hasOne(TransitSprOffice::class, 'id_Responsible', 'id_person');
+    }
+
+    /**
+     * Get Skud Events Info from transit_skud_events (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function skudEvents() : hasMany
+    {
+        return $this->hasMany(TransitSkudEvent::class, 'ID_PhPerson', 'id_person');
     }
 }

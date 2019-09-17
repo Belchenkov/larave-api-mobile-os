@@ -7,8 +7,11 @@
 namespace App\Models\Transit\_1C;
 
 use App\Models\Transit\TransitionModel;
+use App\Models\Transit\TransitSkudEvent;
+use App\Models\Transit\TransitSprOffice;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Transit1cEmployee extends TransitionModel
@@ -51,6 +54,42 @@ class Transit1cEmployee extends TransitionModel
     public function phPerson() : HasOne
     {
         return $this->hasOne(Transit1cPhPerson::class, 'id', 'id_phperson');
+    }
+
+    /**
+     * Get Chief Info from transit_1c_employee_chief (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function chief() : HasOne
+    {
+        return $this->hasOne(Transit1cEmployeeChief::class, 'tab_no_chief', 'tab_no');
+    }
+
+    /**
+     * Get Schedule Employee Info from transit_1c_schedule_employee (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function scheduleEmployee() : HasMany
+    {
+        return $this->hasMany(Transit1cScheduleEmployee::class, 'tab_no', 'tab_no');
+    }
+
+    /**
+     * Get Skud Events from transit_skud_events (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function skudEvents() : HasMany
+    {
+        return $this->hasMany(TransitSkudEvent::class, 'ID_PhPerson', 'id_phperson');
+    }
+
+    /**
+     * Get Spr Office from transit_spr_offices (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function sprOffice() : HasOne
+    {
+        return $this->hasOne(TransitSprOffice::class, 'id_Responsible', 'id_phperson');
     }
 
     /**

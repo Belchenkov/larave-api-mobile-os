@@ -8,6 +8,7 @@
 
 namespace App\Models\Transit\_1C;
 
+use App\Models\Transit\CoreUserData;
 use App\Models\Transit\TransitionModel;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -37,6 +38,25 @@ class Transit1cEmployeeChief extends TransitionModel
     {
         return $this->hasOne(Transit1cEmployee::class, 'tab_no', 'tab_no_chief');
     }
+
+    /**
+     * Get Employee Department from transit_1c_department (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function employeeChiefDepartment() : HasOne
+    {
+        return $this->hasOne(Transit1cDepartment::class, 'tab_no_chief', 'tab_no_chief');
+    }
+
+    /**
+     * Get Core User data from ITS.Core_UserData (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function coreUserData() : HasOne
+    {
+        return $this->hasOne(CoreUserData::class, 'tab_no', 'tab_no_employee');
+    }
+
 
     /**
      * Get User Data from users (Mobile DB)
