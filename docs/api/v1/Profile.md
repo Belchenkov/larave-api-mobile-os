@@ -102,6 +102,12 @@ Authorization: Bearer <accessToken>
 Authorization: Bearer <accessToken>
 ```
 
+<b>BODY</b>
+ ```
+{
+    "previous": {Int}
+}
+
 <b>RESPONSE</b>
 
 + 200 OK
@@ -109,7 +115,32 @@ Authorization: Bearer <accessToken>
 ```
 {
     "data": {
-        
+       "schedule": {
+           "name": {String}, 
+           "schedule": {
+                "date_in": {Datetime},
+                "date_out": {Datetime}
+            }, 
+            "user_info": {
+                "name": {String},
+                "position": {String}
+            }, 
+            "days": {
+                "date": {
+                    "enter_time": {String},
+                    "exit_time": {String},
+                    "work_time": {String},
+                    "idle_time": {String},
+                    "territory_time": {String},
+                    "is_late": {Boolean},
+                    "is_earlier": {Boolean},
+                    "empty": {Boolean},
+                    "holiday": {Boolean},
+                    "day_of_week": {String}
+                }
+            }, 
+            "previous": {Int}
+        } 
     },
     "result": {Boolean}
 }

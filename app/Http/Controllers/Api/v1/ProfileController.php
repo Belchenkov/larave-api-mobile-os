@@ -35,11 +35,13 @@ class ProfileController
      */
     public function getStatisticsVisitInfo(StatisticVisitRepository $statisticVisitRepository)
     {
-        return  Cache::remember('getStatisticsVisitInfo', config('cache.cache_time'),
-            function () use ($statisticVisitRepository) {
+        $previous = (int) Input::get('previous');
+
+        return  Cache::remember('getStatisticsVisitInfo.' . $previous, config('cache.cache_time'),
+            function () use ($statisticVisitRepository, $previous) {
                 return $statisticVisitRepository->getVisitStatistic(
                     Auth::user(),
-                    (int) Input::get('previous')
+                    $previous
                 );
        });
     }

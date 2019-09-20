@@ -76,6 +76,8 @@ class StatisticVisitRepository
             }
         }
 
+        $result->put('days', $result->get('days')->reverse());
+
         return $result;
     }
 
