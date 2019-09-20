@@ -91,3 +91,26 @@ Authorization: Bearer <accessToken>
         </tr>
     </tbody>
 </table>
+
+#### GET /api/v1/profile/statistic/visit
+
+Метод получения статистики посещаемости пользователя
+
+<b>HEADERS</b>
+
+```
+Authorization: Bearer <accessToken>
+```
+
+<b>RESPONSE</b>
+
++ 200 OK
+
+```
+{
+    "data": {
+        
+    },
+    "result": {Boolean}
+}
+```

@@ -23,9 +23,9 @@ class UpdatePinCodeAction extends BaseAction
 
         if (!$user) {
             $user = new User([
-                'ad_login' => $ad_login,
-                'tab_no' => $tab_no,
-                'id_person' => $id_person,
+                'ad_login' => trim($ad_login),
+                'tab_no' => trim($tab_no),
+                'id_person' => trim($id_person),
             ]);
             $user->save();
         }
@@ -35,7 +35,7 @@ class UpdatePinCodeAction extends BaseAction
                 'user_id' => $user->id
             ],
             [
-                'pin_code' => $pin_code,
+                'pin_code' => trim($pin_code),
                 'created_at' => $created_at,
             ]
         );
