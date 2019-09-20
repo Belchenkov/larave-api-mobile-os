@@ -8,6 +8,7 @@ namespace App\Repositories\User;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,8 @@ class StatisticVisitRepository
             $fromDay = Carbon::createFromTimestamp($timestamp)->startOfDay();
         }
 
+        $toDay = $fromDay->copy()->subDays($subDays)->endOfDay();
+
         $visits = $user->skudEvents()
             ->select(['*', DB::raw('CAST(CAST(time as DATE) as varchar(10)) as date')])
             ->where(
@@ -36,11 +39,14 @@ class StatisticVisitRepository
             ->where(
                 DB::raw("CAST(time as DATE)"),
                 '>=',
-                $fromDay->subDays($subDays)->endOfDay()->format('Y-m-d')
+                $toDay->format('Y-m-d')
             )
             ->orderBy('time', 'ASC')
             ->get()
             ->groupBy('date');
+
+        $period = CarbonPeriod::create($toDay, $fromDay);
+
         $schedule = $this->getVisitSchedule($user);
 
         $result = collect([
@@ -50,11 +56,17 @@ class StatisticVisitRepository
                 'position' => Auth::user()->employee ? Auth::user()->employee->position : null
             ]),
             'days' => collect([]),
-            'previous' => $fromDay->subDays(1)->startOfDay()->timestamp
+            'previous' => $toDay->startOfDay()->timestamp
         ]);
 
-        foreach ($visits as $day => $events) {
-            $result->get('days')->put($day, $this->getDayVisit($events, $schedule));
+        foreach ($period as $date) {
+            $day = $date->format('Y-m-d');
+
+            if (isset($visits[$day])) {
+                $result->get('days')->put($day, $this->getDayVisit($visits[$day], $schedule));
+            } else {
+                $result->get('days')->put($day, null);
+            }
         }
 
         return $result;
@@ -118,7 +130,7 @@ class StatisticVisitRepository
             'exit_time' => $endDay ? $endDay->format('H:i:s') : null,
             'work_time' => Carbon::createFromTimestampUTC($inTime)->format('H:i:s'),
             'idle_time' => Carbon::parse($outTime)->format('H:i:s'),
-            'territory_time' => '',
+            'territory_time' => Carbon::parse($endDay->diffInSeconds($startDay))->format('H:i:s'),
             'is_late' => $lateTime != 0,
             'is_earlier' => $earlierTime != 0,
 

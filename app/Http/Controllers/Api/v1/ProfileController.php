@@ -35,8 +35,7 @@ class ProfileController
      */
     public function getStatisticsVisitInfo(StatisticVisitRepository $statisticVisitRepository)
     {
-        /*
-       return  Cache::remember('getStatisticsVisitInfo', config('cache.cache_time'), function () {
+    /*   return  Cache::remember('getStatisticsVisitInfo', config('cache.cache_time'), function ($statisticVisitRepository) {
            return $statisticVisitRepository->getVisitStatistic(
             Auth::user(),
             Input::get('previous')
@@ -44,7 +43,7 @@ class ProfileController
        });*/
         return $statisticVisitRepository->getVisitStatistic(
             Auth::user(),
-            Input::get('previous')
+            (int) Input::get('previous')
         );
     }
 }
