@@ -35,15 +35,12 @@ class ProfileController
      */
     public function getStatisticsVisitInfo(StatisticVisitRepository $statisticVisitRepository)
     {
-    /*   return  Cache::remember('getStatisticsVisitInfo', config('cache.cache_time'), function ($statisticVisitRepository) {
-           return $statisticVisitRepository->getVisitStatistic(
-            Auth::user(),
-            Input::get('previous')
-        );
-       });*/
-        return $statisticVisitRepository->getVisitStatistic(
-            Auth::user(),
-            (int) Input::get('previous')
-        );
+        return  Cache::remember('getStatisticsVisitInfo', config('cache.cache_time'),
+            function () use ($statisticVisitRepository) {
+                return $statisticVisitRepository->getVisitStatistic(
+                    Auth::user(),
+                    (int) Input::get('previous')
+                );
+       });
     }
 }

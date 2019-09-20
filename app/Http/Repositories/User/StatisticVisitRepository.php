@@ -29,6 +29,10 @@ class StatisticVisitRepository
 
         $toDay = $fromDay->copy()->subDays($subDays)->endOfDay();
 
+        $employeeStatus = $user->load('employeeStatus')->employeeStatus;
+
+
+
         $visits = $user->skudEvents()
             ->select(['*', DB::raw('CAST(CAST(time as DATE) as varchar(10)) as date')])
             ->where(
@@ -65,7 +69,10 @@ class StatisticVisitRepository
             if (isset($visits[$day])) {
                 $result->get('days')->put($day, $this->getDayVisit($visits[$day], $schedule));
             } else {
-                $result->get('days')->put($day, null);
+                if ($holiday = $this->checkHolidayUser($employeeStatus, $date)) {
+                    $result->get('days')->put($day, $holiday);
+                } else
+                    $result->get('days')->put($day, collect(['empty' => true, 'day_of_week' => $date->minDayName]));
             }
         }
 
@@ -82,6 +89,7 @@ class StatisticVisitRepository
         $endDay = $events->where('direction', self::VISIT_EXIT)->last();
         $startDay = $startDay ? Carbon::createFromFormat('Y-m-d H:i:s.v', $startDay->time) : null;
         $endDay = $endDay ? Carbon::createFromFormat('Y-m-d H:i:s.v', $endDay->time) : null;
+        $currentDay = $startDay ? $startDay->copy() : null;
         $lateTime = 0;
         $earlierTime = 0;
 
@@ -133,7 +141,7 @@ class StatisticVisitRepository
             'territory_time' => Carbon::parse($endDay->diffInSeconds($startDay))->format('H:i:s'),
             'is_late' => $lateTime != 0,
             'is_earlier' => $earlierTime != 0,
-
+            'day_of_week' => $currentDay ? $currentDay->minDayName : null
         ]);
     }
 
@@ -154,5 +162,19 @@ class StatisticVisitRepository
             ]));
         }
         return $result;
+    }
+
+    public function checkHolidayUser(Collection $holidays, Carbon $date)
+    {
+        foreach ($holidays as $holiday) {
+            if ($date->between(Carbon::parse($holiday->date_start)->startOfDay(), Carbon::parse($holiday->date_end)->endOfDay())) return collect([
+                'holiday' => true,
+                'doc_num' => trim($holiday->doc_num),
+                'status' => $holiday->status,
+                'day_of_week' => $date->minDayName,
+            ]);
+        }
+
+        return false;
     }
 }

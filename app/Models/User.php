@@ -94,11 +94,11 @@ class User extends Authenticatable
 
     /**
      * Get Employee Status Info from transit_1c_employee_status (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
      */
-    public function employeeStatus() : HasOne
+    public function employeeStatus() : HasMany
     {
-        return $this->hasOne(Transit1cEmployeeStatus::class, 'tab_no', 'tab_no');
+        return $this->hasMany(Transit1cEmployeeStatus::class, 'tab_no', 'tab_no');
     }
 
     /**
