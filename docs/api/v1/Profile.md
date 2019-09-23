@@ -152,7 +152,7 @@ Authorization: Bearer <accessToken>
                     "is_late": {Boolean},
                     "is_earlier": {Boolean},
                     "empty": {Boolean},
-                    "holiday": {Boolean},
+                    "holiday": {Boolean|Collection},
                     "day_of_week": {String}
                 }
             }, 
@@ -200,11 +200,15 @@ Authorization: Bearer <accessToken>
         </tr>
          <tr>
             <td>days.date.work_time</td>
-            <td>На территории (Рабочее время)</td>
+            <td>Рабочее время</td>
         </tr>
         <tr>
             <td>days.date.idle_time</td>
             <td>Вне территории (Перерывы)</td>
+        </tr>
+        <tr>
+            <td>days.date.territory_time</td>
+            <td>На территории (Включая перерывы)</td>
         </tr>
          <tr>
             <td>days.date.is_late</td>
