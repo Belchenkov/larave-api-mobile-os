@@ -3,6 +3,9 @@
 //Route::get('/', 'Api\v1\TestController@index');
 
 // JWT Auth routes
+use App\Models\Transit\SprDev;
+use App\Models\Transit\TransitSkudEvent;
+
 Route::prefix('auth')
     ->group(base_path('routes/api/v1/auth.php'));
 
@@ -15,7 +18,9 @@ Route::prefix('profile')
     ->group(base_path('routes/api/v1/profile.php'));
 
 // Auth middleware routes
-Route::group(['middleware' => 'auth:api'], function() {
+Route::group(
+    ['middleware' => 'guest:api'],
+    function() {
     Route::get('test', function() {
         dd(\Auth::user());
     });
