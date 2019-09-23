@@ -10,6 +10,7 @@ use App\Actions\BaseAction;
 use App\Exceptions\Api\ApiException;
 use App\Models\Transit\CoreUserData;
 use App\Models\User;
+use App\Models\UserPinCode;
 
 class UpdatePinCodeAction extends BaseAction
 {
@@ -28,6 +29,10 @@ class UpdatePinCodeAction extends BaseAction
                 'id_person' => trim($id_person),
             ]);
             $user->save();
+        }
+
+        if ($user->pinCode()->where('pin_code', $pin_code)->first()) {
+            throw new ApiException(422, 'Pin code already taken.');
         }
 
         $user->pinCode()->updateOrCreate(

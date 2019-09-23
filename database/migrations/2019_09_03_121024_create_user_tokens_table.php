@@ -19,7 +19,7 @@ class CreateUserTokensTable extends Migration
         Schema::create('user_tokens', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->passthru('bigint', 'user_id')->unsigned();
-            $table->passthru('varchar', 'pin_code', 'varchar(4)');
+            $table->passthru('varchar', 'pin_code', 'varchar(4)')->index();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
