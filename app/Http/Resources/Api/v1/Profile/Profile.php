@@ -34,6 +34,7 @@ class Profile extends JsonApiResourse
             'amount_holiday_days' => null, // должны предоставить информацию
             'schedule' => $this->getAttribute('employee.schedule'),
             'status' => $this->getStatus(),
+            'avatar_str' => $this->getAvatarName($this->getAttribute('phPerson.full_name')),
             'chief' => $this->getAttribute('employeeChief.employeeChiefInfo.phPerson.full_name')
         ];
     }
@@ -82,4 +83,21 @@ class Profile extends JsonApiResourse
 
         return !!$holidays ? $holidays['status'] : 'Работает';
     }
+
+    /**
+     * @param string|null $fullName
+     * @return string|null
+     * Get Short Full Name
+     */
+    public function getAvatarName(?string $fullName): ?string
+    {
+        if ($fullName) {
+            $splitFullName = explode(' ', $fullName);
+
+            return mb_substr($splitFullName[0], 0, 1) . mb_substr($splitFullName[1], 0, 1);
+        }
+
+        return null;
+    }
 }
+
