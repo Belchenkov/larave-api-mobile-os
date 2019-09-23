@@ -58,7 +58,8 @@ class StatisticVisitRepository
                 'position' => Auth::user()->employee ? Auth::user()->employee->position : null
             ]),
             'days' => collect([]),
-            'previous' => $toDay->startOfDay()->timestamp
+            'previous' => $toDay->startOfDay()->timestamp,
+            'result' => true
         ]);
 
         foreach ($period as $date) {
