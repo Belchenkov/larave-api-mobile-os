@@ -94,7 +94,7 @@ class Profile extends JsonApiResourse
         if ($fullName) {
             $splitFullName = explode(' ', $fullName);
 
-            return mb_substr($splitFullName[0], 0, 1) . mb_substr($splitFullName[1], 0, 1);
+            return mb_substr($splitFullName[0], 0, 1) . mb_strtolower(mb_substr($splitFullName[1], 0, 1));
         }
 
         return null;
