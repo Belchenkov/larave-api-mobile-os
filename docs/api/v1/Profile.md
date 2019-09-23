@@ -152,7 +152,9 @@ Authorization: Bearer <accessToken>
                     "is_late": {Boolean},
                     "is_earlier": {Boolean},
                     "empty": {Boolean},
-                    "holiday": {Boolean|Collection},
+                    "holiday": {Boolean},
+                    "doc_num": {String},
+                    "status": {String},
                     "day_of_week": {String}
                 }
             }, 
@@ -225,6 +227,14 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>days.date.holiday</td>
             <td>Сотрудник в отпуске</td>
+        </tr>
+        <tr>
+            <td>days.date.doc_num</td>
+            <td>Номер документа</td>
+        </tr>
+        <tr>
+            <td>days.date.status</td>
+            <td>Статус</td>
         </tr>
         <tr>
             <td>days.date.day_of_week</td>

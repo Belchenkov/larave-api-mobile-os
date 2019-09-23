@@ -13,6 +13,11 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class StatisticVisitRepository
+ * @package App\Repositories\User
+ * Статистика посещений
+ */
 class StatisticVisitRepository
 {
     const VISIT_ENTER = 2;
