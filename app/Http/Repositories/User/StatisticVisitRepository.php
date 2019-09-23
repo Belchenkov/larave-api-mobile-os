@@ -28,9 +28,7 @@ class StatisticVisitRepository
         }
 
         $toDay = $fromDay->copy()->subDays($subDays)->endOfDay();
-
         $employeeStatus = $user->load('employeeStatus')->employeeStatus;
-
 
 
         $visits = $user->skudEvents()
@@ -75,6 +73,11 @@ class StatisticVisitRepository
                     $result->get('days')->put($day, collect(['empty' => true, 'day_of_week' => $date->minDayName]));
             }
         }
+
+        $result->get('schedule')->put('schedule', collect([
+            'date_in' => Carbon::parse($result->get('schedule')['schedule']->first()['date_in'])->format('H:i'),
+            'date_out' => Carbon::parse($result->get('schedule')['schedule']->first()['date_out'])->format('H:i')
+        ]));
 
         $result->put('days', $result->get('days')->reverse());
 
@@ -136,11 +139,11 @@ class StatisticVisitRepository
         }
 
         return collect([
-            'enter_time' => $startDay ? $startDay->format('H:i:s') : null,
-            'exit_time' => $endDay ? $endDay->format('H:i:s') : null,
-            'work_time' => Carbon::createFromTimestampUTC($inTime)->format('H:i:s'),
-            'idle_time' => Carbon::parse($outTime)->format('H:i:s'),
-            'territory_time' => Carbon::parse($endDay->diffInSeconds($startDay))->format('H:i:s'),
+            'enter_time' => $startDay ? $startDay->format('H:i') : null,
+            'exit_time' => $endDay ? $endDay->format('H:i') : null,
+            'work_time' => Carbon::createFromTimestampUTC($inTime)->format('H:i'),
+            'idle_time' => Carbon::parse($outTime)->format('H:i'),
+            'territory_time' => Carbon::parse($endDay->diffInSeconds($startDay))->format('H:i'),
             'is_late' => $lateTime != 0,
             'is_earlier' => $earlierTime != 0,
             'day_of_week' => $currentDay ? $currentDay->minDayName : null

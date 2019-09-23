@@ -105,8 +105,25 @@ Authorization: Bearer <accessToken>
 <b>BODY</b>
  ```
 {
-    "previous": {Int}
+    "previous": {Int|null}
 }
+```
+
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+        </tr>
+    </thead>
+    <tbody>
+         <tr>
+            <td>previous</td>
+            <td>Метка времени(Следующие записи)</td>
+        </tr>
+    </tbody>
+</table> 
+
 
 <b>RESPONSE</b>
 
@@ -145,3 +162,69 @@ Authorization: Bearer <accessToken>
     "result": {Boolean}
 }
 ```
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+        </tr>
+    </thead>
+    <tbody>
+         <tr>
+            <td>data.schedule.name</td>
+            <td>График работы</td>
+        </tr
+        > <tr>
+            <td>data.schedule.schedule.date_in</td>
+            <td>Время прибытия по графику</td>
+        </tr>
+         <tr>
+            <td>data.schedule.schedule.date_out</td>
+            <td>Время ухода по графику</td>
+        </tr>
+         <tr>
+            <td>user_info.name</td>
+            <td>ФИО сотрудника</td>
+        </tr>
+         <tr>
+            <td>user_info.position</td>
+            <td>Должность сотрудника</td>
+        </tr>
+        <tr>
+            <td>days.date.enter_time</td>
+            <td>Время прибытия</td>
+        </tr>
+        <tr>
+            <td>days.date.exit_time</td>
+            <td>Время ухода</td>
+        </tr>
+         <tr>
+            <td>days.date.work_time</td>
+            <td>На территории (Рабочее время)</td>
+        </tr>
+        <tr>
+            <td>days.date.idle_time</td>
+            <td>Вне территории (Перерывы)</td>
+        </tr>
+         <tr>
+            <td>days.date.is_late</td>
+            <td>Приход позже</td>
+        </tr>
+        <tr>
+            <td>days.date.is_earlier</td>
+            <td>Уход раньше</td>
+        </tr>
+        <tr>
+            <td>days.date.empty</td>
+            <td>Нерабочий день</td>
+        </tr>
+        <tr>
+            <td>days.date.holiday</td>
+            <td>Сотрудник в отпуске</td>
+        </tr>
+        <tr>
+            <td>days.date.day_of_week</td>
+            <td>День недели</td>
+        </tr>
+    </tbody>
+</table>

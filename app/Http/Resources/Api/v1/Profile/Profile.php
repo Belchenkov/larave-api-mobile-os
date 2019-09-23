@@ -3,6 +3,9 @@
 namespace App\Http\Resources\Api\v1\Profile;
 
 use App\Http\Resources\JsonApiResourse;
+use App\Repositories\User\StatisticVisitRepository;
+use Carbon\Carbon;
+use Illuminate\Support\Collection;
 
 /**
  * Class Profile
@@ -11,6 +14,7 @@ use App\Http\Resources\JsonApiResourse;
  */
 class Profile extends JsonApiResourse
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -29,7 +33,7 @@ class Profile extends JsonApiResourse
             'mobile_phone' => $this->getAttribute('phPerson.phone_mobile'),
             'amount_holiday_days' => null, // должны предоставить информацию
             'schedule' => $this->getAttribute('employee.schedule'),
-            'status' => $this->getAttribute('employeeStatus.status'),
+            'status' => $this->getStatus(),
             'chief' => $this->getAttribute('employeeChief.employeeChiefInfo.phPerson.full_name')
         ];
     }
@@ -64,5 +68,18 @@ class Profile extends JsonApiResourse
         }
 
         return null;
+    }
+
+    /**
+     * @return string|null
+     * Get Status Employee
+     */
+    public function getStatus()
+    {
+        $employeeStatus = $this->load('employeeStatus')->employeeStatus;
+
+        $holidays = (new StatisticVisitRepository)->checkHolidayUser($employeeStatus, Carbon::now());  // Check - Carbon::parse('2019-03-11')
+
+        return !!$holidays ? $holidays['status'] : 'Работает';
     }
 }
