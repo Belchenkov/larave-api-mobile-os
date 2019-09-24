@@ -31,10 +31,6 @@ class UpdatePinCodeAction extends BaseAction
             $user->save();
         }
 
-        if ($user->pinCode()->where('pin_code', $pin_code)->first()) {
-            throw new ApiException(422, 'Pin code already taken.');
-        }
-
         $user->pinCode()->updateOrCreate(
             [
                 'user_id' => $user->id
