@@ -11,6 +11,7 @@ namespace App\Models\Transit;
 use App\Models\Transit\_1C\Transit1cDepartment;
 use App\Models\Transit\_1C\Transit1cEmployee;
 use App\Models\Transit\_1C\Transit1cEmployeeChief;
+use App\Models\Transit\_1C\Transit1cEmployeeStatus;
 use App\Models\Transit\_1C\Transit1cPhPerson;
 use App\Models\Transit\_1C\Transit1cScheduleEmployee;
 use App\Models\User;
@@ -21,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CoreUserData extends TransitionModel
 {
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
@@ -67,7 +69,7 @@ class CoreUserData extends TransitionModel
      */
     public function phPerson() : HasOne
     {
-        return $this->hasOne(Transit1cPhPerson::class, 'id_phperson');
+        return $this->hasOne(Transit1cPhPerson::class, 'id', 'id_phperson');
     }
 
     /**
@@ -77,6 +79,15 @@ class CoreUserData extends TransitionModel
     public function employee() : HasOne
     {
         return $this->hasOne(Transit1cEmployee::class, 'tab_no', 'tab_no');
+    }
+
+    /**
+     * Get Employee Status Info from transit_1c_employee_status (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function employeeStatus() : HasMany
+    {
+        return $this->hasMany(Transit1cEmployeeStatus::class, 'tab_no', 'tab_no');
     }
 
     /**
@@ -92,18 +103,18 @@ class CoreUserData extends TransitionModel
      * Get Employee Data from transit_1c_department (Transit DB)
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function chief() : HasOne
+    public function employeeChief() : HasOne
     {
         return $this->hasOne(Transit1cEmployeeChief::class, 'tab_no_employee', 'tab_no');
     }
 
     /**
      * Get Schedule Employee Data from transit_1c_schedule_employee (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function scheduleEmployee() : HasOne
+    public function scheduleEmployee() : HasMany
     {
-        return $this->hasOne(Transit1cScheduleEmployee::class, 'tab_no', 'tab_no');
+        return $this->hasMany(Transit1cScheduleEmployee::class, 'tab_no', 'tab_no');
     }
 
     /**
@@ -112,7 +123,7 @@ class CoreUserData extends TransitionModel
      */
     public function skudEvents() : HasMany
     {
-        return $this->hasMany(TransitSkudEvent::class, 'ID_PhPerson', 'id_phperson');
+        return $this->hasMany(TransitSkudEvent::class, 'id_phperson', 'id_phperson');
     }
 
     /**

@@ -1,10 +1,6 @@
 <?php
 
-//Route::get('/', 'Api\v1\TestController@index');
-
 // JWT Auth routes
-use App\Models\Transit\SprDev;
-use App\Models\Transit\TransitSkudEvent;
 
 Route::prefix('auth')
     ->group(base_path('routes/api/v1/auth.php'));
@@ -15,15 +11,11 @@ Route::prefix('callback')
 
 // Profile routes
 Route::prefix('profile')
-    ->group(base_path('routes/api/v1/profile.php'));
+    ->group(['middleware' => 'auth:api'], base_path('routes/api/v1/profile.php'));
 
-// Auth middleware routes
-Route::group(
-    ['middleware' => 'guest:api'],
-    function() {
-    Route::get('test', function() {
-        dd(\Auth::user());
-    });
+// Guest middleware routes
+Route::group(['middleware' => 'guest:api'], function() {
+
 });
 
 // Not Found Exception

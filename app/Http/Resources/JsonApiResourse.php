@@ -12,13 +12,19 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class JsonApiResourse extends JsonResource
 {
-
     public function __construct($resource)
     {
         $this->additional([
-            'result' => true
+            'result' => true,
         ]);
         parent::__construct($resource);
+    }
+
+    static function collection($resource)
+    {
+        return parent::collection($resource)->additional([
+            'result' => true,
+        ]);
     }
 
     public function getAttribute($keys, $default = null)

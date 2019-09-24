@@ -9,8 +9,8 @@ use App\Http\Requests\Api\v1\Auth\LoginRequest;
 use App\Http\Requests\Api\v1\Auth\LogoutRequest;
 use App\Http\Requests\Api\v1\Auth\RefreshRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\v1\User;
-use App\Http\Resources\Api\v1\UserJwtToken;
+use App\Http\Resources\Api\v1\User\User;
+use App\Http\Resources\Api\v1\User\UserJwtToken;
 use Illuminate\Support\Facades\Auth;
 
 class AuthorizationController extends Controller

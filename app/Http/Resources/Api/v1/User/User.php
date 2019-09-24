@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Api\v1;
+namespace App\Http\Resources\Api\v1\User;
 
 use App\Http\Resources\JsonApiResourse;
 

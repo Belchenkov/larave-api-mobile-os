@@ -16,18 +16,19 @@ use App\Models\Transit\CoreUserData;
 use App\Models\Transit\TransitSkudEvent;
 use App\Models\Transit\TransitSprOffice;
 use App\Services\Auth\JwtAuthenticatable;
+use App\Services\User\UserInterface;
+use App\Services\User\UserTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Services\MsSQL\OriginalColumns;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements UserInterface
 {
-    use Notifiable, JwtAuthenticatable;
+    use Notifiable, JwtAuthenticatable, UserTrait;
 
     protected $table = 'users';
-    //protected $dateFormat = 'Y-m-d H:i:s';
+    protected $dateFormat = 'Y-m-d H:i:s';
 
     /**
      * The attributes that are mass assignable.
@@ -135,5 +136,40 @@ class User extends Authenticatable
     public function skudEvents() : hasMany
     {
         return $this->hasMany(TransitSkudEvent::class, 'ID_PhPerson', 'id_person');
+    }
+
+    public function getTabNo()
+    {
+        return $this->tab_no;
+    }
+
+    public function getPhPerson()
+    {
+        return $this->id_person;
+    }
+
+    public function getAdLogin()
+    {
+        return $this->ad_login;
+    }
+
+    public function getFullName()
+    {
+        return $this->phPerson->full_name;
+    }
+
+    public function getPosition()
+    {
+        return $this->employee->position;
+    }
+
+    public function getOffice()
+    {
+        return $this->coreUserData->Office;
+    }
+
+    public function getSchedule()
+    {
+        return $this->employee->schedule;
     }
 }
