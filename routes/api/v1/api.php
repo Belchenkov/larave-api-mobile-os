@@ -10,8 +10,11 @@ Route::prefix('callback')
     ->group(base_path('routes/api/v1/callbacks.php'));
 
 // Profile routes
-Route::prefix('profile')
-    ->group(['middleware' => 'auth:api'], base_path('routes/api/v1/profile.php'));
+//
+Route::group(['middleware' => 'auth:api'], function() {
+    Route::prefix('profile')
+        ->group(base_path('routes/api/v1/profile.php'));
+});
 
 // Guest middleware routes
 Route::group(['middleware' => 'guest:api'], function() {
