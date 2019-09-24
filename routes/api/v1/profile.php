@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/profile', 'Api\v1\ProfileController@getProfileInfo');
+Route::get('/', 'Api\v1\ProfileController@getProfileInfo');
 
 // Статистика посещаемости
 Route::group(['prefix' => '/statistic'], function () {

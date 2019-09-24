@@ -18,7 +18,7 @@ class UserPinCode extends Model
 {
 
     protected $table = 'user_tokens';
-    protected $dateFormat = 'Y-m-d H:i:s';
+    //protected $dateFormat = 'Y-m-d H:i:s';
 
     /**
      * The attributes that are mass assignable.

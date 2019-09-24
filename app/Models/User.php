@@ -28,7 +28,7 @@ class User extends Authenticatable implements UserInterface
     use Notifiable, JwtAuthenticatable, UserTrait;
 
     protected $table = 'users';
-    protected $dateFormat = 'Y-m-d H:i:s';
+    //protected $dateFormat = 'Y-m-d H:i:s';
 
     /**
      * The attributes that are mass assignable.
