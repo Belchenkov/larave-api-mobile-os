@@ -6,7 +6,6 @@
 
 namespace App\Services\MsSQL;
 
-
 trait MillesecondFixTrait
 {
 
