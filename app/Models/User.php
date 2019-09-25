@@ -16,6 +16,7 @@ use App\Models\Transit\CoreUserData;
 use App\Models\Transit\TransitSkudEvent;
 use App\Models\Transit\TransitSprOffice;
 use App\Services\Auth\JwtAuthenticatable;
+use App\Services\MsSQL\AttributeHelperTrait;
 use App\Services\MsSQL\MillesecondFixTrait;
 use App\Services\User\UserInterface;
 use App\Services\User\UserTrait;
@@ -26,7 +27,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements UserInterface
 {
-    use Notifiable, JwtAuthenticatable, UserTrait, MillesecondFixTrait;
+    use Notifiable, JwtAuthenticatable, UserTrait, MillesecondFixTrait, AttributeHelperTrait;
 
     protected $table = 'users';
 
@@ -155,21 +156,41 @@ class User extends Authenticatable implements UserInterface
 
     public function getFullName()
     {
-        return $this->phPerson->full_name;
+        return $this->getModelAttribute('phPerson.full_name');
     }
 
     public function getPosition()
     {
-        return $this->employee->position;
+        return $this->getModelAttribute('employee.position');
     }
 
     public function getOffice()
     {
-        return $this->coreUserData->Office;
+        return $this->getModelAttribute('coreUserData.Office');
     }
 
     public function getSchedule()
     {
-        return $this->employee->schedule;
+        return $this->getModelAttribute('employee.schedule');
+    }
+
+    public function getDepartment()
+    {
+        return $this->getModelAttribute('employee.departmentOrganisation.Name');
+    }
+
+    public function getChiefName()
+    {
+        return $this->getModelAttribute('employeeChief.employeeChiefInfo.phPerson.full_name');
+    }
+
+    public function getWorkPhone()
+    {
+        return $this->getModelAttribute('phPerson.phone_internal');
+    }
+
+    public function getMobilePhone()
+    {
+        return $this->getModelAttribute('phPerson.phone_mobile');
     }
 }

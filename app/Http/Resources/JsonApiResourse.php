@@ -27,21 +27,6 @@ class JsonApiResourse extends JsonResource
         ]);
     }
 
-    public function getAttribute($keys, $default = null)
-    {
-        $keys = explode('.', $keys);
-        $attr = $this;
-
-        foreach ($keys as $key) {
-            if (!$attr = $attr->{$key} ?? $default) {
-                $attr = $default;
-                break;
-            }
-        }
-
-        return $attr;
-    }
-
     public static function apiResponse($result = true, $data = null, $error = null) : JsonResponse
     {
         $response['result'] = $result;

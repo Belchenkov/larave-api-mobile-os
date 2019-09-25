@@ -32,15 +32,15 @@ class UserProfile extends JsonApiResourse
                 'color' => $color[1],
             ],
             'position' => $this->getPosition(),
-            'unit' => $this->getAttribute('employee.departmentOrganisation.Name'),
+            'unit' => $this->getDepartment(),
             'address_office' => $this->getOfficeAddress(),
             'cabinet' => $this->getCabinet(),
-            'work_phone' => $this->getAttribute('phPerson.phone_internal'),
-            'mobile_phone' => $this->getAttribute('phPerson.phone_mobile'),
+            'work_phone' => $this->getWorkPhone(),
+            'mobile_phone' => $this->getMobilePhone(),
             'amount_holiday_days' => null, // должны предоставить информацию
             'schedule' => $this->getSchedule(),
             'status' => $this->getStatus(),
-            'chief' => $this->getAttribute('employeeChief.employeeChiefInfo.phPerson.full_name')
+            'chief' => $this->getChiefName()
         ];
     }
 }

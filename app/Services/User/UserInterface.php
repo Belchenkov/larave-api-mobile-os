@@ -17,6 +17,10 @@ interface UserInterface
     public function getPosition();
     public function getOffice();
     public function getSchedule();
+    public function getDepartment();
+    public function getChiefName();
+    public function getWorkPhone();
+    public function getMobilePhone();
 
     // Relations
     public function phPerson();

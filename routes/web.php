@@ -13,6 +13,7 @@
 
 use App\Http\Resources\Api\v1\Statistic\UserVisits;
 use App\Http\Resources\Api\v1\User\UserCatalog;
+use App\Http\Resources\Api\v1\User\UserProfile;
 use App\Models\Transit\_1C\Transit1cEmployee;
 use App\Models\User;
 use App\Repositories\User\StatisticVisitRepository;
@@ -26,7 +27,7 @@ Route::get('/', function () {
 
 Route::get('/vs', function () {
 
-    return User::find(10002);
+    return new UserProfile(User::find(10002)->employee);
 
     return (new UserVisits(
         (new StatisticVisitRepository())->getVisitStatistic(User::find(10002))

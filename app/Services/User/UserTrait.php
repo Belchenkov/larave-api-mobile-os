@@ -89,10 +89,11 @@ trait UserTrait
      */
     public function getStatus()
     {
-        $employeeStatus = $this->load('employeeStatus')->employeeStatus;
+        $holidays = false;
 
-        $holidays = (new StatisticVisitRepository)->checkHolidayUser($employeeStatus, Carbon::now());
-
+        if ($employeeStatus = $this->load('employeeStatus')->employeeStatus) {
+            $holidays = (new StatisticVisitRepository)->checkHolidayUser($employeeStatus, Carbon::now());
+        }
         // ToDo - move to localization
         return !!$holidays ? $holidays['status'] : 'Работает';
     }

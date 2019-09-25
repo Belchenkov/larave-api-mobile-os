@@ -145,12 +145,12 @@ class Transit1cEmployee extends TransitionModel implements UserInterface
 
     public function getAdLogin()
     {
-        return $this->coreUserData ? $this->coreUserData->SamAccountName : null;
+        return $this->getModelAttribute('coreUserData.SamAccountName');
     }
 
     public function getFullName()
     {
-        return $this->phPerson ? $this->phPerson->full_name : null;
+        return $this->getModelAttribute('phPerson.full_name');
     }
 
     public function getPosition()
@@ -160,11 +160,31 @@ class Transit1cEmployee extends TransitionModel implements UserInterface
 
     public function getOffice()
     {
-        return $this->coreUserData ? $this->coreUserData->Office : null;
+        return $this->getModelAttribute('coreUserData.Office');
     }
 
     public function getSchedule()
     {
         return $this->schedule;
+    }
+
+    public function getDepartment()
+    {
+        return $this->getModelAttribute('departmentOrganisation.Name');
+    }
+
+    public function getChiefName()
+    {
+        return $this->getModelAttribute('employeeChief.employeeChiefInfo.phPerson.full_name');
+    }
+
+    public function getWorkPhone()
+    {
+        return $this->getModelAttribute('phPerson.phone_internal');
+    }
+
+    public function getMobilePhone()
+    {
+        return $this->getModelAttribute('phPerson.phone_mobile');
     }
 }
