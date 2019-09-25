@@ -114,8 +114,8 @@ class StatisticVisitRepository
         $lastExit = null;
         $startDay = $events->where('direction', self::VISIT_ENTER)->first();
         $endDay = $events->where('direction', self::VISIT_EXIT)->last();
-        $startDay = $startDay ? Carbon::createFromFormat('Y-m-d H:i:s.v', $startDay->time) : null;
-        $endDay = $endDay ? Carbon::createFromFormat('Y-m-d H:i:s.v', $endDay->time) : null;
+        $startDay = $startDay ? Carbon::parse($startDay->time) : null;
+        $endDay = $endDay ? Carbon::parse($endDay->time) : null;
         $currentDay = $startDay ? $startDay->copy() : null;
         $lateTime = 0;
         $earlierTime = 0;
@@ -125,15 +125,15 @@ class StatisticVisitRepository
                 $lastEnter = $event;
 
                 if ($lastExit) {
-                    $outTime += Carbon::createFromFormat('Y-m-d H:i:s.v', $event->time)
-                        ->diffInSeconds(Carbon::createFromFormat('Y-m-d H:i:s.v', $lastExit->time));
+                    $outTime += Carbon::parse($event->time)
+                        ->diffInSeconds(Carbon::parse($lastExit->time));
                 }
             } else {
                 $lastExit = $event;
 
                 if ($lastEnter) {
-                    $inTime += Carbon::createFromFormat('Y-m-d H:i:s.v', $event->time)
-                        ->diffInSeconds(Carbon::createFromFormat('Y-m-d H:i:s.v', $lastEnter->time));
+                    $inTime += Carbon::parse($event->time)
+                        ->diffInSeconds(Carbon::parse($lastEnter->time));
                 }
             }
         }
@@ -192,8 +192,8 @@ class StatisticVisitRepository
             $result->put('name', $schedule->schedule_name);
 
             $result->get('schedule')->put(null, collect([
-                'date_in' => Carbon::createFromFormat('Y-m-d H:i:s.v', $schedule->date_in),
-                'date_out' => Carbon::createFromFormat('Y-m-d H:i:s.v', $schedule->date_out),
+                'date_in' => Carbon::parse($schedule->date_in),
+                'date_out' => Carbon::parse($schedule->date_out),
             ]));
         }
 
