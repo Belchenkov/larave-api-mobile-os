@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Services\MsSQL\MillesecondFixTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -16,9 +17,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class UserPinCode extends Model
 {
+    use MillesecondFixTrait;
 
     protected $table = 'user_tokens';
-    //protected $dateFormat = 'Y-m-d H:i:s';
 
     /**
      * The attributes that are mass assignable.

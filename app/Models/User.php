@@ -16,6 +16,7 @@ use App\Models\Transit\CoreUserData;
 use App\Models\Transit\TransitSkudEvent;
 use App\Models\Transit\TransitSprOffice;
 use App\Services\Auth\JwtAuthenticatable;
+use App\Services\MsSQL\MillesecondFixTrait;
 use App\Services\User\UserInterface;
 use App\Services\User\UserTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -25,10 +26,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements UserInterface
 {
-    use Notifiable, JwtAuthenticatable, UserTrait;
+    use Notifiable, JwtAuthenticatable, UserTrait, MillesecondFixTrait;
 
     protected $table = 'users';
-    //protected $dateFormat = 'Y-m-d H:i:s';
 
     /**
      * The attributes that are mass assignable.
