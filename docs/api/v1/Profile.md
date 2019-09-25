@@ -154,27 +154,26 @@ Authorization: Bearer <accessToken>
 {
     "data": {
        "schedule": {
-           "schedule": {
-                "time_in": {String},
-                "time_out": {String}
-            },
-            "days": {
-                "date": {
-                    "enter_time": {String},
-                    "exit_time": {String},
-                    "work_time": {String},
-                    "idle_time": {String},
-                    "territory_time": {String},
-                    "is_late": {Boolean},
-                    "is_earlier": {Boolean},
-                    "empty": {Boolean},
-                    "holiday": {Boolean},
-                    "doc_num": {String},
-                    "status": {String},
-                    "day_of_week": {String}
-                }
-            }, 
-            "previous": {Int}
+            "time_in": {String},
+            "time_out": {String}
+        },
+        "days": {
+            "date": {
+                "enter_time": {String},
+                "exit_time": {String},
+                "work_time": {String},
+                "idle_time": {String},
+                "territory_time": {String},
+                "is_late": {Boolean},
+                "is_earlier": {Boolean},
+                "empty": {Boolean},
+                "holiday": {Boolean},
+                "doc_num": {String},
+                "status": {String},
+                "day_of_week": {String}
+            }
+        }, 
+        "previous": {Int}
         } 
     },
     "result": {Boolean}
