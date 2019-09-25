@@ -10,13 +10,11 @@ namespace App\Repositories\User;
 use App\Models\Transit\_1C\Transit1cDepartment;
 use App\Models\Transit\_1C\Transit1cEmployee;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class UserRepository
 {
-
-    const DEPARTMENT_CACHE_TIME = 60 * 60 * 24;
 
     public static function getLatestSkudEvents($query)
     {
@@ -27,38 +25,46 @@ class UserRepository
         )->orderBy('time', 'ASC');
     }
 
-    public function getDepartmentsChild($parent_id, $departments)
+    public function getDepartmentsChild($parent_id, $departments, $asTree = false)
     {
         $items = collect();
 
         foreach ($departments as $department) {
             if ($department->id_1CParent == $parent_id) {
-                $items->push($department);
-                $items = $items->merge($this->getDepartmentsChild($department->id_1c, $departments));
+                if (!$asTree) {
+                    $items->push($department);
+                    $items = $items->merge($this->getDepartmentsChild($department->id_1c, $departments, $asTree));
+                } else {
+                    $department['items'] = $this->getDepartmentsChild($department->id_1c, $departments, $asTree);
+                    $items->push($department);
+                }
             }
         }
 
         return $items;
     }
 
-    public function getDepartmentsTree()
+    public function getDepartmentsTree($asTree = false)
     {
-        return Cache::remember('department.tree', self::DEPARTMENT_CACHE_TIME, function () {
-            $departments = Transit1cDepartment::where('isdelete', 0)->where('base', 'DOC_FLOW')->get();
+        $departments = Transit1cDepartment::where('isdelete', 0)->where('base', 'DOC_FLOW')->get();
 
-            foreach ($departments as $department) {
-                if ($department->id_chief && !$department->id_1CParent) {
-                    return $this->getDepartmentsChild($department->id_1c, $departments);
+        foreach ($departments as $department) {
+            if ($department->id_chief && !$department->id_1CParent) {
+                if ($asTree) {
+                    $department['items'] = $this->getDepartmentsChild($department->id_1c, $departments, $asTree);
+                    return $department;
+                } else {
+                    return collect([$department])->merge($this->getDepartmentsChild($department->id_1c, $departments, $asTree));
                 }
             }
+        }
 
-            return collect();
-        });
+        return collect();
     }
 
     public function getDepartmentsIds()
     {
-        return Cache::remember('department.ids', self::DEPARTMENT_CACHE_TIME, function () {
+        return Cache::remember('department.ids', 60, function () {
             return $this->getDepartmentsTree()->map(function ($item) {
                 return $item->id_1c;
             });
