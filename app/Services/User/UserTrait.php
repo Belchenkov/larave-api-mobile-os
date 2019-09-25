@@ -86,15 +86,40 @@ trait UserTrait
 
     /**
      * @return mixed|string
+     * Get Holidays User
      */
-    public function getStatus()
+    public function getHolidays()
     {
         $holidays = false;
 
         if ($employeeStatus = $this->load('employeeStatus')->employeeStatus) {
             $holidays = (new StatisticVisitRepository)->checkHolidayUser($employeeStatus, Carbon::now());
         }
-        // ToDo - move to localization
-        return !!$holidays ? $holidays['status'] : 'Работает';
+        return $holidays;
+    }
+
+    /**
+     * @return int|null
+     * Get Amount Holiday Days Employee
+     */
+    public function getCountHolidayDays() : ?int
+    {
+        if ($holidays = $this->getHolidays()) {
+            $holidaysStart = Carbon::parse($holidays['date_start']);
+            $holidaysEnd = Carbon::parse($holidays['date_end']);
+
+            return $holidaysEnd->diffInDays($holidaysStart);
+        }
+
+        return null;
+    }
+
+    /**
+     * @return string
+     * Get Status Employee
+     */
+    public function getStatus() : string
+    {
+        return $this->getHolidays() ? $this->getHolidays()['status'] : 'Работает';
     }
 }

@@ -3,8 +3,6 @@
 namespace App\Http\Resources\Api\v1\User;
 
 use App\Http\Resources\JsonApiResourse;
-use App\Repositories\User\StatisticVisitRepository;
-use Carbon\Carbon;
 
 /**
  * Class Profile
@@ -37,11 +35,13 @@ class UserProfile extends JsonApiResourse
             'cabinet' => $this->getCabinet(),
             'work_phone' => $this->getWorkPhone(),
             'mobile_phone' => $this->getMobilePhone(),
-            'amount_holiday_days' => null, // должны предоставить информацию
+            'amount_holiday_days' => $this->getCountHolidayDays(),
             'schedule' => $this->getSchedule(),
             'status' => $this->getStatus(),
             'chief' => $this->getChiefName()
         ];
     }
+
+
 }
 
