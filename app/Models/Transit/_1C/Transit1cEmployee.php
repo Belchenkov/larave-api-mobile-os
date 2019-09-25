@@ -135,12 +135,12 @@ class Transit1cEmployee extends TransitionModel implements UserInterface
 
     public function getAdLogin()
     {
-        return $this->coreUserData->SamAccountName;
+        return $this->coreUserData ? $this->coreUserData->SamAccountName : null;
     }
 
     public function getFullName()
     {
-        return $this->phPerson->full_name;
+        return $this->phPerson ? $this->phPerson->full_name : null;
     }
 
     public function getPosition()
@@ -150,7 +150,7 @@ class Transit1cEmployee extends TransitionModel implements UserInterface
 
     public function getOffice()
     {
-        return $this->coreUserData->Office;
+        return $this->coreUserData ? $this->coreUserData->Office : null;
     }
 
     public function getSchedule()

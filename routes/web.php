@@ -11,9 +11,32 @@
 |
 */
 
+use App\Http\Resources\Api\v1\Statistic\UserVisits;
+use App\Http\Resources\Api\v1\User\UserCatalog;
+use App\Models\Transit\_1C\Transit1cEmployee;
+use App\Models\User;
+use App\Repositories\User\StatisticVisitRepository;
+
 Route::get('/', function () {
     return response()->json([
         'result' => true,
         'data' => 'Welcome to GKOsnova Mobile Server'
     ]);
+});
+
+Route::get('/vs', function () {
+    return (new UserVisits(
+        (new StatisticVisitRepository())->getVisitStatistic(User::find(10002))
+    ));
+});
+
+Route::get('/test', function () {
+    return UserCatalog::collection(
+        Transit1cEmployee::with([
+            'phPerson'
+        ])
+        ->whereNotNull('out_date')
+        //->orderBy('')
+        ->simplePaginate(50)
+    );
 });

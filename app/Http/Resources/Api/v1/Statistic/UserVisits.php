@@ -6,6 +6,7 @@ use App\Http\Resources\JsonApiResourse;
 
 class UserVisits extends JsonApiResourse
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -15,12 +16,18 @@ class UserVisits extends JsonApiResourse
     public function toArray($request)
     {
         return [
-            'schedule' => [
-                'time_in' => $this->get('schedule')->get('time')->get('date_in')->format('H:i'),
-                'time_out' => $this->get('schedule')->get('time')->get('date_out')->format('H:i'),
+            'data' => UserVisitDay::collection($this->get('days')),
+            'meta' => [
+                'schedule' => [
+                    'time_in' => $this->get('schedule')->get('time')->get('date_in')->format('H:i'),
+                    'time_out' => $this->get('schedule')->get('time')->get('date_out')->format('H:i'),
+                ],
+                'previous' => $this->get('previous'),
             ],
-            'days' => UserVisitDay::collection($this->get('days')),
-            'previous' => $this->get('previous'),
+            'links' => [
+                'first' => url()->current(),
+                'next' => url()->current() . '?previous=' . $this->get('previous')
+            ]
         ];
     }
 }
