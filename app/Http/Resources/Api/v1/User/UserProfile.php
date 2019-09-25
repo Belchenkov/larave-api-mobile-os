@@ -32,7 +32,7 @@ class UserProfile extends JsonApiResourse
                 'color' => $color[1],
             ],
             'position' => $this->getPosition(),
-            'unit' => $this->getAttribute('employeeChief.employeeChiefDepartment.Name'),
+            'unit' => $this->getAttribute('employee.departmentOrganisation.Name'),
             'address_office' => $this->getOfficeAddress(),
             'cabinet' => $this->getCabinet(),
             'work_phone' => $this->getAttribute('phPerson.phone_internal'),

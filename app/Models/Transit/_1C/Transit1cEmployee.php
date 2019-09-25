@@ -9,6 +9,7 @@ namespace App\Models\Transit\_1C;
 use App\Models\Transit\CoreUserData;
 use App\Models\Transit\TransitionModel;
 use App\Models\Transit\TransitSkudEvent;
+use App\Models\Transit\TransitSprDepartmentorganisation;
 use App\Models\Transit\TransitSprOffice;
 use App\Models\User;
 use App\Services\User\UserInterface;
@@ -121,6 +122,15 @@ class Transit1cEmployee extends TransitionModel implements UserInterface
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class, 'tab_no', 'tab_no');
+    }
+
+    /**
+     * Get Department Organisation Data from transit_spr_departmentorganisation (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function departmentOrganisation() : BelongsTo
+    {
+        return $this->belongsTo(TransitSprDepartmentorganisation::class, 'department_guid', 'Guid1c');
     }
 
     public function getTabNo()
