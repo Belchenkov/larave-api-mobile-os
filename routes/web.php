@@ -25,6 +25,9 @@ Route::get('/', function () {
 });
 
 Route::get('/vs', function () {
+
+    return User::find(10002);
+
     return (new UserVisits(
         (new StatisticVisitRepository())->getVisitStatistic(User::find(10002))
     ));
