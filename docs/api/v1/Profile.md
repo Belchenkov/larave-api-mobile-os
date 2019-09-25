@@ -152,12 +152,9 @@ Authorization: Bearer <accessToken>
 
 ```
 {
+    "result": {Boolean},
     "data": {
-       "schedule": {
-            "time_in": {String},
-            "time_out": {String}
-        },
-        "days": {
+       "data": {
             "date": {
                 "enter_time": {String},
                 "exit_time": {String},
@@ -171,12 +168,20 @@ Authorization: Bearer <accessToken>
                 "doc_num": {String},
                 "status": {String},
                 "day_of_week": {String}
-            }
-        }, 
+            }, 
+       }, 
+       "meta": {
+         "schedule": {
+            "time_in": {String},
+            "time_out": {String}
+         },
         "previous": {Int}
+       }, 
+       "links": {
+            "first": {String},
+            "next": {String}
         } 
-    },
-    "result": {Boolean}
+    }
 }
 ```
 <table>
@@ -188,60 +193,72 @@ Authorization: Bearer <accessToken>
     </thead>
     <tbody>
         <tr>
-            <td>data.schedule.time_in</td>
-            <td>Время прибытия по графику</td>
-        </tr>
-         <tr>
-            <td>data.schedule.time_out</td>
-            <td>Время ухода по графику</td>
-        </tr>
-        <tr>
-            <td>days.date.enter_time</td>
+            <td>data.data.date.enter_time</td>
             <td>Время прибытия</td>
         </tr>
         <tr>
-            <td>days.date.exit_time</td>
+            <td>data.data.date.exit_time</td>
             <td>Время ухода</td>
         </tr>
          <tr>
-            <td>days.date.work_time</td>
+            <td>data.data.date.work_time</td>
             <td>Рабочее время</td>
         </tr>
         <tr>
-            <td>days.date.idle_time</td>
+            <td>data.data.date.idle_time</td>
             <td>Вне территории (Перерывы)</td>
         </tr>
         <tr>
-            <td>days.date.territory_time</td>
+            <td>data.data.date.territory_time</td>
             <td>На территории (Включая перерывы)</td>
         </tr>
          <tr>
-            <td>days.date.is_late</td>
+            <td>data.data.date.is_late</td>
             <td>Приход позже</td>
         </tr>
         <tr>
-            <td>days.date.is_earlier</td>
+            <td>data.data.date.is_earlier</td>
             <td>Уход раньше</td>
         </tr>
         <tr>
-            <td>days.date.empty</td>
+            <td>data.data.date.empty</td>
             <td>Нерабочий день</td>
         </tr>
         <tr>
-            <td>days.date.holiday</td>
+            <td>data.data.date.holiday</td>
             <td>Сотрудник в отпуске</td>
         </tr>
         <tr>
-            <td>days.date.doc_num</td>
+            <td>data.data.date.doc_num</td>
             <td>Номер документа</td>
         </tr>
         <tr>
-            <td>days.date.status</td>
+            <td>data.data.date.status</td>
             <td>Статус</td>
         </tr>
         <tr>
-            <td>days.date.day_of_week</td>
+            <td>data.data.date.day_of_week</td>
             <td>День недели</td>
+        </tr>
+        <tr>
+            <td>data.meta.schedule.time_in</td>
+            <td>Время прибытия по графику</td>
+        </tr>
+        <tr>
+            <td>data.meta.schedule.time_out</td>
+            <td>Время ухода по графику</td>
+        </tr>
+         <tr>
+            <td>data.meta.previous</td>
+            <td>Временная метка для получения следующих записей</td>
+        </tr>
+        <tr>
+            <td>data.links.first</td>
+            <td>Первая страница (Пагинация)</td>
+        </tr>
+        <tr>
+            <td>data.links.next</td>
+            <td>Следующая страница (Пагинация)</td>
         </tr>
     </tbody>
 </table>
