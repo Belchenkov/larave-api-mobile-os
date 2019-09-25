@@ -9,6 +9,8 @@ namespace App\Services\User;
 
 use App\Repositories\User\StatisticVisitRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 trait UserTrait
 {
@@ -31,7 +33,7 @@ trait UserTrait
         ['#795548', '#ffffff'],
     ];
 
-    public function getAvatarColor()
+    public function getAvatarColor() : array
     {
         $color_count = count($this->avatarColors);
         $color_index = crc32($this->getFullName()) % $color_count;
@@ -41,7 +43,7 @@ trait UserTrait
     /**
      * @return string
      */
-    public function getShortName()
+    public function getShortName() : string
     {
         if (!$name = $this->getFullname()) return 'NA';
 
@@ -55,7 +57,7 @@ trait UserTrait
     /**
      * @return string
      */
-    public function getOfficeAddress()
+    public function getOfficeAddress() : ?string
     {
         $office = $this->getOffice();
 
@@ -71,7 +73,7 @@ trait UserTrait
     /**
      * @return string|null
      */
-    public function getCabinet()
+    public function getCabinet() : ?string
     {
         $office = $this->getOffice();
 
@@ -88,13 +90,14 @@ trait UserTrait
      * @return mixed|string
      * Get Holidays User
      */
-    public function getHolidays()
+    public function getHolidays() : ?Collection
     {
-        $holidays = false;
+        $holidays = null;
 
-        if ($employeeStatus = $this->load('employeeStatus')->employeeStatus) {
+        if ($employeeStatus = $this->employeeStatus) {
             $holidays = (new StatisticVisitRepository)->checkHolidayUser($employeeStatus, Carbon::now());
         }
+
         return $holidays;
     }
 
@@ -122,4 +125,18 @@ trait UserTrait
     {
         return $this->getHolidays() ? $this->getHolidays()['status'] : 'Работает';
     }
+
+    /**
+     * @return bool
+     */
+    public function isUserOnline() : bool
+    {
+        // Protect for a load in paginate list
+        if ($this->relationLoaded('skudEvents')) {
+            if ($this->skudEvents->last() && $this->skudEvents->last()->direction == StatisticVisitRepository::VISIT_ENTER) return true;
+        }
+
+        return false;
+    }
+
 }

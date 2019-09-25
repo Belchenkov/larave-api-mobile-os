@@ -23,6 +23,7 @@ class UserProfile extends JsonApiResourse
         $color = $this->getAvatarColor();
 
         return [
+            'is_online' => $this->isUserOnline(),
             'full_name' => $this->getFullName(),
             'avatar' => [
                 'name' => $this->getShortName(),

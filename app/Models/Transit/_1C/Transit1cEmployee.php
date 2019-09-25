@@ -14,9 +14,11 @@ use App\Models\Transit\TransitSprOffice;
 use App\Models\User;
 use App\Services\User\UserInterface;
 use App\Services\User\UserTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\DB;
 
 class Transit1cEmployee extends TransitionModel implements UserInterface
 {
@@ -122,6 +124,15 @@ class Transit1cEmployee extends TransitionModel implements UserInterface
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class, 'tab_no', 'tab_no');
+    }
+
+    /**
+     * Get Department Info from transit_1c_department (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function department() : HasOne
+    {
+        return $this->hasOne(Transit1cDepartment::class, 'tab_no_chief', 'tab_no');
     }
 
     /**

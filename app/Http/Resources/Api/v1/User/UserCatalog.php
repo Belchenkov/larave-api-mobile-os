@@ -17,7 +17,9 @@ class UserCatalog extends JsonApiResourse
         $color = $this->getAvatarColor();
 
         return [
-            'full_name' => $this->getFullName(),
+            'is_online' => $this->isUserOnline(),
+            'full_name' => $this->full_name,
+            'department_name' => $this->getDepartment(),
             'avatar' => [
                 'name' => $this->getShortName(),
                 'background' => $color[0],
