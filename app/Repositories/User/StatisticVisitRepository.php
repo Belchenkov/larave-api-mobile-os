@@ -6,6 +6,7 @@
 
 namespace App\Repositories\User;
 
+use App\Http\Resources\Api\v1\Statistic\UserVisits;
 use App\Services\User\UserInterface;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -97,7 +98,7 @@ class StatisticVisitRepository
 
         $result->put('days', $result->get('days')->reverse());
 
-        return $result;
+        return new UserVisits($result);
     }
 
     /**
@@ -113,8 +114,8 @@ class StatisticVisitRepository
         $lastExit = null;
         $startDay = $events->where('direction', self::VISIT_ENTER)->first();
         $endDay = $events->where('direction', self::VISIT_EXIT)->last();
-        $startDay = $startDay ? Carbon::createFromFormat('Y-m-d H:i:s', $startDay->time) : null;
-        $endDay = $endDay ? Carbon::createFromFormat('Y-m-d H:i:s', $endDay->time) : null;
+        $startDay = $startDay ? Carbon::createFromFormat('Y-m-d H:i:s.v', $startDay->time) : null;
+        $endDay = $endDay ? Carbon::createFromFormat('Y-m-d H:i:s.v', $endDay->time) : null;
         $currentDay = $startDay ? $startDay->copy() : null;
         $lateTime = 0;
         $earlierTime = 0;
@@ -124,15 +125,15 @@ class StatisticVisitRepository
                 $lastEnter = $event;
 
                 if ($lastExit) {
-                    $outTime += Carbon::createFromFormat('Y-m-d H:i:s', $event->time)
-                        ->diffInSeconds(Carbon::createFromFormat('Y-m-d H:i:s', $lastExit->time));
+                    $outTime += Carbon::createFromFormat('Y-m-d H:i:s.v', $event->time)
+                        ->diffInSeconds(Carbon::createFromFormat('Y-m-d H:i:s.v', $lastExit->time));
                 }
             } else {
                 $lastExit = $event;
 
                 if ($lastEnter) {
-                    $inTime += Carbon::createFromFormat('Y-m-d H:i:s', $event->time)
-                        ->diffInSeconds(Carbon::createFromFormat('Y-m-d H:i:s', $lastEnter->time));
+                    $inTime += Carbon::createFromFormat('Y-m-d H:i:s.v', $event->time)
+                        ->diffInSeconds(Carbon::createFromFormat('Y-m-d H:i:s.v', $lastEnter->time));
                 }
             }
         }
@@ -191,8 +192,8 @@ class StatisticVisitRepository
             $result->put('name', $schedule->schedule_name);
 
             $result->get('schedule')->put(null, collect([
-                'date_in' => Carbon::createFromFormat('Y-m-d H:i:s', $schedule->date_in),
-                'date_out' => Carbon::createFromFormat('Y-m-d H:i:s', $schedule->date_out),
+                'date_in' => Carbon::createFromFormat('Y-m-d H:i:s.v', $schedule->date_in),
+                'date_out' => Carbon::createFromFormat('Y-m-d H:i:s.v', $schedule->date_out),
             ]));
         }
 

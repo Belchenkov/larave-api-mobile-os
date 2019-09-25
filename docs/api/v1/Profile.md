@@ -27,9 +27,18 @@ Authorization: Bearer <accessToken>
         "amount_holiday_days": {String},
         "schedule": {String},
         "status": {String},
-        "chief": {String}
+        "chief": {String},
+        "avatar": {
+            "name": {String},
+            "background": {String},
+            "color": {String}
+        },
     },
-    "result": {Boolean}
+    "result": {Boolean},
+    "debug": {
+        "queries": {Int},
+        "queries_time": {String}
+    }
 }
 ```
 
@@ -89,6 +98,18 @@ Authorization: Bearer <accessToken>
             <td>data.chief</td>
             <td>Руководитель</td>
         </tr>
+        <tr>
+            <td>data.avatar.name</td>
+            <td>Первая буквы фамилии и имени</td>
+        </tr>
+        <tr>
+            <td>data.avatar.background</td>
+            <td>Фон</td>
+        </tr>
+        <tr>
+            <td>data.avatar.color</td>
+            <td>Цвет шрифта</td>
+        </tr>
     </tbody>
 </table>
 
@@ -133,32 +154,26 @@ Authorization: Bearer <accessToken>
 {
     "data": {
        "schedule": {
-           "name": {String}, 
-           "schedule": {
-                "date_in": {Datetime},
-                "date_out": {Datetime}
-            }, 
-            "user_info": {
-                "name": {String},
-                "position": {String}
-            }, 
-            "days": {
-                "date": {
-                    "enter_time": {String},
-                    "exit_time": {String},
-                    "work_time": {String},
-                    "idle_time": {String},
-                    "territory_time": {String},
-                    "is_late": {Boolean},
-                    "is_earlier": {Boolean},
-                    "empty": {Boolean},
-                    "holiday": {Boolean},
-                    "doc_num": {String},
-                    "status": {String},
-                    "day_of_week": {String}
-                }
-            }, 
-            "previous": {Int}
+            "time_in": {String},
+            "time_out": {String}
+        },
+        "days": {
+            "date": {
+                "enter_time": {String},
+                "exit_time": {String},
+                "work_time": {String},
+                "idle_time": {String},
+                "territory_time": {String},
+                "is_late": {Boolean},
+                "is_earlier": {Boolean},
+                "empty": {Boolean},
+                "holiday": {Boolean},
+                "doc_num": {String},
+                "status": {String},
+                "day_of_week": {String}
+            }
+        }, 
+        "previous": {Int}
         } 
     },
     "result": {Boolean}
@@ -172,25 +187,13 @@ Authorization: Bearer <accessToken>
         </tr>
     </thead>
     <tbody>
-         <tr>
-            <td>data.schedule.name</td>
-            <td>График работы</td>
-        </tr
-        > <tr>
-            <td>data.schedule.schedule.date_in</td>
+        <tr>
+            <td>data.schedule.time_in</td>
             <td>Время прибытия по графику</td>
         </tr>
          <tr>
-            <td>data.schedule.schedule.date_out</td>
+            <td>data.schedule.time_out</td>
             <td>Время ухода по графику</td>
-        </tr>
-         <tr>
-            <td>user_info.name</td>
-            <td>ФИО сотрудника</td>
-        </tr>
-         <tr>
-            <td>user_info.position</td>
-            <td>Должность сотрудника</td>
         </tr>
         <tr>
             <td>days.date.enter_time</td>
