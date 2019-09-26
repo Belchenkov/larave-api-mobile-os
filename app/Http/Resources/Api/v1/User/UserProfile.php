@@ -32,6 +32,7 @@ class UserProfile extends JsonApiResourse
             ],
             'position' => $this->getPosition(),
             'unit' => $this->getDepartment(),
+            'email' => $this->getEmail(),
             'address_office' => $this->getOfficeAddress(),
             'cabinet' => $this->getCabinet(),
             'work_phone' => $this->getWorkPhone(),

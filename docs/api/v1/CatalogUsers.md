@@ -194,6 +194,7 @@ Authorization: Bearer <accessToken>
         },
         "position": {String},
         "unit": {String},
+        "email": {String},
         "address_office": {String},
         "cabinet": {String},
         "work_phone": {String},
@@ -247,6 +248,10 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.position</td>
             <td>Должность</td>
+        </tr>
+        <tr>
+            <td>data.email</td>
+            <td>Почта</td>
         </tr>
         <tr>
             <td>data.address_office</td>
