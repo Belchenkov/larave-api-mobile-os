@@ -102,18 +102,27 @@ class UserRepository
                     self::getLatestSkudEvents($query);
                 }
             ])
-                ->select(['transit_1c_employee.*', 'transit_1c_PhPerson.full_name'])
+                ->select(['transit_1c_employee.*', 'transit_1c_PhPerson.full_name', 'transit_spr_departmentorganisation.name'])
                 ->leftJoin('transit_1c_PhPerson', function ($leftJoin) {
                     $leftJoin->on('transit_1c_employee.id_phperson', '=', 'transit_1c_PhPerson.id');
                 })
-                ->orderBy('transit_1c_PhPerson.full_name', 'ASC')
-                ->whereNotNull('transit_1c_PhPerson.full_name')
-                ->whereNull('transit_1c_employee.out_date')
-                ->whereIn('transit_1c_employee.department_guid', $this->getDepartmentsIds()->toArray());
+                ->leftJoin('transit_spr_departmentorganisation', function ($leftJoin) {
+                    $leftJoin->on('transit_spr_departmentorganisation.guid1c', '=', 'transit_1c_employee.department_guid');
+                })
+                ->orderBy('transit_1c_PhPerson.full_name', 'ASC');
 
         if ($search) {
-            $catalog->where('transit_1c_PhPerson.full_name', 'like', '%' . $search . '%');
+            $catalog->where(function ($query) use ($search) {
+                $query->where('transit_1c_PhPerson.full_name', 'like', '%' . $search . '%');
+                $query->orWhere('transit_spr_departmentorganisation.name', 'like', '%' . $search . '%');
+                $query->orWhere('transit_1c_employee.position', 'like', '%' . $search . '%');
+            });
         }
+
+        $catalog->where('transit_1c_employee.main_place', 1);
+        $catalog->whereIn('transit_1c_employee.department_guid', $this->getDepartmentsIds()->toArray());
+        $catalog->whereNotNull('transit_1c_PhPerson.full_name')
+                ->whereNull('transit_1c_employee.out_date');
 
         return $catalog;
     }
