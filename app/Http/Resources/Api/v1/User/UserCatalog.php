@@ -17,14 +17,18 @@ class UserCatalog extends JsonApiResourse
         $color = $this->getAvatarColor();
 
         return [
-            'full_name' => $this->getFullName(),
+            'in_office' => $this->isUserOnline(),
+            'full_name' => $this->full_name,
+            'department_name' => $this->getDepartment(),
             'avatar' => [
                 'name' => $this->getShortName(),
                 'background' => $color[0],
                 'color' => $color[1],
             ],
             'position' => $this->getPosition(),
-            'tab_no' => $this->getTabNo()
+            'tab_no' => $this->getTabNo(),
+            'id_phperson' => $this->id_phperson,
+            'department_guid' => $this->department_guid,
         ];
     }
 }

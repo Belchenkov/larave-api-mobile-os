@@ -91,10 +91,17 @@ class StatisticVisitRepository
             }
         }
 
-        $result->get('schedule')->put('time', collect([
-            'date_in' => $schedule->get('schedule')->first()->get('date_in'),
-            'date_out' => $schedule->get('schedule')->last()->get('date_out')
-        ]));
+        if ($schedule->get('schedule')->count() > 0) {
+            $result->get('schedule')->put('time', collect([
+                'date_in' => $schedule->get('schedule')->first()->get('date_in'),
+                'date_out' => $schedule->get('schedule')->last()->get('date_out')
+            ]));
+        } else {
+            $result->get('schedule')->put('time', collect([
+                'date_in' => null,
+                'date_out' => null,
+            ]));
+        }
 
         $result->put('days', $result->get('days')->reverse());
 
@@ -218,6 +225,6 @@ class StatisticVisitRepository
             ]);
         }
 
-        return false;
+        return null;
     }
 }

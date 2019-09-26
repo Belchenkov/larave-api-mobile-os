@@ -20,10 +20,12 @@ use App\Services\MsSQL\AttributeHelperTrait;
 use App\Services\MsSQL\MillesecondFixTrait;
 use App\Services\User\UserInterface;
 use App\Services\User\UserTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable implements UserInterface
 {

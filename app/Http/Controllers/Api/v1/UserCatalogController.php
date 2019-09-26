@@ -2,23 +2,70 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Exceptions\Api\ApiException;
+use App\Http\Resources\Api\v1\Statistic\UserVisits;
 use App\Http\Resources\Api\v1\User\UserCatalog;
+use App\Http\Resources\Api\v1\User\UserProfile;
 use App\Models\Transit\_1C\Transit1cEmployee;
+use App\Repositories\User\StatisticVisitRepository;
+use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 
 class UserCatalogController extends Controller
 {
 
-    public function index(Request $request)
+    public function getCatalog(Request $request, UserRepository $userRepository)
     {
-        // ToDo without paginate
-        return UserCatalog::collection(
-            Transit1cEmployee::with([
-                'phPerson'
-            ])
-            ->limit(10)
-            ->get()
+        return Cache::remember(
+            'user.catalog.tree.'.$request->get('page').'.'.$request->get('search'),
+            config('cache.cache_time'),
+            function () use ($request, $userRepository) {
+                return UserCatalog::collection(
+                    $userRepository->getUserCatalog($request->get('search'))
+                        ->simplePaginate(50)->appends([
+                            'search' => $request->get('search')
+                        ])
+                );
+            }
+        );
+    }
+
+    public function getUserProfile(Request $request, UserRepository $userRepository, $tab_no)
+    {
+        return Cache::remember(
+            'user.catalog.profile.'.$tab_no,
+            config('cache.cache_time'),
+            function () use ($tab_no, $userRepository) {
+                if (!$user = $userRepository->getUserProfileByTabNo($tab_no)) {
+                    throw new ApiException(404, 'User not found.');
+                }
+
+                return new UserProfile($user);
+            }
+        );
+    }
+
+    public function getUserVisitInfo(Request $request, StatisticVisitRepository $statisticVisitRepository, $tab_no)
+    {
+        $previous = (int) $request->get('previous');
+
+        return Cache::remember(
+            'user.catalog.visit.'.$tab_no.'.'.$previous,
+            config('cache.cache_time'),
+            function () use ($tab_no, $previous, $statisticVisitRepository) {
+                if (!$user = Transit1cEmployee::where('tab_no', $tab_no)->first()) {
+                    throw new ApiException(404, 'User not found.');
+                }
+
+                return new UserVisits(
+                    $statisticVisitRepository->getVisitStatistic(
+                        $user,
+                        $previous
+                    )
+                );
+            }
         );
     }
 
