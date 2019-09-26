@@ -13,6 +13,7 @@ interface UserInterface
     public function getTabNo();
     public function getPhPerson();
     public function getAdLogin();
+    public function getEmail();
     public function getFullName();
     public function getPosition();
     public function getOffice();

@@ -173,6 +173,11 @@ class User extends Authenticatable implements UserInterface
         return $this->getModelAttribute('coreUserData.Office');
     }
 
+    public function getEmail()
+    {
+        return $this->getModelAttribute('coreUserData.Email');
+    }
+
     public function getSchedule()
     {
         return $this->getModelAttribute('employee.schedule');

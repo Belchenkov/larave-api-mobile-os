@@ -166,6 +166,11 @@ class Transit1cEmployee extends TransitionModel implements UserInterface
         return $this->getModelAttribute('coreUserData.SamAccountName');
     }
 
+    public function getEmail()
+    {
+        return $this->getModelAttribute('coreUserData.Email');
+    }
+
     public function getFullName()
     {
         return $this->getModelAttribute('phPerson.full_name');
