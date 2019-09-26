@@ -81,7 +81,7 @@ class UserRepository
     public function getDepartmentsIds()
     {
         return Cache::remember(
-            'department.real.ids',
+            'department.real.юids',
             config('cache.cache_time'),
             function() {
                 return $this->getDepartmentsTree()->map(function ($item) {
@@ -112,10 +112,7 @@ class UserRepository
                 ->whereIn('transit_1c_employee.department_guid', $this->getDepartmentsIds()->toArray());
 
         if ($search) {
-            $catalog
-                ->where('transit_1c_PhPerson.full_name', 'like', '%' . $search . '%')
-                ->orWhere('transit_1c_PhPerson.full_name', 'like', '%' . $search . '%')
-            ;
+            $catalog->where('transit_1c_PhPerson.full_name', 'like', '%' . $search . '%');
         }
 
         return $catalog;
@@ -130,7 +127,6 @@ class UserRepository
             'departmentOrganisation',
             'employeeStatus',
             'employeeChief',
-            'realDepartment.department.chief.phPerson',
             'skudEvents' => function ($query) {
                 self::getLatestSkudEvents($query);
             }
