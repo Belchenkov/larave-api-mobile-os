@@ -8,7 +8,7 @@ use App\Http\Resources\Api\v1\Statistic\UserVisits;
 use App\Http\Resources\Api\v1\User\UserProfile;
 use App\Repositories\User\StatisticVisitRepository;
 use App\Repositories\User\UserRepository;
-use http\Env\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 

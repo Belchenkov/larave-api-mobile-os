@@ -112,7 +112,10 @@ class UserRepository
                 ->whereIn('transit_1c_employee.department_guid', $this->getDepartmentsIds()->toArray());
 
         if ($search) {
-            $catalog->where('transit_1c_PhPerson.full_name', 'like', '%' . $search . '%');
+            $catalog
+                ->where('transit_1c_PhPerson.full_name', 'like', '%' . $search . '%')
+                ->orWhere('transit_1c_PhPerson.full_name', 'like', '%' . $search . '%')
+            ;
         }
 
         return $catalog;
