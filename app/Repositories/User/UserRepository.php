@@ -81,7 +81,7 @@ class UserRepository
     public function getDepartmentsIds()
     {
         return Cache::remember(
-            'department.real.юids',
+            'department.real.ids',
             config('cache.cache_time'),
             function() {
                 return $this->getDepartmentsTree()->map(function ($item) {
