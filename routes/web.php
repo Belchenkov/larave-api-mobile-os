@@ -11,6 +11,8 @@
 |
 */
 
+use App\Models\Transit\_1C\Transit1cEmployee;
+
 Route::get('/', function () {
     return response()->json([
         'result' => true,

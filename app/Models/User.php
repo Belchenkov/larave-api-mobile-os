@@ -7,6 +7,7 @@
 namespace App\Models;
 
 use App\Models\Transit\_1C\Transit1cDepartment;
+use App\Models\Transit\_1C\Transit1cDepartmentLink;
 use App\Models\Transit\_1C\Transit1cEmployee;
 use App\Models\Transit\_1C\Transit1cEmployeeChief;
 use App\Models\Transit\_1C\Transit1cEmployeeStatus;
@@ -21,6 +22,7 @@ use App\Services\MsSQL\MillesecondFixTrait;
 use App\Services\User\UserInterface;
 use App\Services\User\UserTrait;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
@@ -194,5 +196,10 @@ class User extends Authenticatable implements UserInterface
     public function getMobilePhone()
     {
         return $this->getModelAttribute('phPerson.phone_mobile');
+    }
+
+    public function getChiefMainName()
+    {
+        return $this->getModelAttribute('employee.realDepartment.department.chief.phPerson.full_name');
     }
 }

@@ -19,6 +19,7 @@ interface UserInterface
     public function getSchedule();
     public function getDepartment();
     public function getChiefName();
+    public function getChiefMainName();
     public function getWorkPhone();
     public function getMobilePhone();
 

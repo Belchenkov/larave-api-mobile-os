@@ -81,7 +81,7 @@ class UserRepository
     public function getDepartmentsIds()
     {
         return Cache::remember(
-            'department.real.юids',
+            'department.real.ids',
             config('cache.cache_time'),
             function() {
                 return $this->getDepartmentsTree()->map(function ($item) {
@@ -127,6 +127,7 @@ class UserRepository
             'departmentOrganisation',
             'employeeStatus',
             'employeeChief',
+            'realDepartment.department.chief.phPerson',
             'skudEvents' => function ($query) {
                 self::getLatestSkudEvents($query);
             }
