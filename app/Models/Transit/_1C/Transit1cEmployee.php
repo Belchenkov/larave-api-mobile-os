@@ -55,6 +55,8 @@ class Transit1cEmployee extends TransitionModel implements UserInterface
         'UpdateNum'
     ];
 
+    protected $hidden = ['UpdateNum'];
+
     /**
      * Get User Data from ITS.Core_UserData Table (Transit DB)
      * @return \Illuminate\Database\Eloquent\Relations\hasOne
@@ -144,6 +146,11 @@ class Transit1cEmployee extends TransitionModel implements UserInterface
         return $this->belongsTo(TransitSprDepartmentorganisation::class, 'department_guid', 'Guid1c');
     }
 
+    public function realDepartment() : BelongsTo
+    {
+        return $this->belongsTo(Transit1cDepartmentLink::class, 'department_guid', 'Guid1cDepartmentOrganisation');
+    }
+
     public function getTabNo()
     {
         return $this->tab_no;
@@ -197,5 +204,10 @@ class Transit1cEmployee extends TransitionModel implements UserInterface
     public function getMobilePhone()
     {
         return $this->getModelAttribute('phPerson.phone_mobile');
+    }
+
+    public function getChiefMainName()
+    {
+        return $this->getModelAttribute('realDepartment.department.chief.phPerson.full_name');
     }
 }

@@ -32,6 +32,6 @@ class Transit1cDepartmentLink extends TransitionModel
 
     public function department() : BelongsTo
     {
-        return $this->belongsTo(Transit1cDepartment::class, 'Guid1cDepartmentOrganization', 'id_1c');
+        return $this->belongsTo(Transit1cDepartment::class, 'Guid1cDepartment', 'id_1c');
     }
 }
