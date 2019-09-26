@@ -11,6 +11,7 @@ namespace App\Models\Transit\_1C;
 use App\Models\Transit\TransitionModel;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Transit1cDepartment extends TransitionModel
 {
@@ -64,5 +65,15 @@ class Transit1cDepartment extends TransitionModel
     public function employeeByTabNo() : BelongsTo
     {
         return $this->belongsTo(Transit1cEmployee::class, 'tab_no', 'tab_no_chief');
+    }
+
+    public function chief() : BelongsTo
+    {
+        return $this->belongsTo(Transit1cEmployee::class, 'id_chief', 'id_1c');
+    }
+
+    public function realDepartment() : HasOne
+    {
+        return $this->hasOne(Transit1cDepartmentLink::class, 'Guid1cDepartment', 'id_1c');
     }
 }

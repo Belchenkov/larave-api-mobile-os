@@ -32,17 +32,13 @@ class UserCatalogController extends Controller
         );
     }
 
-    public function getUserProfile(Request $request, $tab_no)
+    public function getUserProfile(Request $request, UserRepository $userRepository, $tab_no)
     {
         return Cache::remember(
             'user.catalog.profile.'.$tab_no,
             config('cache.cache_time'),
-            function () use ($tab_no) {
-                if (!$user = Transit1cEmployee::with([
-                    'phPerson', 'department', 'coreUserData', 'departmentOrganisation', 'employeeStatus', 'employeeChief', 'skudEvents' => function ($query) {
-                        UserRepository::getLatestSkudEvents($query);
-                    }
-                ])->where('tab_no', $tab_no)->first()) {
+            function () use ($tab_no, $userRepository) {
+                if (!$user = $userRepository->getUserProfileByTabNo($tab_no)) {
                     throw new ApiException(404, 'User not found.');
                 }
 
@@ -56,7 +52,7 @@ class UserCatalogController extends Controller
         $previous = (int) $request->get('previous');
 
         return Cache::remember(
-            'user.catalog.visits.'.$tab_no.'.'.$previous,
+            'user.catalog.visit.'.$tab_no.'.'.$previous,
             config('cache.cache_time'),
             function () use ($tab_no, $previous, $statisticVisitRepository) {
                 if (!$user = Transit1cEmployee::where('tab_no', $tab_no)->first()) {

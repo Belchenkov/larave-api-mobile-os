@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\v1\Statistic\UserVisits;
 use App\Http\Resources\Api\v1\User\UserProfile;
 use App\Repositories\User\StatisticVisitRepository;
+use App\Repositories\User\UserRepository;
 use http\Env\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -25,11 +26,15 @@ class ProfileController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function getProfileInfo(Request $request)
+    public function getProfileInfo(Request $request, UserRepository $userRepository)
     {
-        return Cache::remember('user.profile.'.Auth::user()->id, config('cache.cache_time'), function () {
-            return new UserProfile(Auth::user()->load('phPerson', 'employee', 'department', 'employeeStatus', 'employeeChief'));
-        });
+        return Cache::remember(
+            'user.profile.'.Auth::user()->id,
+            config('cache.cache_time'),
+            function () use ($userRepository) {
+                return new UserProfile($userRepository->getUserProfileByTabNo(Auth::user()->tab_no));
+            }
+        );
     }
 
     /**
