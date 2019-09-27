@@ -149,7 +149,7 @@ Authorization: Bearer <accessToken>
     </tbody>
 </table>
 
-#### GET /api/v1/profile/statistic/visit
+#### GET /api/v1/statistic/visit
 
 Метод получения статистики посещаемости пользователя
 
