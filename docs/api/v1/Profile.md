@@ -17,9 +17,11 @@ Authorization: Bearer <accessToken>
 ```
 {
     "data": {
+        "in_office": {Boolean},
         "fullName": {String},
         "position": {String},
         "unit": {String},
+        "email": {String},
         "address_office": {String},
         "cabinet": {String},
         "work_phone": {String},
@@ -27,7 +29,13 @@ Authorization: Bearer <accessToken>
         "amount_holiday_days": {String},
         "schedule": {String},
         "status": {String},
+        "is_chief": {Boolean},
         "chief": {String},
+        "chief_main": {String},
+        "tab_no": {String},
+        "id_phperson": {String},
+        "department_guid": {String},
+        "department_guid_real": {String},
         "avatar": {
             "name": {String},
             "background": {String},
@@ -50,7 +58,11 @@ Authorization: Bearer <accessToken>
         </tr>
     </thead>
     <tbody>
-         <tr>
+        <tr>
+            <td>data.in_office</td>
+            <td>Статус сотрудника (на территории/вне)</td>
+        </tr>
+        <tr>
             <td>data.fullName</td>
             <td>ФИО</td>
         </tr>
@@ -61,6 +73,10 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.unit</td>
             <td>Подразделение</td>
+        </tr>
+        <tr>
+            <td>data.email</td>
+            <td>Почта</td>
         </tr>
         <tr>
             <td>data.address_office</td>
@@ -79,10 +95,6 @@ Authorization: Bearer <accessToken>
             <td>Мобильный телефон</td>
         </tr>
         <tr>
-            <td>data.mobile_phone</td>
-            <td>Мобильный телефон</td>
-        </tr>
-        <tr>
             <td>data.amount_holiday_days</td>
             <td>Кол-во отпускных дней</td>
         </tr>
@@ -95,8 +107,32 @@ Authorization: Bearer <accessToken>
             <td>Статус</td>
         </tr>
         <tr>
+            <td>data.is_chief</td>
+            <td>Является руководителем подразделения</td>
+         </tr>
+         <tr>
             <td>data.chief</td>
-            <td>Руководитель</td>
+            <td>Функциональный руководитель</td>
+         </tr>
+         <tr>
+            <td>data.chief_main</td>
+            <td>Основной руководитель</td>
+         </tr>
+         <tr>
+            <td>data.tab_no</td>
+            <td>Табельный номер</td>
+        </tr>
+        <tr>
+           <td>data.id_phperson</td>
+           <td>ID из таблицы transit_1c_PhPerson</td>
+        </tr>
+        <tr>
+           <td>data.department_guid</td>
+           <td>ID из таблицы ID из таблицы transit_1c_department</td>
+        </tr>
+        <tr>
+           <td>data.department_guid_real</td>
+           <td>ID из таблицы transit_1c_link_department</td>
         </tr>
         <tr>
             <td>data.avatar.name</td>
@@ -113,7 +149,7 @@ Authorization: Bearer <accessToken>
     </tbody>
 </table>
 
-#### GET /api/v1/profile/statistic/visit
+#### GET /api/v1/statistic/visit
 
 Метод получения статистики посещаемости пользователя
 
