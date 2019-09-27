@@ -11,6 +11,7 @@ use App\Repositories\User\StatisticVisitRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
 
 trait UserTrait
 {
@@ -146,6 +147,47 @@ trait UserTrait
         }
 
         return false;
+    }
+
+    public function getUserAvatar($update = false)
+    {
+        $file_name_source = $this->getTabNo() . '_2.jpg';
+        $file_name_avatar = $this->getPhPerson() . '.jpg';
+        $avatar_path = public_path('uploads/avatars/' . $file_name_avatar);
+        $source_path = config('workflow.avatars_path') . $file_name_source;
+
+        if (\File::exists($avatar_path)) {
+            $need_update = false;
+
+            if ($update) {
+                if (\File::exists($source_path)) {
+                    if (filemtime($source_path) > filemtime($avatar_path)) {
+                        $need_update = true;
+                    }
+                }
+            }
+
+            if (!$need_update)
+                return request()->getUriForPath('/uploads/avatars/' . $file_name_avatar);
+        }
+
+        if (\File::exists($source_path)) {
+            if (!\File::exists(public_path('uploads/avatars'))) {
+                \File::makeDirectory(public_path('uploads/avatars'), 0755, true);
+            }
+
+            \File::copy($source_path, $avatar_path);
+
+            if ($update) {
+                $image = Image::make($avatar_path);
+                $image->resize(250, 250);
+                $image->save();
+            }
+
+            return request()->getUriForPath('/uploads/avatars/' . $file_name_avatar);
+        }
+
+        return null;
     }
 
 }

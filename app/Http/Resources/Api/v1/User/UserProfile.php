@@ -29,6 +29,7 @@ class UserProfile extends JsonApiResourse
                 'name' => $this->getShortName(),
                 'background' => $color[0],
                 'color' => $color[1],
+                'image' => $this->getUserAvatar(true),
             ],
             'position' => $this->getPosition(),
             'unit' => $this->getDepartment(),

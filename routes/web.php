@@ -12,6 +12,8 @@
 */
 
 
+use App\Repositories\User\UserRepository;
+
 Route::get('/', function () {
     return response()->json([
         'result' => true,

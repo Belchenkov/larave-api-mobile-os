@@ -9,5 +9,7 @@ return [
 
     'pin' => [
         'life_time' => env('APP_PINCODE_LIFETIME', 5) * 60
-    ]
+    ],
+
+    'avatars_path' => env('APP_AVATARS_PATH')
 ];

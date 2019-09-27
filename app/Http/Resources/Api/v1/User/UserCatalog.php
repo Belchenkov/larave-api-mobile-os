@@ -24,6 +24,7 @@ class UserCatalog extends JsonApiResourse
                 'name' => $this->getShortName(),
                 'background' => $color[0],
                 'color' => $color[1],
+                'image' => $this->getUserAvatar(),
             ],
             'position' => $this->getPosition(),
             'tab_no' => $this->getTabNo(),
