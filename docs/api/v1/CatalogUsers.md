@@ -13,9 +13,29 @@ Authorization: Bearer <accessToken>
 <b>BODY</b>
  ```
 {
-    "search": {String|null}
+    "search": {String|null},
+    "my": {Boolean|null}
 }
 ```
+
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+        </tr>
+    </thead>
+    <tbody>
+         <tr>
+            <td>search</td>
+            <td>Поиск(ФИО, должность, подразделение)</td>
+        </tr>
+        <tr>
+            <td>my</td>
+            <td>Фильтр - Мои сотрудники</td>
+        </tr>
+    </tbody>
+</table> 
 
 <b>RESPONSE</b>
 
@@ -35,7 +55,8 @@ Authorization: Bearer <accessToken>
         "position": {String},
         "tab_no": {String},
         "id_phperson": {String},
-        "department_guid": {String}
+        "department_guid": {String},
+        "department_guid_real": {String}
     },
     "links": {
         "first": {String},
@@ -88,11 +109,15 @@ Authorization: Bearer <accessToken>
         </tr>
         <tr>
             <td>data.id_phperson</td>
-            <td>ID из таблицы PhPerson</td>
+            <td>ID из таблицы transit_1c_PhPerson</td>
         </tr>
          <tr>
             <td>data.department_guid</td>
-            <td>ID из таблицы Department</td>
+            <td>ID из таблицы ID из таблицы transit_1c_department</td>
+        </tr>
+        <tr>
+            <td>data.department_guid_real</td>
+            <td>ID из таблицы transit_1c_link_department</td>
         </tr>
         <tr>
             <td>data.avatar.name</td>
@@ -203,7 +228,14 @@ Authorization: Bearer <accessToken>
         "schedule": {String},
         "status": {String},
         "chief": {String},
-        "chief_main": {String}
+        "chief_main": {String}",
+        "is_chief": {Boolean},
+        "chief": {String},
+        "chief_main": {String},
+        "tab_no": {String},
+        "id_phperson": {String},
+        "department_guid": {String},
+        "department_guid_real": {String}
     },
     "result": {Boolean},
     "debug": {
@@ -282,12 +314,32 @@ Authorization: Bearer <accessToken>
             <td>Статус работника</td>
         </tr>
         <tr>
+            <td>data.is_chief</td>
+            <td>Является руководителем подразделения</td>
+        </tr>
+        <tr>
             <td>data.chief</td>
             <td>Функциональный руководитель</td>
         </tr>
         <tr>
             <td>data.chief_main</td>
             <td>Основной руководитель</td>
+        </tr>
+        <tr>
+            <td>data.tab_no</td>
+            <td>Табельный номер</td>
+        </tr>
+        <tr>
+           <td>data.id_phperson</td>
+           <td>ID из таблицы transit_1c_PhPerson</td>
+        </tr>
+        <tr>
+           <td>data.department_guid</td>
+           <td>ID из таблицы ID из таблицы transit_1c_department</td>
+        </tr>
+        <tr>
+           <td>data.department_guid_real</td>
+           <td>ID из таблицы transit_1c_link_department</td>
         </tr>
     </tbody>
 </table>
