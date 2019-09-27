@@ -11,6 +11,7 @@ use App\Repositories\User\StatisticVisitRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class UserCatalogController extends Controller
@@ -18,12 +19,26 @@ class UserCatalogController extends Controller
 
     public function getCatalog(Request $request, UserRepository $userRepository)
     {
+        $ids = null;
+
+        if ($request->get('my')) {
+            $ids = Cache::remember(
+                'user.catalog.my.ids.'.Auth::user()->tab_no,
+                config('cache.cache_time'),
+                function () use ($userRepository) {
+                    return $userRepository->getDepartmentsIdsByCollection(Auth::user()->departmentChief);
+                }
+            );
+        }
+
         return Cache::remember(
-            'user.catalog.tree.'.$request->get('page').'.'.$request->get('search'),
+            'user.catalog.tree.'.($ids ? 'my' . Auth::user()->tab_no : 'all').
+            '.'.$request->get('page').'.'.$request->get('search'),
             config('cache.cache_time'),
-            function () use ($request, $userRepository) {
+
+            function () use ($request, $userRepository, $ids) {
                 return UserCatalog::collection(
-                    $userRepository->getUserCatalog($request->get('search'))
+                    $userRepository->getUserCatalog($request->get('search'), $ids)
                         ->simplePaginate(50)->appends([
                             'search' => $request->get('search')
                         ])

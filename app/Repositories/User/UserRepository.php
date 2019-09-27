@@ -46,7 +46,7 @@ class UserRepository
         return $items;
     }
 
-    public function getDepartmentsTree($asTree = false)
+    public function getDepartmentsTree($asTree = false, $parent = null)
     {
         $result = collect();
         $departments = Transit1cDepartment::select([
@@ -64,7 +64,7 @@ class UserRepository
             ->get();
 
         foreach ($departments as $department) {
-            if (!$department->id_1CParent) {
+            if ($department->id_1CParent == $parent || $department->id_1c == $parent) {
                 if ($asTree) {
                     $department['items'] = $this->getDepartmentsChild($department->id_1c, $departments, $asTree);
                     $result->push($department);
@@ -78,13 +78,13 @@ class UserRepository
         return $result;
     }
 
-    public function getDepartmentsIds()
+    public function getDepartmentsIds($deprtment_id = null)
     {
         return Cache::remember(
-            'department.real.юids',
+            'department.real.ids.'.$deprtment_id,
             config('cache.cache_time'),
-            function() {
-                return $this->getDepartmentsTree()->map(function ($item) {
+            function() use ($deprtment_id) {
+                return $this->getDepartmentsTree(false, $deprtment_id)->map(function ($item) {
                     if ($item->relationLoaded('realDepartment') && $item->realDepartment) {
                         return $item->realDepartment->Guid1cDepartmentOrganisation;
                     }
@@ -94,13 +94,39 @@ class UserRepository
         );
     }
 
-    public function getUserCatalog($search = null) : Builder
+    public function getDepartmentsByCollection(Collection $collection)
     {
+        $departments = collect();
+        $departmentsAll = $this->getDepartmentsTree();
+
+        foreach ($collection as $collect) {
+            $departments->push($collect);
+            $departments = $departments->merge($this->getDepartmentsChild($collect->id_1c, $departmentsAll));
+        }
+
+        return $departments;
+    }
+
+    public function getDepartmentsIdsByCollection(Collection $collection) {
+        return $this->getDepartmentsByCollection($collection)->map(function ($item) {
+            if ($item->realDepartment) {
+                return $item->realDepartment->Guid1cDepartmentOrganisation;
+            }
+            return $item->id_1c;
+        });
+    }
+
+    public function getUserCatalog($search = null, ?Collection $department_ids = null) : Builder
+    {
+        if (!$department_ids)
+            $department_ids = $this->getDepartmentsIds()->toArray();
+
         $catalog =
             Transit1cEmployee::with([
                 'phPerson', 'departmentOrganisation', 'skudEvents' => function ($query) {
                     self::getLatestSkudEvents($query);
-                }
+                },
+                'realDepartment.department'
             ])
                 ->select(['transit_1c_employee.*', 'transit_1c_PhPerson.full_name', 'transit_spr_departmentorganisation.name'])
                 ->leftJoin('transit_1c_PhPerson', function ($leftJoin) {
@@ -120,7 +146,7 @@ class UserRepository
         }
 
         $catalog->where('transit_1c_employee.main_place', 1);
-        $catalog->whereIn('transit_1c_employee.department_guid', $this->getDepartmentsIds()->toArray());
+        $catalog->whereIn('transit_1c_employee.department_guid', $department_ids);
         $catalog->whereNotNull('transit_1c_PhPerson.full_name')
                 ->whereNull('transit_1c_employee.out_date');
 
@@ -136,6 +162,7 @@ class UserRepository
             'departmentOrganisation',
             'employeeStatus',
             'employeeChief',
+            'departmentChief.realDepartment',
             'skudEvents' => function ($query) {
                 self::getLatestSkudEvents($query);
             }

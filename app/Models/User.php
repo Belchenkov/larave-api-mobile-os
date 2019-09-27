@@ -7,7 +7,6 @@
 namespace App\Models;
 
 use App\Models\Transit\_1C\Transit1cDepartment;
-use App\Models\Transit\_1C\Transit1cDepartmentLink;
 use App\Models\Transit\_1C\Transit1cEmployee;
 use App\Models\Transit\_1C\Transit1cEmployeeChief;
 use App\Models\Transit\_1C\Transit1cEmployeeStatus;
@@ -21,13 +20,10 @@ use App\Services\MsSQL\AttributeHelperTrait;
 use App\Services\MsSQL\MillesecondFixTrait;
 use App\Services\User\UserInterface;
 use App\Services\User\UserTrait;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable implements UserInterface
 {
@@ -100,7 +96,7 @@ class User extends Authenticatable implements UserInterface
 
     /**
      * Get Employee Status Info from transit_1c_employee_status (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     * @return HasMany
      */
     public function employeeStatus() : HasMany
     {
@@ -118,7 +114,7 @@ class User extends Authenticatable implements UserInterface
 
     /**
      * Get Statistic Visit Info from transit_1c_schedule_employee (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     * @return HasMany
      */
     public function scheduleEmployee() : HasMany
     {
@@ -136,11 +132,20 @@ class User extends Authenticatable implements UserInterface
 
     /**
      * Get Skud Events Info from transit_skud_events (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return HasMany
      */
     public function skudEvents() : hasMany
     {
         return $this->hasMany(TransitSkudEvent::class, 'ID_PhPerson', 'id_person');
+    }
+
+    /**
+     * Get My Department where im a chief
+     * @return HasMany
+     */
+    public function departmentChief()
+    {
+        return $this->hasMany(Transit1cDepartment::class, 'tab_no_chief', 'tab_no');
     }
 
     public function getTabNo()
@@ -206,5 +211,10 @@ class User extends Authenticatable implements UserInterface
     public function getChiefMainName()
     {
         return $this->getModelAttribute('employee.realDepartment.department.chief.phPerson.full_name');
+    }
+
+    public function getRealDepartmentGuid()
+    {
+        return $this->getModelAttribute('employee.realDepartment.department.id_1c');
     }
 }

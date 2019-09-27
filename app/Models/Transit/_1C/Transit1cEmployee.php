@@ -129,12 +129,21 @@ class Transit1cEmployee extends TransitionModel implements UserInterface
     }
 
     /**
-     * Get Department Info from transit_1c_department (Transit DB)
+     * Get My Department where im a chief
      * @return \Illuminate\Database\Eloquent\Relations\hasOne
      */
     public function department() : HasOne
     {
         return $this->hasOne(Transit1cDepartment::class, 'tab_no_chief', 'tab_no');
+    }
+
+    /**
+     * Get My Department where im a chief
+     * @return HasMany
+     */
+    public function departmentChief() : HasMany
+    {
+        return $this->hasMany(Transit1cDepartment::class, 'id_chief', 'id_1c');
     }
 
     /**
@@ -214,5 +223,10 @@ class Transit1cEmployee extends TransitionModel implements UserInterface
     public function getChiefMainName()
     {
         return $this->getModelAttribute('realDepartment.department.chief.phPerson.full_name');
+    }
+
+    public function getRealDepartmentGuid()
+    {
+        return $this->getModelAttribute('realDepartment.department.id_1c');
     }
 }

@@ -23,6 +23,7 @@ interface UserInterface
     public function getChiefMainName();
     public function getWorkPhone();
     public function getMobilePhone();
+    public function getRealDepartmentGuid();
 
     // Relations
     public function phPerson();
@@ -30,5 +31,6 @@ interface UserInterface
     public function scheduleEmployee();
     public function employeeChief();
     public function employeeStatus();
+    public function departmentChief();
 
 }

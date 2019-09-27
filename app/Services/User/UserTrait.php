@@ -139,4 +139,13 @@ trait UserTrait
         return false;
     }
 
+    public function isChief() : bool
+    {
+        if ($this->departmentChief->count() > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

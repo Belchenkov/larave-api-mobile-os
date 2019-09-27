@@ -40,8 +40,13 @@ class UserProfile extends JsonApiResourse
             'amount_holiday_days' => $this->getCountHolidayDays(),
             'schedule' => $this->getSchedule(),
             'status' => $this->getStatus(),
+            'is_chief' => $this->isChief(),
             'chief' => $this->getChiefName(),
             'chief_main' => $this->getChiefMainName(),
+            'tab_no' => $this->tab_no,
+            'id_phperson' => $this->id_phperson,
+            'department_guid' => $this->department_guid,
+            'department_guid_real' => $this->getRealDepartmentGuid(),
         ];
     }
 

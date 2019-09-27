@@ -62,6 +62,8 @@ class Transit1cPhPerson extends TransitionModel
         'UpdateNum'
     ];
 
+    protected $hidden = ['UpdateNum'];
+
     /**
      * Get Core User Data (Transit DB)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
