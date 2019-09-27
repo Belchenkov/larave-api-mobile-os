@@ -24,6 +24,7 @@ class ProfileController extends Controller
      * Get Profile Info for Auth User
      *
      * @param Request $request
+     * @param UserRepository $userRepository
      * @return mixed
      */
     public function getProfileInfo(Request $request, UserRepository $userRepository)

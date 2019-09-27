@@ -39,7 +39,8 @@ Authorization: Bearer <accessToken>
         "avatar": {
             "name": {String},
             "background": {String},
-            "color": {String}
+            "color": {String},
+            "image": {String}
         },
     },
     "result": {Boolean},
@@ -145,6 +146,10 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.avatar.color</td>
             <td>Цвет шрифта</td>
+        </tr>
+        <tr>
+            <td>data.avatar.image</td>
+            <td>Аватар</td>
         </tr>
     </tbody>
 </table>
