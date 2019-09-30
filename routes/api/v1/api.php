@@ -7,6 +7,7 @@ Route::prefix('auth')
 
 // Callbacks routes
 Route::prefix('callback')
+    ->middleware('callbacks')
     ->group(base_path('routes/api/v1/callbacks.php'));
 
 // Profile routes

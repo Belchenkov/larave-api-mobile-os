@@ -11,6 +11,7 @@
 ```
 Content-Type: application/json
 User-Agent: *
+X-Callback-Key: osnova_callback
 ```
  
 <b>BODY</b>

@@ -50,7 +50,8 @@ Authorization: Bearer <accessToken>
         "avatar": {
             "name": {String},
             "background": {String},
-            "color": {String}
+            "color": {String},
+            "image": {String}
         },
         "position": {String},
         "tab_no": {String},
@@ -130,6 +131,10 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.avatar.color</td>
             <td>Цвет шрифта</td>
+        </tr>
+        <tr>
+            <td>data.avatar.image</td>
+            <td>Аватар</td>
         </tr>
         <tr>
             <td>links.first</td>
@@ -215,7 +220,8 @@ Authorization: Bearer <accessToken>
         "avatar": {
             "name": {String},
             "background": {String},
-            "color": {String}
+            "color": {String},
+            "image": {String}
         },
         "position": {String},
         "unit": {String},
@@ -272,6 +278,10 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.avatar.color</td>
             <td>Цвет шрифта</td>
+        </tr>
+        <tr>
+            <td>data.avatar.image</td>
+            <td>Аватар</td>
         </tr>
         <tr>
             <td>data.unit</td>

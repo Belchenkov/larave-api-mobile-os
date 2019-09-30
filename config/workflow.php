@@ -11,5 +11,6 @@ return [
         'life_time' => env('APP_PINCODE_LIFETIME', 5) * 60
     ],
 
-    'avatars_path' => env('APP_AVATARS_PATH')
+    'avatars_path' => env('APP_AVATARS_PATH'),
+    'callback_key' => env('APP_CALLBACK_KEY')
 ];
