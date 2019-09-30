@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use App\Notifications\Push\TestPush;
 use Illuminate\Foundation\Inspiring;
 
 /*
@@ -16,3 +18,9 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+
+Artisan::command('push', function () {
+    $u = User::find(10002);
+    $u->notify(new TestPush());
+})->describe('');
