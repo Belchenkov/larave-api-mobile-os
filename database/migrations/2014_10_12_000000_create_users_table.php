@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->passthru('varchar', 'ad_login', 'varchar(100)');
             $table->passthru('nvarchar', 'tab_no', 'varchar(100)');
             $table->passthru('varchar', 'id_person', 'varchar(100)');
+            $table->passthru('varchar', 'id_device', 'varchar(100)')->index()->nullable();
             $table->timestamps();
         });
     }

@@ -20,6 +20,7 @@ class User extends JsonApiResourse
             'ad_login' => $this->ad_login,
             'tab_no' => $this->tab_no,
             'id_person' => $this->id_person,
+            'id_device' => $this->id_device,
             'created_at' => $this->created_at->timestamp
         ];
     }

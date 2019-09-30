@@ -40,6 +40,6 @@ class TestPush extends Notification implements ShouldQueue
      */
     public function toFirebase($notifiable)
     {
-        dd('Send message to firebase');
+        dd($notifiable);
     }
 }

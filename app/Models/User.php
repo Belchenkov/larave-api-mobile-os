@@ -37,7 +37,7 @@ class User extends Authenticatable implements UserInterface
      * @var array
      */
     protected $fillable = [
-        'ad_login', 'tab_no', 'id_person',
+        'ad_login', 'tab_no', 'id_person', 'id_device',
     ];
 
     /**
@@ -156,6 +156,11 @@ class User extends Authenticatable implements UserInterface
     public function getPhPerson()
     {
         return $this->id_person;
+    }
+
+    public function getDevice()
+    {
+        return $this->id_device;
     }
 
     public function getAdLogin()

@@ -22,6 +22,7 @@ User-Agent: *
 {
     "login": {String},
     "pin_code": {String|size:4}
+    "id_device": {String|null}
 }
  ```
 
@@ -42,6 +43,11 @@ User-Agent: *
         <tr>
             <td>pin_code</td>
             <td>Пин-код пользователя сгенерированный интранет-порталом</td>
+            <td>Обязательно</td>
+        </tr>
+        <tr>
+            <td>id_device</td>
+            <td>ID устройства</td>
             <td>Обязательно</td>
         </tr>
     </tbody>
@@ -202,6 +208,7 @@ Authorization: Bearer <accessToken>
         "ad_login": {String},
         "tab_no": {String},
         "id_person": {String},
+        "id_device": {String},
         "created_at": {datetime}
     },
     "result": {Boolean}
@@ -231,6 +238,10 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.id_person</td>
             <td>ID из таблицы PhPerson</td>
+        </tr>
+        <tr>
+            <td>data.id_device</td>
+            <td>ID устройства</td>
         </tr>
         <tr>
             <td>data.created_at</td>

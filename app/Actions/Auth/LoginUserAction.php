@@ -17,12 +17,14 @@ class LoginUserAction extends BaseAction
      */
     private $user = null;
 
-    public function execute($login, $pin_code)
+    public function execute($login, $pin_code, $id_device)
     {
         if ($user = User::where('ad_login', $login)->first()) {
             // ToDo add lifetime
             if ($user->pinCode && $user->pinCode->pin_code == $pin_code) {
                 $this->user = $user;
+                $this->user->id_device = $id_device;
+                $this->user->save();
                 $this->user->generateJwt();
 
                 if ($user) $user->pinCode->delete();
