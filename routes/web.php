@@ -12,6 +12,7 @@
 */
 
 
+use App\Models\User;
 use App\Repositories\User\UserRepository;
 
 Route::get('/', function () {

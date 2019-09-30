@@ -2,6 +2,7 @@
 
 namespace App\Notifications\Push;
 
+use App\Services\NotificationChannels\FCMService;
 use App\Services\NotificationChannels\FirebaseChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -35,11 +36,18 @@ class TestPush extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @param mixed $notifiable
+     * @param FCMService $service
+     * @return void
      */
-    public function toFirebase($notifiable)
+    public function toFirebase($notifiable, FCMService $service)
     {
-        dd($notifiable);
+        $service->send(
+            'Test Title',
+            'Test Body',
+            'First Channel',
+            'Test Data',
+            '43523452345234'
+        );
     }
 }

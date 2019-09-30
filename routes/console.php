@@ -24,3 +24,4 @@ Artisan::command('push', function () {
     $u = User::find(1);
     $u->notify(new TestPush('Test Message'));
 })->describe('Display an inspiring quote');
+
