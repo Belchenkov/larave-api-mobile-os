@@ -40,14 +40,13 @@ class TestPush extends Notification implements ShouldQueue
      * @param FCMService $service
      * @return void
      */
-    public function toFirebase($notifiable, FCMService $service)
+    public function toFirebase($notifiable)
     {
-        $service->send(
+       (new FCMService)->send(
             'Test Title',
             'Test Body',
             'First Channel',
-            'Test Data',
-            '43523452345234'
-        );
+            'Test Data'
+       );
     }
 }

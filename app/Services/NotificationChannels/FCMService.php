@@ -12,6 +12,14 @@ use LaravelFCM\Message\PayloadNotificationBuilder;
 
 class FCMService
 {
+    /**
+     * @param null $title
+     * @param null $body
+     * @param null $channelId
+     * @param null $data
+     * @param null $token
+     * @throws \LaravelFCM\Message\Exceptions\InvalidOptionsException
+     */
     public function send($title = null, $body = null, $channelId = null, $data = null, $token = null)
     {
         $optionBuilder = new OptionsBuilder();
