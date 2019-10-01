@@ -11,14 +11,16 @@ class TestPush extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    private $message;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($message)
     {
-        //
+        $this->message = $message;
     }
 
     /**
@@ -40,6 +42,9 @@ class TestPush extends Notification implements ShouldQueue
      */
     public function toFirebase($notifiable)
     {
-        dd($notifiable);
+        //foreach ($notifiable->devices as $device) {
+            //$firebase->push($device-id, $this->message);
+        //}
+        //dd($notifiable);
     }
 }

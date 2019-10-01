@@ -11,11 +11,12 @@ use App\Models\User;
  * @package App\Actions\Auth
  * Logout User
  */
-class LogoutUserAction extends BaseAction
+class ClearUserSessionAction extends BaseAction
 {
     public function execute(User $user)
     {
-        $user->removeSession(request()->bearerToken());
+        $user->removeOtherSession(request()->bearerToken());
+
         return $this;
     }
 }

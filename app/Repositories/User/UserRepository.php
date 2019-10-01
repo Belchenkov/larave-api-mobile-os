@@ -119,7 +119,9 @@ class UserRepository
     public function getUserCatalog($search = null, ?Collection $department_ids = null) : Builder
     {
         if (!$department_ids)
-            $department_ids = $this->getDepartmentsIds()->toArray();
+            $department_ids = $this->getDepartmentsIds();
+
+        $department_ids = $department_ids->toArray();
 
         $catalog =
             Transit1cEmployee::with([

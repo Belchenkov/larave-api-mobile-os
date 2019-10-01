@@ -29,18 +29,24 @@ class UserCatalogController extends Controller
                     return $userRepository->getDepartmentsIdsByCollection(Auth::user()->departmentChief);
                 }
             );
-        }
+        } else
+            if ($request->get('dep')) {
+                $ids = collect($request->get('dep'));
+            }
 
         return Cache::remember(
-            'user.catalog.tree.'.($ids ? 'my' . Auth::user()->tab_no : 'all').
-            '.'.$request->get('page').'.'.$request->get('search'),
+            'user.catalog.tree.'.
+            ($request->get('my') ? 'my.' . Auth::user()->tab_no : 'all.').
+            ($request->get('dep') ? 'dep.'.$request->get('dep').'.' : '').
+            $request->get('page').'.'.$request->get('search'),
             config('cache.cache_time'),
 
             function () use ($request, $userRepository, $ids) {
                 return UserCatalog::collection(
                     $userRepository->getUserCatalog($request->get('search'), $ids)
                         ->simplePaginate(50)->appends([
-                            'search' => $request->get('search')
+                            'search' => $request->get('search'),
+                            'dep' => $request->get('dep'),
                         ])
                 );
             }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Actions\Auth\ClearUserSessionAction;
 use App\Actions\Auth\LoginUserAction;
 use App\Actions\Auth\LogoutUserAction;
 use App\Actions\Auth\RefreshUserAction;
@@ -49,6 +50,16 @@ class AuthorizationController extends Controller
      * Logout User
      */
     public function logout(LogoutRequest $request, LogoutUserAction $action)
+    {
+        return $action->execute(Auth::user())->apiSuccess();
+    }
+
+    /**
+     * @param Request $request
+     * @param ClearUserSessionAction $action
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sessionClear(Request $request, ClearUserSessionAction $action)
     {
         return $action->execute(Auth::user())->apiSuccess();
     }
