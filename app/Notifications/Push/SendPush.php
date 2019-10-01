@@ -2,13 +2,13 @@
 
 namespace App\Notifications\Push;
 
-use App\Services\NotificationChannels\FCMService;
+use App\Services\NotificationChannels\SendNotificationService;
 use App\Services\NotificationChannels\FirebaseChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class TestPush extends Notification implements ShouldQueue
+class SendPush extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -39,12 +39,12 @@ class TestPush extends Notification implements ShouldQueue
      * Get the mail representation of the notification.
      *
      * @param mixed $notifiable
-     * @param FCMService $service
+     * @param SendNotificationService $service
      * @return void
      */
     public function toFirebase($notifiable)
     {
-       (new FCMService)->send(
+       (new SendNotificationService)->send(
             'Test Title',
             'Test Body',
             'First Channel',

@@ -32,5 +32,7 @@ interface UserInterface
     public function employeeChief();
     public function employeeStatus();
     public function departmentChief();
+    public function getExecutorTasks();
+    public function getInitiatorTasks();
 
 }

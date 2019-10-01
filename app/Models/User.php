@@ -58,6 +58,15 @@ class User extends Authenticatable implements UserInterface
         return $this->hasMany(UserJwtToken::class, 'user_id');
     }
 
+     /**
+     * Get User Devices
+     * @return HasMany
+     */
+    public function devices() : HasMany
+    {
+        return $this->hasMany(UserDevice::class, 'user_id');
+    }
+
     /**
      * Get User Data from transit_1c_PhPerson Table (Transit DB)
      * @return \Illuminate\Database\Eloquent\Relations\hasOne
@@ -221,5 +230,15 @@ class User extends Authenticatable implements UserInterface
     public function getRealDepartmentGuid()
     {
         return $this->getModelAttribute('employee.realDepartment.department.id_1c');
+    }
+
+    public function getExecutorTasks()
+    {
+        return $this->getModelAttribute('coreUserData.initiatorTasks');
+    }
+
+    public function getInitiatorTasks()
+    {
+        return $this->getModelAttribute('coreUserData.initiatorTasks');
     }
 }

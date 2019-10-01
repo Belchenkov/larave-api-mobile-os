@@ -4,11 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-/**
- * Class CreateUsersTable
- * Users
- */
-class CreateUsersTable extends Migration
+class CreateUserDevicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,12 +13,13 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('user_devices', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->passthru('varchar', 'ad_login', 'varchar(100)');
-            $table->passthru('nvarchar', 'tab_no', 'varchar(100)');
-            $table->passthru('varchar', 'id_person', 'varchar(100)');
+            $table->passthru('bigint', 'user_id')->unsigned();
+            $table->passthru('varchar', 'device_id', 'varchar(255)')->index()->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -33,6 +30,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('user_devices');
     }
 }

@@ -229,4 +229,14 @@ class Transit1cEmployee extends TransitionModel implements UserInterface
     {
         return $this->getModelAttribute('realDepartment.department.id_1c');
     }
+
+    public function getExecutorTasks()
+    {
+        return $this->getModelAttribute('coreUserData.initiatorTasks');
+    }
+
+    public function getInitiatorTasks()
+    {
+        return $this->getModelAttribute('coreUserData.initiatorTasks');
+    }
 }

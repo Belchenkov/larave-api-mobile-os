@@ -4,13 +4,13 @@
 namespace App\Services\NotificationChannels;
 
 
-use App\Models\User;
+use App\Models\UserDevice;
 use LaravelFCM\Facades\FCM;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 
-class FCMService
+class SendNotificationService
 {
     /**
      * @param null $title
@@ -40,7 +40,7 @@ class FCMService
         if ($token) {
             $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
         } else {
-            $tokens = User::pluck('id_device')->toArray();
+            $tokens = UserDevice::pluck('device_id')->toArray();
             $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
         }
     }

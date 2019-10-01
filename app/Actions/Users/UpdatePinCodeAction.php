@@ -39,9 +39,7 @@ class UpdatePinCodeAction extends BaseAction
                 'pin_code' => trim($pin_code),
                 'created_at' => $created_at,
             ]
-        );
-
-        $user->pinCode->touch();
+        )->touch();
 
         $this->setActionResult(true);
 
