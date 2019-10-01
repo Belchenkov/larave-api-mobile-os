@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Services\NotificationChannels;
+namespace App\Services\Firebase;
 
 
 use App\Models\UserDevice;
@@ -10,25 +10,23 @@ use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 
-class SendNotificationService
+class FirebaseSender
 {
     /**
      * @param null $title
      * @param null $body
      * @param null $channelId
      * @param null $data
-     * @param null $token
+     * @param array $tokens
      * @throws \LaravelFCM\Message\Exceptions\InvalidOptionsException
      */
-    public function send($title = null, $body = null, $channelId = null, $data = null, $token = null)
+    public function send($title = null, $body = null, $channelId = null, $data = null, $tokens = [])
     {
         $optionBuilder = new OptionsBuilder();
-        $optionBuilder->setTimeToLive(60*20);
+        $optionBuilder->setTimeToLive(60 * 20);
 
         $notificationBuilder = new PayloadNotificationBuilder($title);
-        $notificationBuilder
-            ->setBody($body)
-            ->setChannelId($channelId);
+        $notificationBuilder->setBody($body)->setChannelId($channelId);
 
         $dataBuilder = new PayloadDataBuilder();
         $dataBuilder->addData(['a_data' => $data]);
@@ -37,11 +35,6 @@ class SendNotificationService
         $notification = $notificationBuilder->build();
         $data = $dataBuilder->build();
 
-        if ($token) {
-            $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
-        } else {
-            $tokens = UserDevice::pluck('device_id')->toArray();
-            $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
-        }
+        $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
     }
 }

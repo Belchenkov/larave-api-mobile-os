@@ -13,6 +13,7 @@ use App\Models\Transit\_1C\Transit1cEmployeeStatus;
 use App\Models\Transit\_1C\Transit1cPhPerson;
 use App\Models\Transit\_1C\Transit1cScheduleEmployee;
 use App\Models\Transit\CoreUserData;
+use App\Models\Transit\DoTask;
 use App\Models\Transit\TransitSkudEvent;
 use App\Models\Transit\TransitSprOffice;
 use App\Services\Auth\JwtAuthenticatable;
@@ -37,7 +38,7 @@ class User extends Authenticatable implements UserInterface
      * @var array
      */
     protected $fillable = [
-        'ad_login', 'tab_no', 'id_person', 'id_device',
+        'ad_login', 'tab_no', 'id_person',
     ];
 
     /**
@@ -157,6 +158,24 @@ class User extends Authenticatable implements UserInterface
         return $this->hasMany(Transit1cDepartment::class, 'tab_no_chief', 'tab_no');
     }
 
+    /**
+     * Get Executors Tasks Data from do_tasks (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function approvalExecutorTasks() : HasMany
+    {
+        return $this->hasMany(DoTask::class, 'executor_employee', 'ad_login');
+    }
+
+    /**
+     * Get Initiator Tasks Data from do_tasks (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function approvalInitiatorTasks() : HasMany
+    {
+        return $this->hasMany(DoTask::class, 'employee', 'ad_login');
+    }
+
     public function getTabNo()
     {
         return $this->tab_no;
@@ -165,11 +184,6 @@ class User extends Authenticatable implements UserInterface
     public function getPhPerson()
     {
         return $this->id_person;
-    }
-
-    public function getDevice()
-    {
-        return $this->id_device;
     }
 
     public function getAdLogin()

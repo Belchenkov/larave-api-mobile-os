@@ -2,26 +2,30 @@
 
 namespace App\Notifications\Push;
 
-use App\Services\NotificationChannels\SendNotificationService;
-use App\Services\NotificationChannels\FirebaseChannel;
+use App\Services\NotificationChannels\Firebase\FirebaseMessage;
+use App\Services\NotificationChannels\Firebase\FirebaseChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendPush extends Notification implements ShouldQueue
+class   SendPush extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    private $title;
     private $message;
+    private $data;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($title, $message, $data)
     {
+        $this->title = $title;
         $this->message = $message;
+        $this->data = $data;
     }
 
     /**
@@ -36,19 +40,17 @@ class SendPush extends Notification implements ShouldQueue
     }
 
     /**
-     * Get the mail representation of the notification.
-     *
-     * @param mixed $notifiable
-     * @param SendNotificationService $service
-     * @return void
+     * @param $notifiable
+     * @return FirebaseMessage
      */
     public function toFirebase($notifiable)
     {
-       (new SendNotificationService)->send(
-            'Test Title',
-            'Test Body',
+        return new FirebaseMessage(
+            $this->title,
+            $this->message,
             'First Channel',
-            'Test Data'
-       );
+            $this->data,
+            $notifiable->devices->pluck('device_id')
+        );
     }
 }
