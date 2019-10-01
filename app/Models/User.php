@@ -51,11 +51,11 @@ class User extends Authenticatable implements UserInterface
 
     /**
      * Get User JWT Token
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return HasMany
      */
-    public function jwtToken() : HasOne
+    public function jwtToken() : HasMany
     {
-        return $this->hasOne(UserJwtToken::class, 'user_id');
+        return $this->hasMany(UserJwtToken::class, 'user_id');
     }
 
     /**

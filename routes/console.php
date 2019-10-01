@@ -22,6 +22,6 @@ Artisan::command('inspire', function () {
 
 Artisan::command('push', function () {
     $u = User::find(1);
-    $u->notify(new TestPush('Test Message'));
+    $u->notify(new TestPush('You have new document! Please visit app.'));
 })->describe('Display an inspiring quote');
 

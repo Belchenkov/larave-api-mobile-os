@@ -41,6 +41,8 @@ class UpdatePinCodeAction extends BaseAction
             ]
         );
 
+        $user->pinCode->touch();
+
         $this->setActionResult(true);
 
         return $this;

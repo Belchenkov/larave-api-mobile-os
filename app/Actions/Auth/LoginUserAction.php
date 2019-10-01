@@ -9,6 +9,7 @@ namespace App\Actions\Auth;
 use App\Actions\BaseAction;
 use App\Exceptions\Api\ApiException;
 use App\Models\User;
+use Carbon\Carbon;
 
 class LoginUserAction extends BaseAction
 {
@@ -20,16 +21,16 @@ class LoginUserAction extends BaseAction
     public function execute($login, $pin_code, $id_device)
     {
         if ($user = User::where('ad_login', $login)->first()) {
-            // ToDo add lifetime
-            if ($user->pinCode && $user->pinCode->pin_code == $pin_code) {
+            if ($user->pinCode && $user->pinCode->pin_code == $pin_code
+                && Carbon::now()->diffInSeconds(Carbon::parse($user->pinCode->updated_at)) < config('workflow.pin.life_time')) {
                 $this->user = $user;
                 $this->user->id_device = $id_device;
                 $this->user->save();
-                $this->user->generateJwt();
+                $jwtToken = $this->user->generateJwt();
 
-                if ($user) $user->pinCode->delete();
+                $user->pinCode->delete();
 
-                $this->setActionResult($this->user->jwtToken);
+                $this->setActionResult($jwtToken);
             } else
                 throw new ApiException(422, 'Invalid pin code');
         } else {

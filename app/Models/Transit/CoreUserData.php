@@ -143,4 +143,22 @@ class CoreUserData extends TransitionModel
     {
         return $this->belongsTo(User::class, 'tab_no', 'tab_no');
     }
+
+    /**
+     * Get Executors Tasks Data from do_tasks (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function executorTasks() : HasMany
+    {
+        return $this->hasMany(DoTask::class, 'executor_employee', 'SamAccountName');
+    }
+
+    /**
+     * Get Initiator Tasks Data from do_tasks (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function initiatorTasks() : HasMany
+    {
+        return $this->hasMany(DoTask::class, 'employee', 'SamAccountName');
+    }
 }

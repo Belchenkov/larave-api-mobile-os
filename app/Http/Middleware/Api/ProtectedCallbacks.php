@@ -21,7 +21,7 @@ class ProtectedCallbacks
      */
     public function handle($request, Closure $next)
     {
-        if ($request->header('x-callback-key') == config('workflow.callback_key')) {
+        if (!!$request->header('x-callback-key') && $request->header('x-callback-key') == config('workflow.callback_key')) {
             return $next($request);
         }
 

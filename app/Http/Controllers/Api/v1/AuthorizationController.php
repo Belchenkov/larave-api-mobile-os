@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Actions\Auth\ClearUserSessionAction;
 use App\Actions\Auth\LoginUserAction;
 use App\Actions\Auth\LogoutUserAction;
 use App\Actions\Auth\RefreshUserAction;
@@ -11,7 +12,9 @@ use App\Http\Requests\Api\v1\Auth\RefreshRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\v1\User\User;
 use App\Http\Resources\Api\v1\User\UserJwtToken;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class AuthorizationController extends Controller
 {
@@ -49,6 +52,16 @@ class AuthorizationController extends Controller
      * Logout User
      */
     public function logout(LogoutRequest $request, LogoutUserAction $action)
+    {
+        return $action->execute(Auth::user())->apiSuccess();
+    }
+
+    /**
+     * @param Request $request
+     * @param ClearUserSessionAction $action
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sessionClear(Request $request, ClearUserSessionAction $action)
     {
         return $action->execute(Auth::user())->apiSuccess();
     }

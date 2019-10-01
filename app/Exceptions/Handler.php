@@ -59,6 +59,10 @@ class Handler extends ExceptionHandler
             throw new ApiValidationException($exception->validator->errors()->messages());
         }
 
+        if (!config('app.debug')) {
+            throw new ApiException(500, 'Server error');
+        }
+
         return parent::render($request, $exception);
     }
 }
