@@ -56,13 +56,12 @@ class ApprovalTaskRepository
     public function updateUserTask(DoTask $task, $status, $comment) : bool
     {
         if ($task->task_status != DoTask::TASK_CAN_EDIT)
-            return false; // ToDo - maybe exception
+            return false;
 
         $task->update([
             'task_comment_execution' => $comment,
             'task_status' => $status,
             'dt' => Carbon::now()
-            // ToDo - name_source / date_source / dt / accept_date ????
         ]);
 
         return true;

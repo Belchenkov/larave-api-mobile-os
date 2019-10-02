@@ -7,7 +7,12 @@
 namespace App\Actions\ApprovalTask;
 
 
-class NewTaskAction
-{
+use App\Actions\BaseAction;
 
+class NewTaskAction extends BaseAction
+{
+    public function execute()
+    {
+
+    }
 }

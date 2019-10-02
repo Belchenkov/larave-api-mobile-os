@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Actions\ApprovalTask\AcceptTaskAction;
+use App\Actions\ApprovalTask\UpdateTaskAction;
 use App\Actions\ApprovalTask\CancelTaskAction;
 use App\Exceptions\Api\ApiException;
 use App\Http\Resources\Api\v1\ApprovalTask\ApprovalTask;
@@ -41,12 +41,12 @@ class ApprovalTaskController extends Controller
         return new ApprovalTask($task);
     }
 
-    public function applyTask(Request $request, $task_id, AcceptTaskAction $action)
+    public function applyTask(Request $request, $task_id, UpdateTaskAction $action)
     {
         //
     }
 
-    public function cancelTask(Request $request, $task_id, CancelTaskAction $action)
+    public function cancelTask(Request $request, $task_id, UpdateTaskAction $action)
     {
         //
     }
