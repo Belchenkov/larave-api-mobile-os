@@ -12,5 +12,6 @@ return [
     ],
 
     'avatars_path' => env('APP_AVATARS_PATH'),
+    'time_update_new_approval_tasks' => 5,
     'callback_key' => env('APP_CALLBACK_KEY')
 ];

@@ -62,7 +62,7 @@ class DoTask extends  TransitionModel
      */
     public function executor() : BelongsTo
     {
-        return $this->belongsTo(CoreUserData::class, 'SamAccountName', 'executor_employee');
+        return $this->belongsTo(CoreUserData::class, 'executor_employee','SamAccountName');
     }
 
     /**
@@ -71,6 +71,6 @@ class DoTask extends  TransitionModel
      */
     public function initiator() : BelongsTo
     {
-        return $this->belongsTo(CoreUserData::class, 'SamAccountName', 'employee');
+        return $this->belongsTo(CoreUserData::class, 'employee', 'SamAccountName');
     }
 }

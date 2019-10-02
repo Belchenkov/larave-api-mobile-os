@@ -25,3 +25,11 @@ Artisan::command('push', function () {
 })->describe('Send test push message');
 
 
+Artisan::command('jobs:init', function () {
+    \App\Jobs\SendNewTaskPush::dispatch();
+})->describe('Send push of new task');
+
+Artisan::command('jobs:clear', function () {
+    DB::table('jobs')->delete();
+})->describe('Clear jobs db table');
+

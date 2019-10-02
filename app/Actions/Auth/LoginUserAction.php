@@ -8,8 +8,8 @@ namespace App\Actions\Auth;
 
 use App\Actions\BaseAction;
 use App\Exceptions\Api\ApiException;
+use App\Models\NewTaskPush;
 use App\Models\User;
-use App\Models\UserDevice;
 use Carbon\Carbon;
 
 class LoginUserAction extends BaseAction
