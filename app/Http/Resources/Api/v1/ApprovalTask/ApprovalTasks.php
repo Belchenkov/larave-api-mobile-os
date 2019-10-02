@@ -26,6 +26,7 @@ class ApprovalTasks extends JsonApiResourse
             'type_descriptions' => $this->type_descriptions,
             'initiator' => $color ? [
                 'ad_login' => $this->employee,
+                'tab_no' => $this->initiator->tab_no,
                 'full_name' => $this->initiator->employee->getFullName(),
                 'avatar' => [
                     'name' => $this->initiator->employee->getShortName(),

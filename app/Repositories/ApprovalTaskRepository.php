@@ -25,7 +25,7 @@ class ApprovalTaskRepository
         $tasks->with(['initiator.employee']);
 
         // ToDo - only valid columns ?
-        return $tasks->orderBy('Date', 'DESC')->get();
+        return $tasks->orderBy('Date', 'DESC');
     }
 
     public function getTask($task_id) : ?DoTask
