@@ -11,9 +11,9 @@
 |
 */
 
-
+use App\Http\Resources\Api\v1\ApprovalTask\ApprovalTasks;
 use App\Models\User;
-use App\Repositories\User\UserRepository;
+use App\Repositories\ApprovalTaskRepository;
 
 Route::get('/', function () {
     return response()->json([

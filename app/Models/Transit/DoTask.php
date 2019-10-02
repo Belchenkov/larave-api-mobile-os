@@ -8,7 +8,7 @@ namespace App\Models\Transit;
 
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DoTask extends  TransitionModel
 {
@@ -22,7 +22,8 @@ class DoTask extends  TransitionModel
     protected $fillable = [
         'task_status',
         'is_active',
-        'task_comment_execution'
+        'task_comment_execution',
+        'dt'
     ];
 
     protected $guarded = [
@@ -56,13 +57,19 @@ class DoTask extends  TransitionModel
         'Ref_1c'
     ];
 
+    const TASK_CAN_EDIT = 0;
+    const TASK_ACCEPT = 1;
+    const TASK_CANCEL = 2;
+    const TASK_APPLY = 4;
+    const TASK_APPLY_WITH_COMMENT = 3;
+
     /**
      * Get Executor Data from ITS.Core_UserData (Transit DB)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function executor() : BelongsTo
     {
-        return $this->belongsTo(CoreUserData::class, 'executor_employee','SamAccountName');
+        return $this->belongsTo(CoreUserData::class, 'executor_employee', 'SamAccountName');
     }
 
     /**
@@ -72,5 +79,10 @@ class DoTask extends  TransitionModel
     public function initiator() : BelongsTo
     {
         return $this->belongsTo(CoreUserData::class, 'employee', 'SamAccountName');
+    }
+
+    public function relatedTasks() : HasMany
+    {
+        return $this->hasMany(DoTask::class, 'id_process_1C_parent', 'id_process_1C_parent');
     }
 }
