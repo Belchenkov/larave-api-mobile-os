@@ -30,7 +30,7 @@ class UserCatalog extends JsonApiResourse
             'tab_no' => $this->getTabNo(),
             'id_phperson' => $this->id_phperson,
             'department_guid' => $this->department_guid,
-            'department_guid_real' => $this->realDepartment->department->id_1c,
+            'department_guid_real' => $this->realDepartment ? $this->realDepartment->department->id_1c : null,
         ];
     }
 }
