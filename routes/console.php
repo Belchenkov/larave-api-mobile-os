@@ -27,7 +27,7 @@ Artisan::command('push', function () {
 
 
 Artisan::command('jobs:init', function () {
-    \App\Jobs\SendNewTaskPush::dispatch();
+    App\Jobs\SendNewTaskPush::dispatch();
 })->describe('Send push of new task');
 
 Artisan::command('jobs:clear', function () {

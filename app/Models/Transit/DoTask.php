@@ -136,14 +136,14 @@ class DoTask extends  TransitionModel
             'project' => (string) $xml['Проект'],
             'article' => (string) $xml['СтатьяДДС'],
             'files' => collect($xml->xpath('Файлы'))->map(function ($item) {
-                $elem = $item->xpath('ДанныеФайла');
-                if (!isset($elem[0])) return false;
+                                $elem = $item->xpath('ДанныеФайла');
+                                if (!isset($elem[0])) return false;
 
-                return collect([
-                    'file_id' => (string) $elem[0]['Ссылка'],
-                    'file_name' => (string) $elem[0]['Название']
-                ]);
-            })
+                                return collect([
+                                    'file_id' => (string) $elem[0]['Ссылка'],
+                                    'file_name' => (string) $elem[0]['Название']
+                                ]);
+                            })
         ]);
     }
 
