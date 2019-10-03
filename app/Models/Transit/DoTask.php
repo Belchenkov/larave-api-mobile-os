@@ -9,11 +9,14 @@ namespace App\Models\Transit;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 class DoTask extends  TransitionModel
 {
     protected $table = 'do_tasks';
 
+    public $timestamps = false;
+    protected $primaryKey = 'id_task_1C';
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +26,9 @@ class DoTask extends  TransitionModel
         'task_status',
         'is_active',
         'task_comment_execution',
+        'fact_date_finish',
+        'Name_source',
+        'dt_update_source',
         'dt'
     ];
 
@@ -84,5 +90,33 @@ class DoTask extends  TransitionModel
     public function relatedTasks() : HasMany
     {
         return $this->hasMany(DoTask::class, 'id_process_1C_parent', 'id_process_1C_parent');
+    }
+
+    public function getDocInfo() : ?Collection
+    {
+        if (!$this->doc_info) return null;
+
+        $xml = simplexml_load_string($this->doc_info);
+
+        return collect([
+            'theme' => (string) $xml['Тема'],
+            'organization' => (string) $xml['Организация'],
+            'partner' => (string) $xml['Контрагент'],
+            'doc_no' => (string) $xml['Номер'],
+            'date' => (string) $xml['Дата'],
+            'cost' => (string) $xml['Сумма'],
+            'executor' => (string) $xml['Ответственный'],
+            'project' => (string) $xml['Проект'],
+            'article' => (string) $xml['СтатьяДДС'],
+            'files' => collect($xml->xpath('Файлы'))->map(function ($item) {
+                $elem = $item->xpath('ДанныеФайла');
+                if (!isset($elem[0])) return false;
+
+                return collect([
+                    'file_id' => (string) $elem[0]['Ссылка'],
+                    'file_name' => (string) $elem[0]['Название']
+                ]);
+            })
+        ]);
     }
 }
