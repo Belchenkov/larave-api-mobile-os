@@ -27,7 +27,7 @@ class FirebaseChannel
             $message->getMessage(),
             $message->getChannel(),
             $message->getData(),
-            $message->getToken(),
+            $message->getToken()
         );
     }
 

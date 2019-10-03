@@ -139,9 +139,18 @@ class CoreUserData extends TransitionModel
      * Get User Data from users (Mobile DB)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user() : BelongsTo
+    public function user() : hasOne
     {
-        return $this->belongsTo(User::class, 'tab_no', 'tab_no');
+        return $this->hasOne(User::class, 'tab_no', 'tab_no');
+    }
+
+    /**
+     * Get User Data from users (Mobile DB)
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function userByPhPerson() : hasOne
+    {
+        return $this->hasOne(User::class, 'id_person', 'id_phperson');
     }
 
     /**

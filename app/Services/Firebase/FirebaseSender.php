@@ -4,7 +4,6 @@
 namespace App\Services\Firebase;
 
 
-use App\Models\UserDevice;
 use LaravelFCM\Facades\FCM;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;

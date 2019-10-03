@@ -2,13 +2,13 @@
 
 namespace App\Notifications\Push;
 
-use App\Services\NotificationChannels\Firebase\FirebaseMessage;
-use App\Services\NotificationChannels\Firebase\FirebaseChannel;
+use App\Services\Firebase\FirebaseChannel;
+use App\Services\Firebase\FirebaseMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class   SendPush extends Notification implements ShouldQueue
+class SendPush extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -19,7 +19,9 @@ class   SendPush extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param $title
+     * @param $message
+     * @param $data
      */
     public function __construct($title, $message, $data)
     {
@@ -50,7 +52,7 @@ class   SendPush extends Notification implements ShouldQueue
             $this->message,
             'First Channel',
             $this->data,
-            $notifiable->devices->pluck('device_id')
+            $notifiable->devices->pluck('device_id')->toArray()
         );
     }
 }
