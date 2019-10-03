@@ -26,7 +26,7 @@ class LoginRequest extends FormRequest
         return [
             'login' => 'required',
             'pin_code' => 'required|size:4',
-            'id_device' => 'required'
+//            'id_device' => 'required' // ToDo - check it!
         ];
     }
 }
