@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ApprovalTaskController extends Controller
 {
-
     private $approvalTaskRepository;
 
     public function __construct()
@@ -26,11 +25,9 @@ class ApprovalTaskController extends Controller
 
     public function getTasks(Request $request)
     {
-        $u = User::find(10002);
-
         return ApprovalTasks::collection(
             $this->approvalTaskRepository->getUserTasks(
-                $u,//Auth::user(),
+                Auth::user(),
                 (bool) $request->get('archive', false)
             )->get()
         );
@@ -38,9 +35,7 @@ class ApprovalTaskController extends Controller
 
     public function getTask(Request $request, $task_id)
     {
-        $u = User::find(10002);
-
-        if (!$task = $this->approvalTaskRepository->getUserTask($u/*Auth::user() */, $task_id)) {
+        if (!$task = $this->approvalTaskRepository->getUserTask(User::find(10002), $task_id)) {
             throw new ApiException(404, 'User task not found.');
         }
 
@@ -49,9 +44,7 @@ class ApprovalTaskController extends Controller
 
     public function updateTask(UpdateTaskRequest $request, $task_id, UpdateTaskAction $action)
     {
-        $u = User::find(10002);
-
-        if (!$task = $this->approvalTaskRepository->getUserTask($u/*Auth::user() */, $task_id)) {
+        if (!$task = $this->approvalTaskRepository->getUserTask(Auth::user(), $task_id)) {
             throw new ApiException(404, 'User task not found or user not owner.');
         }
 
