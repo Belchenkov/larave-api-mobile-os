@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api\v1;
 use App\Actions\ApprovalTask\UpdateTaskAction;
 use App\Actions\ApprovalTask\CancelTaskAction;
 use App\Exceptions\Api\ApiException;
+use App\Http\Requests\Api\v1\ApprovalTask\UpdateTaskRequest;
 use App\Http\Resources\Api\v1\ApprovalTask\ApprovalTask;
 use App\Http\Resources\Api\v1\ApprovalTask\ApprovalTasks;
+use App\Models\User;
 use App\Repositories\ApprovalTaskRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -24,9 +26,11 @@ class ApprovalTaskController extends Controller
 
     public function getTasks(Request $request)
     {
+        $u = User::find(10002);
+
         return ApprovalTasks::collection(
             $this->approvalTaskRepository->getUserTasks(
-                Auth::user(),
+                $u,//Auth::user(),
                 (bool) $request->get('archive', false)
             )->get()
         );
@@ -34,21 +38,27 @@ class ApprovalTaskController extends Controller
 
     public function getTask(Request $request, $task_id)
     {
-        if (!$task = $this->approvalTaskRepository->getUserTask(Auth::user(), $task_id)) {
+        $u = User::find(10002);
+
+        if (!$task = $this->approvalTaskRepository->getUserTask($u/*Auth::user() */, $task_id)) {
             throw new ApiException(404, 'User task not found.');
         }
 
         return new ApprovalTask($task);
     }
 
-    public function applyTask(Request $request, $task_id, UpdateTaskAction $action)
+    public function updateTask(UpdateTaskRequest $request, $task_id, UpdateTaskAction $action)
     {
-        //
-    }
+        $u = User::find(10002);
 
-    public function cancelTask(Request $request, $task_id, UpdateTaskAction $action)
-    {
-        //
+        if (!$task = $this->approvalTaskRepository->getUserTask($u/*Auth::user() */, $task_id)) {
+            throw new ApiException(404, 'User task not found or user not owner.');
+        }
+
+        return $action->execute(
+            $task,
+            $request->get('status'), $request->get('comment')
+        )->apiSuccess();
     }
 
 }

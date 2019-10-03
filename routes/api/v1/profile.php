@@ -33,5 +33,6 @@ Route::group(
     ], function () {
     Route::get('/', 'Api\v1\ApprovalTaskController@getTasks')->name('getTasks');
     Route::get('/{task_id}', 'Api\v1\ApprovalTaskController@getTask')->name('getTask');
+    Route::post('/{task_id}', 'Api\v1\ApprovalTaskController@updateTask')->name('updateTask');
 }
 );

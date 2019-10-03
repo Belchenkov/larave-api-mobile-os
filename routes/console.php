@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Notifications\Push\SendPush;
+use App\Services\ApprovalTask\DocumentStructure;
 use Illuminate\Foundation\Inspiring;
 
 /*
@@ -32,4 +33,5 @@ Artisan::command('jobs:init', function () {
 Artisan::command('jobs:clear', function () {
     DB::table('jobs')->delete();
 })->describe('Clear jobs db table');
+
 

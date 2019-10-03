@@ -24,6 +24,7 @@ class ApprovalTask extends JsonApiResourse
             'name' => $this->name_task_1C,
             'type' => $this->type,
             'type_descriptions' => $this->type_descriptions,
+            'type_doc' => $this->type_doc,
             'initiator' => $color ? [
                 'ad_login' => $this->employee,
                 'tab_no' => $this->initiator->tab_no,
@@ -43,6 +44,7 @@ class ApprovalTask extends JsonApiResourse
 
                 ];
             }),
+            'doc_info' => $this->getDocInfo(),
             'created_at' => $this->Date,
         ];
     }

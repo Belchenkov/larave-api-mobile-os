@@ -61,7 +61,9 @@ class ApprovalTaskRepository
         $task->update([
             'task_comment_execution' => $comment,
             'task_status' => $status,
-            'dt' => Carbon::now()
+            'dt_update_source' => Carbon::now(),
+            'fact_date_finish' => Carbon::now(),
+            'Name_source' => 'mobapp'
         ]);
 
         return true;

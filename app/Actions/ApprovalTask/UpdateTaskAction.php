@@ -28,6 +28,10 @@ class UpdateTaskAction extends BaseAction
         if ($task->task_status != DoTask::TASK_CAN_EDIT)
             throw new ApiException(422, 'User task cant be updated');
 
+        // ToDo - validate by task type!!!! IMPORTANT type_descriptions
+        if (!in_array($status, [DoTask::TASK_ACCEPT, DoTask::TASK_CANCEL, DoTask::TASK_APPLY, DoTask::TASK_APPLY_WITH_COMMENT]))
+            throw new ApiException(422, 'Invalid task status');
+
         $this->approvalTaskRepository->updateUserTask($task, $status, $comment);
 
         // ToDo - send push or other?

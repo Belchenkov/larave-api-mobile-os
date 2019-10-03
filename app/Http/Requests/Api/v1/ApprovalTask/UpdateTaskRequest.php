@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\v1\Auth;
+namespace App\Http\Requests\Api\v1\ApprovalTask;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class UpdateTaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'login' => 'required',
-            'pin_code' => 'required|size:4',
-//            'id_device' => 'required' // ToDo - check it!
+            'comment' => 'required',
+            'status' => 'required|in:1,2,3,4'
         ];
     }
 }

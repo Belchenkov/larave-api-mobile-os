@@ -58,8 +58,8 @@ class UserRepository
             'id_1CParent'
         ])
             ->where('isdelete', 0)
-            ->where('active', 1)
-            ->where('base', 'ЗУП Основа')
+            //->where('active', 1) // ToDo - fix it!?
+            ->whereIn('base', ['ЗУП Основа', 'DOC_FLOW'])
             ->with(['chief:id_phperson,id_1c,position,tab_no', 'chief.phPerson:id,full_name', 'realDepartment'])
             ->get();
 
