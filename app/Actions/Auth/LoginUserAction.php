@@ -8,7 +8,6 @@ namespace App\Actions\Auth;
 
 use App\Actions\BaseAction;
 use App\Exceptions\Api\ApiException;
-use App\Models\NewTaskPush;
 use App\Models\User;
 use Carbon\Carbon;
 

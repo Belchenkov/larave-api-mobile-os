@@ -186,6 +186,20 @@ Authorization: Bearer <accessToken>
 
 + 200 OK
 
+#### POST /api/v1/auth/session/clear
+
+Метод для удаления всех сессий кроме текущей.
+
+<b>HEADERS</b>
+
+```
+Authorization: Bearer <accessToken>
+```
+
+<b>RESPONSE</b>
+
++ 200 OK
+
 
 #### GET /api/v1/auth/me
 
