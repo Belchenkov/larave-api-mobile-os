@@ -35,7 +35,7 @@ class ApprovalTaskController extends Controller
 
     public function getTask(Request $request, $task_id)
     {
-        if (!$task = $this->approvalTaskRepository->getUserTask(User::find(10002), $task_id)) {
+        if (!$task = $this->approvalTaskRepository->getUserTask(Auth::user(), $task_id)) {
             throw new ApiException(404, 'User task not found.');
         }
 
