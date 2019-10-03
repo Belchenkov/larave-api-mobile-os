@@ -69,6 +69,33 @@ class DoTask extends  TransitionModel
     const TASK_APPLY = 4;
     const TASK_APPLY_WITH_COMMENT = 3;
 
+    private $statusStruct = [
+        [
+            'name' => 'Ознакомиться',
+            'actions' => [self::TASK_APPLY, self::TASK_CANCEL]
+        ],
+        [
+            'name' => 'Исполнить',
+            'actions' => [self::TASK_APPLY]
+        ],
+        [
+            'name' => 'Согласовать',
+            'actions' => [self::TASK_APPLY]
+        ],
+        [
+            'name' => 'Проверить исполнение',
+            'actions' => [self::TASK_APPLY]
+        ],
+        [
+            'name' => 'Утвердить',
+            'actions' => [self::TASK_APPLY]
+        ],
+        [
+            'name' => 'Рассмотреть вопрос',
+            'actions' => [self::TASK_APPLY]
+        ],
+    ];
+
     /**
      * Get Executor Data from ITS.Core_UserData (Transit DB)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -118,5 +145,15 @@ class DoTask extends  TransitionModel
                 ]);
             })
         ]);
+    }
+
+    public function getRelevateActions() {
+        foreach ($this->statusStruct as $status) {
+            if (trim($this->type_descriptions) == $status['name']) {
+                return $status['actions'];
+            }
+        }
+
+        return [self::TASK_APPLY, self::TASK_CANCEL];
     }
 }
