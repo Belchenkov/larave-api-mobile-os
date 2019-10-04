@@ -40,9 +40,23 @@ class ApprovalTask extends JsonApiResourse
             'executor' => $this->executor_employee,
             'status' => $this->task_status,
             'actions' => $this->getRelevantActions('buttons'),
-            'related_tasks' => $this->relatedTasks->map(function() {
-                return [
+            'related_tasks' => $this->relatedTasks->map(function($item) {
+                $color = false;
+                if ($item->executor)
+                    $color = $item->executor->employee->getAvatarColor();
 
+                return [
+                    'status' => $item->task_status,
+                    'comment' => $item->task_comment_execution,
+                    'user' => $color ? [
+                        'full_name' => $item->executor->employee->getFullName(),
+                        'avatar' => [
+                            'name' => $item->executor->employee->getShortName(),
+                            'background' => $color[0],
+                            'color' => $color[1],
+                            'image' => $item->executor->employee->getUserAvatar(true),
+                        ],
+                    ] : null
                 ];
             }),
             'doc_info' => $this->getDocInfo(),
