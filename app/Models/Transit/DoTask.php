@@ -79,27 +79,71 @@ class DoTask extends  TransitionModel
     private $statusStruct = [
         [
             'name' => 'Ознакомиться',
-            'actions' => [self::TASK_APPLY, self::TASK_CANCEL]
+            'actions' => [self::TASK_ACCEPT],
+            'buttons' => [
+                [
+                    'caption' => 'Ознакомлен',
+                    'action' => self::TASK_ACCEPT
+                ],
+            ]
         ],
         [
             'name' => 'Исполнить',
-            'actions' => [self::TASK_APPLY]
+            'actions' => [self::TASK_ACCEPT],
+            'buttons' => [
+                [
+                    'caption' => 'Выполнено',
+                    'action' => self::TASK_ACCEPT
+                ],
+            ]
         ],
         [
             'name' => 'Согласовать',
-            'actions' => [self::TASK_APPLY]
+            'actions' => [self::TASK_CANCEL, self::TASK_APPLY],
+            'buttons' => [
+                [
+                    'caption' => 'Согласовать',
+                    'action' => self::TASK_APPLY
+                ],
+                [
+                    'caption' => 'Отклонить',
+                    'action' => self::TASK_CANCEL
+                ],
+            ]
         ],
         [
             'name' => 'Проверить исполнение',
-            'actions' => [self::TASK_APPLY]
+            'actions' => [self::TASK_ACCEPT],
+            'buttons' => [
+                [
+                    'caption' => 'Выполнено',
+                    'action' => self::TASK_ACCEPT
+                ],
+            ]
         ],
         [
             'name' => 'Утвердить',
-            'actions' => [self::TASK_APPLY]
+            'actions' => [self::TASK_CANCEL, self::TASK_APPLY],
+            'buttons' => [
+                [
+                    'caption' => 'Утверждено',
+                    'action' => self::TASK_APPLY
+                ],
+                [
+                    'caption' => 'Не утверждено',
+                    'action' => self::TASK_CANCEL
+                ],
+            ]
         ],
         [
             'name' => 'Рассмотреть вопрос',
-            'actions' => [self::TASK_APPLY]
+            'actions' => [self::TASK_APPLY],
+            'buttons' => [
+                [
+                    'caption' => 'Выполнено',
+                    'action' => self::TASK_ACCEPT
+                ],
+            ]
         ],
     ];
 
