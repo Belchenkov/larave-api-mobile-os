@@ -214,20 +214,10 @@ class DoTask extends  TransitionModel
         ]);
     }
 
-    public function getRelevantActions() {
+    public function getRelevantActions($key = 'actions') {
         foreach ($this->statusStruct as $status) {
             if (trim($this->type_descriptions) == $status['name']) {
-                return $status['actions'];
-            }
-        }
-
-        return [self::TASK_APPLY, self::TASK_CANCEL];
-    }
-
-    public function getRelevantButtons() {
-        foreach ($this->statusStruct as $status) {
-            if (trim($this->type_descriptions) == $status['name']) {
-                return $status['buttons'];
+                return $status[$key];
             }
         }
 

@@ -39,7 +39,7 @@ class ApprovalTask extends JsonApiResourse
             'comment' => $this->task_comment_execution,
             'executor' => $this->executor_employee,
             'status' => $this->task_status,
-            'actions' => $this->getRelevantButtons(),
+            'actions' => $this->getRelevantActions('buttons'),
             'related_tasks' => $this->relatedTasks->map(function() {
                 return [
 
