@@ -3,10 +3,6 @@
 namespace App\Jobs;
 
 use App\Actions\ApprovalTask\NewTaskAction;
-use App\Models\DoTaskHandle;
-use App\Models\Transit\DoTask;
-use App\Models\User;
-use App\Notifications\Push\SendPush;
 use App\Repositories\ApprovalTaskRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;

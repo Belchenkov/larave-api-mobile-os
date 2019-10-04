@@ -27,6 +27,6 @@ class CreateNewTaskPushesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('new_task_pushes');
+        Schema::dropIfExists('do_task_handle');
     }
 }
