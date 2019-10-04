@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @package App\Models
  * User JWT Tokens
  */
-class UserJwtToken extends Model
+class UserJwtToken extends LocalDBModel
 {
     use MillesecondFixTrait;
 

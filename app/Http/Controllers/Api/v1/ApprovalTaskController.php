@@ -8,7 +8,6 @@ use App\Exceptions\Api\ApiException;
 use App\Http\Requests\Api\v1\ApprovalTask\UpdateTaskRequest;
 use App\Http\Resources\Api\v1\ApprovalTask\ApprovalTask;
 use App\Http\Resources\Api\v1\ApprovalTask\ApprovalTasks;
-use App\Models\User;
 use App\Repositories\ApprovalTaskRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

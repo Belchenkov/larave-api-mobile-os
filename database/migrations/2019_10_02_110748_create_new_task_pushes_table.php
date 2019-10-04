@@ -13,10 +13,9 @@ class CreateNewTaskPushesTable extends Migration
      */
     public function up()
     {
-        Schema::create('new_task_pushes', function (Blueprint $table) {
+        Schema::create('do_task_handle', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->passthru('varchar', 'task_id', 'varchar(50)')->index();
-            $table->passthru('int', 'status');
             $table->timestamps();
         });
     }

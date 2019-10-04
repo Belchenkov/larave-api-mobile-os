@@ -1,7 +1,9 @@
 <?php
 
+use App\Actions\ApprovalTask\NewTaskAction;
 use App\Models\User;
 use App\Notifications\Push\SendPush;
+use App\Repositories\ApprovalTaskRepository;
 use App\Services\ApprovalTask\DocumentStructure;
 use Illuminate\Foundation\Inspiring;
 
@@ -25,9 +27,8 @@ Artisan::command('push', function () {
     $u->notify(new SendPush('New task', 'You have new document! Please visit app.', 'Test Data'));
 })->describe('Send test push message');
 
-
 Artisan::command('jobs:init', function () {
-    App\Jobs\SendNewTaskPush::dispatch();
+    App\Jobs\HandleNewTask::dispatch();
 })->describe('Send push of new task');
 
 Artisan::command('jobs:clear', function () {

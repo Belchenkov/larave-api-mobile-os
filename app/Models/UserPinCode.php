@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @package App\Models
  * Users Tokens(PIN_CODES)
  */
-class UserPinCode extends Model
+class UserPinCode extends LocalDBModel
 {
     use MillesecondFixTrait;
 

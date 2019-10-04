@@ -31,6 +31,7 @@ class User extends Authenticatable implements UserInterface
     use Notifiable, JwtAuthenticatable, UserTrait, MillesecondFixTrait, AttributeHelperTrait;
 
     protected $table = 'users';
+    protected $connection = 'sqlsrv';
 
     /**
      * The attributes that are mass assignable.

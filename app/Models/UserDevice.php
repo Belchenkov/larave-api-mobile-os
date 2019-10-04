@@ -9,7 +9,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UserDevice extends Model
+class UserDevice extends LocalDBModel
 {
     protected $table = 'user_devices';
 

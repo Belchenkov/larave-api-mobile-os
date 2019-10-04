@@ -7,6 +7,8 @@
 namespace App\Repositories;
 
 
+use App\Actions\ApprovalTask\NewTaskAction;
+use App\Models\DoTaskHandle;
 use App\Models\Transit\DoTask;
 use App\Models\User;
 use Carbon\Carbon;
@@ -58,7 +60,7 @@ class ApprovalTaskRepository
         if ($task->task_status != DoTask::TASK_CAN_EDIT)
             return false;
 
-        $task->update([
+        $task->setPrimaryKey()->update([
             'task_comment_execution' => $comment,
             'task_status' => $status,
             'dt_update_source' => Carbon::now(),
@@ -67,6 +69,20 @@ class ApprovalTaskRepository
         ]);
 
         return true;
+    }
+
+    public function handleNewTasks()
+    {
+        $tasks = collect();
+        $unUsedTasks = DoTask::where('task_status', '=', 0)->with(['handleTask', 'user'])->get();
+
+        foreach ($unUsedTasks as $task) {
+            if (!$task->handleTask && $task->user) {
+                $tasks->push($task);
+            }
+        }
+
+        return $tasks;
     }
 
 }

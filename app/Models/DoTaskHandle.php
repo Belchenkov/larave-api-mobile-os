@@ -3,12 +3,17 @@
 namespace App\Models;
 
 use App\Models\Transit\DoTask;
+use App\Services\MsSQL\OriginalColumns;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class NewTaskPush extends Model
+class DoTaskHandle extends LocalDBModel
 {
-    protected $table = 'new_task_pushes';
+    use OriginalColumns;
+
+    private $originalColumns = ['task_id'];
+    protected $table = 'do_task_handle';
 
     /**
      * The attributes that are mass assignable.
@@ -16,15 +21,15 @@ class NewTaskPush extends Model
      * @var array
      */
     protected $fillable = [
-        'task_id', 'status'
+        'task_id'
     ];
 
     /**
      * Get Executors Tasks Data from do_tasks (Transit DB)
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function doTask() : HasOne
+    public function doTask() : BelongsTo
     {
-        return $this->hasOne(DoTask::class, 'id_task_1C', 'task_id');
+        return $this->belongsTo(DoTask::class, 'task_id', 'id_task_1C');
     }
 }

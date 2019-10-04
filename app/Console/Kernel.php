@@ -2,7 +2,7 @@
 
 namespace App\Console;
 
-use App\Jobs\SendNewTaskPush;
+use App\Jobs\HandleNewTask;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 

@@ -7,16 +7,23 @@
 namespace App\Models\Transit;
 
 
+use App\Models\DoTaskHandle;
+use App\Models\User;
+use App\Services\MsSQL\OriginalColumns;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
 
 class DoTask extends  TransitionModel
 {
+    use OriginalColumns;
+
+    private $originalColumns = ['id_task_1C'];
     protected $table = 'do_tasks';
 
     public $timestamps = false;
-    protected $primaryKey = 'id_task_1C';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -117,6 +124,22 @@ class DoTask extends  TransitionModel
     public function relatedTasks() : HasMany
     {
         return $this->hasMany(DoTask::class, 'id_process_1C_parent', 'id_process_1C_parent');
+    }
+
+    public function handleTask() : HasOne
+    {
+        return $this->hasOne(DoTaskHandle::class, 'task_id', 'id_task_1C');
+    }
+
+    public function user() : HasOne
+    {
+        return $this->hasOne(User::class, 'ad_login', 'executor_employee');
+    }
+
+    public function setPrimaryKey()
+    {
+        $this->primaryKey = 'id_task_1C';
+        return $this;
     }
 
     public function getDocInfo() : ?Collection
