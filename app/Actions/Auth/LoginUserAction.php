@@ -18,9 +18,9 @@ class LoginUserAction extends BaseAction
      */
     private $user = null;
 
-    public function execute($login, $pin_code, $id_device)
+    public function execute($email, $pin_code, $id_device = null)
     {
-        if ($user = User::where('ad_login', $login)->first()) {
+        if ($user = User::where('email', $email)->first()) {
             if ($user->pinCode && $user->pinCode->pin_code == $pin_code
                 && Carbon::now()->diffInSeconds(Carbon::parse($user->pinCode->updated_at)) < config('workflow.pin.life_time')) {
                 $this->user = $user;
@@ -31,15 +31,14 @@ class LoginUserAction extends BaseAction
                             'device_id' => $id_device
                         ],
                         [
-                        'user_id' => $user->id,
-                        'device_id' => $id_device,
-                    ])->touch();
+                            'user_id' => $user->id,
+                            'device_id' => $id_device,
+                        ]
+                    )->touch();
                 }
 
                 $jwtToken = $this->user->generateJwt();
-
                 $user->pinCode->delete();
-
                 $this->user->save();
 
                 $this->setActionResult($jwtToken);
