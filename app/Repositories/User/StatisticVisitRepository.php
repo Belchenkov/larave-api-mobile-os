@@ -55,16 +55,8 @@ class StatisticVisitRepository
         $visits = $user->skudEvents()
             ->select(['*', DB::raw('CAST(CAST(time as DATE) as varchar(10)) as date')])
             // ToDo - whereDate
-            ->where(
-                DB::raw("CAST(time as DATE)"),
-                '<=',
-                $fromDay->format('Y-m-d')
-            )
-            ->where(
-                DB::raw("CAST(time as DATE)"),
-                '>=',
-                $toDay->format('Y-m-d')
-            )
+            ->whereDate('time', '<=', $fromDay->format('Y-m-d'))
+            ->whereDate('time', '>=', $toDay->format('Y-m-d'))
             ->orderBy('time', 'ASC')
             ->get()
             ->groupBy('date');
