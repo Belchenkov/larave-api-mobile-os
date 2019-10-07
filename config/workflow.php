@@ -13,5 +13,9 @@ return [
 
     'avatars_path' => env('APP_AVATARS_PATH'),
     'time_update_new_approval_tasks' => 5,
-    'callback_key' => env('APP_CALLBACK_KEY')
+    'callback_key' => env('APP_CALLBACK_KEY'),
+
+    'doc_download' => env('APP_DOC_DOWNLOAD_URL'),
+    'doc_download_user' => env('APP_DOC_DOWNLOAD_USER'),
+    'doc_download_pass' => env('APP_DOC_DOWNLOAD_PASS'),
 ];
