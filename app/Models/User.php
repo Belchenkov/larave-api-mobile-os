@@ -39,7 +39,7 @@ class User extends Authenticatable implements UserInterface
      * @var array
      */
     protected $fillable = [
-        'ad_login', 'tab_no', 'id_person',
+        'ad_login', 'tab_no', 'id_person', 'email'
     ];
 
     /**

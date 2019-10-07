@@ -28,7 +28,7 @@ class AuthorizationController extends Controller
     public function loginJwt(LoginRequest $request, LoginUserAction $action)
     {
         return new UserJwtToken(
-            $action->execute($request->login, $request->pin_code, $request->id_device)->getActionResult()
+            $action->execute($request->email, $request->pin_code, $request->id_device)->getActionResult()
         );
     }
 

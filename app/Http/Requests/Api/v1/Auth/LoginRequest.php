@@ -24,7 +24,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'login' => 'required',
+            'email' => 'required|email',
             'pin_code' => 'required|size:4',
 //            'id_device' => 'required' // ToDo - check it!
         ];

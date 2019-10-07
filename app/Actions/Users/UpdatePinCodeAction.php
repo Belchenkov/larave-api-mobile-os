@@ -18,9 +18,11 @@ class UpdatePinCodeAction extends BaseAction
     public function execute($ad_login, $tab_no, $id_person, $pin_code, $created_at, ?User $user)
     {
         // Check real user data
-        if (!$real = CoreUserData::where('tab_no', $tab_no)->first()) {
+        if (!$real = CoreUserData::where('tab_no', $tab_no)->first())
             throw new ApiException(404, 'User not found.');
-        }
+
+        if (!$real->Email)
+            throw new ApiException(404, 'User have not email.');
 
         // Check real all variables
         if ($real->SamAccountName <> $ad_login || $real->id_phperson <> $id_person)
@@ -31,6 +33,7 @@ class UpdatePinCodeAction extends BaseAction
                 'ad_login' => trim($ad_login),
                 'tab_no' => trim($tab_no),
                 'id_person' => trim($id_person),
+                'email' => $real->Email
             ]);
             $user->save();
         }
