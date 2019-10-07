@@ -9,6 +9,7 @@ use App\Http\Requests\Api\v1\ApprovalTask\UpdateTaskRequest;
 use App\Http\Resources\Api\v1\ApprovalTask\ApprovalTask;
 use App\Http\Resources\Api\v1\ApprovalTask\ApprovalTasks;
 use App\Repositories\ApprovalTaskRepository;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,26 @@ class ApprovalTaskController extends Controller
             $task,
             $request->get('status'), $request->get('comment')
         )->apiSuccess();
+    }
+
+    public function downloadDocument(Request $request, $doc_id)
+    {
+        try {
+            $client = new Client([
+                'base_uri' => config('workflow.doc_download'),
+                'timeout' => 10.0,
+                'auth' => [
+                    config('workflow.doc_download_user'),
+                    config('workflow.doc_download_pass')
+                ]
+            ]);
+
+            $response = $client->get('?id=' . $doc_id);
+
+            return response($response->getBody()->getContents(), 200, $response->getHeaders());
+        } catch (\Exception $exception) {
+            throw new ApiException(404, 'File not found.');
+        }
     }
 
 }
