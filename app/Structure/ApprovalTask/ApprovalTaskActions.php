@@ -105,7 +105,7 @@ class ApprovalTaskActions
     public function getRelevantActions(string $type, $key = 'actions') : array
     {
         foreach ($this->statusStruct as $status) {
-            if (trim($this->type_descriptions) == $status['name']) {
+            if (trim($type) == $status['name']) {
                 return $status[$key];
             }
         }

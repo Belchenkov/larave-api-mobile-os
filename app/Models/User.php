@@ -63,7 +63,7 @@ class User extends Authenticatable
      */
     public function portalUser() : HasOne
     {
-        return $this->hasOne(ForUser::class, 'employee_external_id');
+        return $this->hasOne(ForUser::class, 'employee_external_id', 'tab_no');
     }
 
 }

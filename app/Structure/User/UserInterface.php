@@ -19,9 +19,11 @@ interface UserInterface
     public function approvalTasksInitiator() : HasMany;
 
     public function getUserTabNo() : string;
+    public function getUserAdLogin() : string;
     public function getUserPhPerson() : string;
     public function getUserDepartmentId() : ?string;
 
+    public function getUserFullName() : ?string;
     public function getUserFirstName() : ?string;
     public function getUserMiddleName() : ?string;
     public function getUserLastName() : ?string;

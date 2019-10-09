@@ -18,12 +18,12 @@ class ApprovalTaskRepository
     public function getUserTasks(UserInterface $user, bool $archive = false)
     {
         if ($archive) {
-            $tasks = $user->approvalTasksExecutor()->where('task_status', '<>', DoTask::TASK_CAN_EDIT);
+            $tasks = $user->approvalTasksExecutor()->where('task_status', '<>', ApprovalTaskActions::TASK_CAN_EDIT);
         } else {
-            $tasks = $user->approvalTasksExecutor()->where('task_status', '=', DoTask::TASK_CAN_EDIT);
+            $tasks = $user->approvalTasksExecutor()->where('task_status', '=', ApprovalTaskActions::TASK_CAN_EDIT);
         }
 
-        $tasks->with(['initiator.employee']);
+        $tasks->with(['initiator']);
 
         // ToDo - only valid columns ?
         return $tasks->orderBy('Date', 'DESC');

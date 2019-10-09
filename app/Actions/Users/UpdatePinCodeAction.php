@@ -31,7 +31,7 @@ class UpdatePinCodeAction extends BaseAction
                 'ad_login' => trim($ad_login),
                 'tab_no' => trim($tab_no),
                 'id_person' => trim($id_person),
-                'email' => $real->Email
+                'email' => $real->email
             ]);
             $user->save();
         }

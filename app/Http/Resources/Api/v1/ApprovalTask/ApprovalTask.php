@@ -20,38 +20,24 @@ class ApprovalTask extends JsonApiResourse
             'type' => $this->type,
             'type_descriptions' => $this->type_descriptions,
             'type_doc' => $this->type_doc,
-            'initiator' => $color ? [
-                'ad_login' => $this->employee,
-                'tab_no' => $this->initiator->tab_no,
-                'full_name' => $this->initiator->employee->getFullName(),
-                'avatar' => [
-                    'name' => $this->initiator->employee->getShortName(),
-                    'background' => $color[0],
-                    'color' => $color[1],
-                    'image' => $this->initiator->employee->getUserAvatar(true),
-                ],
-            ] : null,
+            'initiator' => [
+                'ad_login' => $this->initiator->getUserAdLogin(),
+                'tab_no' => $this->initiator->getUserTabNo(),
+                'full_name' => $this->initiator->getUserFullName(),
+                'avatar' => $this->initiator->getUserAvatar()->toArray(),
+            ],
             'comment' => $this->task_comment_execution,
             'executor' => $this->executor_employee,
             'status' => $this->task_status,
             'actions' => $this->getRelevantActions('buttons'),
             'related_tasks' => $this->relatedTasks->map(function($item) {
-                $color = false;
-                if ($item->executor)
-                    $color = $item->executor->employee->getAvatarColor();
-
                 return [
                     'status' => $item->task_status,
                     'comment' => $item->task_comment_execution,
-                    'user' => $color ? [
-                        'full_name' => $item->executor->employee->getFullName(),
-                        'avatar' => [
-                            'name' => $item->executor->employee->getShortName(),
-                            'background' => $color[0],
-                            'color' => $color[1],
-                            'image' => $item->executor->employee->getUserAvatar(true),
-                        ],
-                    ] : null
+                    'user' => [
+                        'full_name' => $item->executor->getUserFullName(),
+                        'avatar' => $this->executor->getUserAvatar()->toArray(),
+                    ]
                 ];
             }),
             'doc_info' => $this->getDocInfo(),

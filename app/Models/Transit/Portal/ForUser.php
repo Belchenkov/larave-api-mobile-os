@@ -7,6 +7,7 @@ namespace App\Models\Transit\Portal;
 
 use App\Models\Transit\_1C\Transit1cEmployee;
 use App\Models\Transit\_1C\Transit1cEmployeeStatus;
+use App\Models\Transit\_1C\Transit1cPhPerson;
 use App\Models\Transit\_1C\Transit1cScheduleEmployee;
 use App\Models\Transit\DoTask;
 use App\Models\Transit\TransitionModel;
@@ -91,13 +92,18 @@ class ForUser extends TransitionModel implements UserInterface
         return $this->hasOne(Transit1cEmployee::class, 'tab_no', 'employee_external_id');
     }
 
+    public function phPerson(): HasOne
+    {
+        return $this->hasOne(Transit1cPhPerson::class, 'id', 'id_phperson');
+    }
+
     /**
      * Get Executors Tasks Data from do_tasks (Transit DB)
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function approvalTasksExecutor() : HasMany
     {
-        return $this->hasMany(DoTask::class, 'executor_employee', 'ad_login');
+        return $this->hasMany(DoTask::class, 'executor_employee', 'user_ad_login');
     }
 
     /**
@@ -225,6 +231,11 @@ class ForUser extends TransitionModel implements UserInterface
     public function getUserTabNo(): string
     {
         return $this->employee_external_id;
+    }
+
+    public function getUserAdLogin(): string
+    {
+        return $this->user_ad_login;
     }
 
     public function getUserPhPerson(): string

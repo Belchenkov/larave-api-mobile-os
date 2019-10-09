@@ -27,7 +27,7 @@ class ApprovalTaskController extends Controller
     {
         return ApprovalTasks::collection(
             $this->approvalTaskRepository->getUserTasks(
-                Auth::user(),
+                Auth::user()->portalUser,
                 (bool) $request->get('archive', false)
             )->get()
         );
@@ -35,7 +35,7 @@ class ApprovalTaskController extends Controller
 
     public function getTask(Request $request, $task_id)
     {
-        if (!$task = $this->approvalTaskRepository->getUserTask(Auth::user(), $task_id)) {
+        if (!$task = $this->approvalTaskRepository->getUserTask(Auth::user()->portalUser, $task_id)) {
             throw new ApiException(404, 'User task not found.');
         }
 
@@ -44,7 +44,7 @@ class ApprovalTaskController extends Controller
 
     public function updateTask(UpdateTaskRequest $request, $task_id, UpdateTaskAction $action)
     {
-        if (!$task = $this->approvalTaskRepository->getUserTask(Auth::user(), $task_id)) {
+        if (!$task = $this->approvalTaskRepository->getUserTask(Auth::user()->portalUser, $task_id)) {
             throw new ApiException(404, 'User task not found or user not owner.');
         }
 
