@@ -76,6 +76,20 @@ class DoTask extends  TransitionModel
     const TASK_APPLY = 4;
     const TASK_APPLY_WITH_COMMENT = 3;
 
+    private $defaultStruct = [
+        'actions' => [self::TASK_ACCEPT, self::TASK_CANCEL],
+        'buttons' => [
+            [
+                'caption' => 'Выполнено',
+                'action' => self::TASK_ACCEPT
+            ],
+            [
+                'caption' => 'Отклонено',
+                'action' => self::TASK_CANCEL
+            ],
+        ]
+    ];
+
     private $statusStruct = [
         [
             'name' => 'Ознакомиться',
@@ -221,6 +235,6 @@ class DoTask extends  TransitionModel
             }
         }
 
-        return [self::TASK_APPLY, self::TASK_CANCEL];
+        return $this->defaultStruct[$key];
     }
 }

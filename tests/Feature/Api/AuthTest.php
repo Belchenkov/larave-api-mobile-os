@@ -3,6 +3,7 @@
 namespace Tests\Feature\Api;
 
 use App\Models\User;
+use App\Models\UserPinCode;
 use Carbon\Carbon;
 use Tests\TestCase;
 
