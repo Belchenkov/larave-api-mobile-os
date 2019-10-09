@@ -14,11 +14,6 @@ class ApprovalTask extends JsonApiResourse
      */
     public function toArray($request)
     {
-        $color = false;
-
-        if ($this->initiator && $this->initiator->employee)
-            $color = $this->initiator->employee->getAvatarColor();
-
         return [
             'id' => $this->id_task_1C,
             'name' => $this->name_task_1C,
