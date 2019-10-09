@@ -20,7 +20,7 @@ User-Agent: *
 <b>BODY</b>
  ```
 {
-    "login": {String},
+    "email": {String|email},
     "pin_code": {String|size:4}
     "id_device": {String|null}
 }
@@ -36,7 +36,7 @@ User-Agent: *
     </thead>
     <tbody>
         <tr>
-            <td>login</td>
+            <td>email</td>
             <td>Email пользователя</td>
             <td>Обязательно</td>
         </tr>
