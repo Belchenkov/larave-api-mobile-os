@@ -10,6 +10,8 @@ namespace App\Models\Transit;
 use App\Models\DoTaskHandle;
 use App\Models\User;
 use App\Services\MsSQL\OriginalColumns;
+use App\Structure\ApprovalTask\ApprovalTaskActions;
+use App\Structure\ApprovalTask\ApprovalTaskDocInfo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -23,6 +25,7 @@ class DoTask extends  TransitionModel
     protected $table = 'do_tasks';
 
     public $timestamps = false;
+    protected $approvalTaskActions;
 
     /**
      * The attributes that are mass assignable.
@@ -70,96 +73,11 @@ class DoTask extends  TransitionModel
         'Ref_1c'
     ];
 
-    const TASK_CAN_EDIT = 0;
-    const TASK_ACCEPT = 1;
-    const TASK_CANCEL = 2;
-    const TASK_APPLY = 4;
-    const TASK_APPLY_WITH_COMMENT = 3;
-
-    private $defaultStruct = [
-        'actions' => [self::TASK_ACCEPT, self::TASK_CANCEL],
-        'buttons' => [
-            [
-                'caption' => 'Выполнено',
-                'action' => self::TASK_ACCEPT
-            ],
-            [
-                'caption' => 'Отклонено',
-                'action' => self::TASK_CANCEL
-            ],
-        ]
-    ];
-
-    private $statusStruct = [
-        [
-            'name' => 'Ознакомиться',
-            'actions' => [self::TASK_ACCEPT],
-            'buttons' => [
-                [
-                    'caption' => 'Ознакомлен',
-                    'action' => self::TASK_ACCEPT
-                ],
-            ]
-        ],
-        [
-            'name' => 'Исполнить',
-            'actions' => [self::TASK_ACCEPT],
-            'buttons' => [
-                [
-                    'caption' => 'Выполнено',
-                    'action' => self::TASK_ACCEPT
-                ],
-            ]
-        ],
-        [
-            'name' => 'Согласовать',
-            'actions' => [self::TASK_CANCEL, self::TASK_APPLY],
-            'buttons' => [
-                [
-                    'caption' => 'Согласовать',
-                    'action' => self::TASK_APPLY
-                ],
-                [
-                    'caption' => 'Отклонить',
-                    'action' => self::TASK_CANCEL
-                ],
-            ]
-        ],
-        [
-            'name' => 'Проверить исполнение',
-            'actions' => [self::TASK_ACCEPT],
-            'buttons' => [
-                [
-                    'caption' => 'Выполнено',
-                    'action' => self::TASK_ACCEPT
-                ],
-            ]
-        ],
-        [
-            'name' => 'Утвердить',
-            'actions' => [self::TASK_CANCEL, self::TASK_APPLY],
-            'buttons' => [
-                [
-                    'caption' => 'Утверждено',
-                    'action' => self::TASK_APPLY
-                ],
-                [
-                    'caption' => 'Не утверждено',
-                    'action' => self::TASK_CANCEL
-                ],
-            ]
-        ],
-        [
-            'name' => 'Рассмотреть вопрос',
-            'actions' => [self::TASK_APPLY],
-            'buttons' => [
-                [
-                    'caption' => 'Выполнено',
-                    'action' => self::TASK_ACCEPT
-                ],
-            ]
-        ],
-    ];
+    public function __construct(array $attributes = [])
+    {
+        $this->approvalTaskActions = new ApprovalTaskActions();
+        parent::__construct($attributes);
+    }
 
     /**
      * Get Executor Data from ITS.Core_UserData (Transit DB)
@@ -202,39 +120,10 @@ class DoTask extends  TransitionModel
 
     public function getDocInfo() : ?Collection
     {
-        if (!$this->doc_info) return null;
-
-        $xml = simplexml_load_string($this->doc_info);
-
-        return collect([
-            'theme' => (string) $xml['Тема'],
-            'organization' => (string) $xml['Организация'],
-            'partner' => (string) $xml['Контрагент'],
-            'doc_no' => (string) $xml['Номер'],
-            'date' => (string) $xml['Дата'],
-            'cost' => (string) $xml['Сумма'],
-            'executor' => (string) $xml['Ответственный'],
-            'project' => (string) $xml['Проект'],
-            'article' => (string) $xml['СтатьяДДС'],
-            'files' => collect($xml->xpath('Файлы'))->map(function ($item) {
-                                $elem = $item->xpath('ДанныеФайла');
-                                if (!isset($elem[0])) return false;
-
-                                return collect([
-                                    'file_id' => (string) $elem[0]['Ссылка'],
-                                    'file_name' => (string) $elem[0]['Название']
-                                ]);
-                            })
-        ]);
+        return (new ApprovalTaskDocInfo($this->doc_info))->getDocInfo();
     }
 
     public function getRelevantActions($key = 'actions') {
-        foreach ($this->statusStruct as $status) {
-            if (trim($this->type_descriptions) == $status['name']) {
-                return $status[$key];
-            }
-        }
-
-        return $this->defaultStruct[$key];
+        return $this->approvalTaskActions->getRelevantActions(trim($this->type_descriptions), $key);
     }
 }

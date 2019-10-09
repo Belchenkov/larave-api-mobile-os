@@ -1,7 +1,6 @@
 <?php
 
 // JWT Auth routes
-
 Route::prefix('auth')
     ->group(base_path('routes/api/v1/auth.php'));
 

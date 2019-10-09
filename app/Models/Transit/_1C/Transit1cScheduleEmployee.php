@@ -37,24 +37,7 @@ class Transit1cScheduleEmployee extends TransitionModel
      */
     public function user() : BelongsTo
     {
-        return $this->belongsTo(User::class, 'tab_no', 'tab_no');
+        return $this->belongsTo(ForUser::class, 'tab_no', 'employee_external_id');
     }
 
-    /**
-     * Get Employee Data from transit_1c_employee (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function employee() : BelongsTo
-    {
-        return $this->belongsTo(Transit1cEmployee::class, 'tab_no', 'tab_no');
-    }
-
-    /**
-     * Get Department Data from transit_1c_department (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function department() : BelongsTo
-    {
-        return $this->belongsTo(Transit1cDepartment::class, 'tab_no_chief', 'tab_no');
-    }
 }

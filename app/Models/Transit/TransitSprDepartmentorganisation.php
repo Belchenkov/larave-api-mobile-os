@@ -38,12 +38,4 @@ class TransitSprDepartmentorganisation extends TransitionModel
         'level'
     ];
 
-    /**
-     * Get Employee Data from transit_1c_employee (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function employee() : BelongsTo
-    {
-        return $this->belongsTo(Transit1cEmployee::class, 'Guid1c','department_guid');
-    }
 }

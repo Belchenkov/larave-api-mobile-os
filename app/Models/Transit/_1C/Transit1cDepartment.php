@@ -46,34 +46,6 @@ class Transit1cDepartment extends TransitionModel
      */
     public function user() : BelongsTo
     {
-        return $this->belongsTo(User::class, 'tab_no', 'tab_no_chief');
-    }
-
-    /**
-     * Get Employee Data By ID from transit_1c_employee (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function employeeById() : BelongsTo
-    {
-        return $this->belongsTo(Transit1cEmployee::class, 'id_phperson', 'id_chief');
-    }
-
-    /**
-     * Get Employee Data By tab_no from transit_1c_employee (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function employeeByTabNo() : BelongsTo
-    {
-        return $this->belongsTo(Transit1cEmployee::class, 'tab_no', 'tab_no_chief');
-    }
-
-    public function chief() : BelongsTo
-    {
-        return $this->belongsTo(Transit1cEmployee::class, 'id_chief', 'id_1c');
-    }
-
-    public function realDepartment() : HasOne
-    {
-        return $this->hasOne(Transit1cDepartmentLink::class, 'Guid1cDepartment', 'id_1c');
+        return $this->belongsTo(ForUser::class, 'tab_no', 'employee_external_id');
     }
 }

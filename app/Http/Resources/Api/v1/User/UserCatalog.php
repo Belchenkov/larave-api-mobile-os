@@ -14,23 +14,15 @@ class UserCatalog extends JsonApiResourse
      */
     public function toArray($request)
     {
-        $color = $this->getAvatarColor();
-
         return [
-            'in_office' => $this->isUserOnline(),
-            'full_name' => $this->full_name,
-            'department_name' => $this->getDepartment(),
-            'avatar' => [
-                'name' => $this->getShortName(),
-                'background' => $color[0],
-                'color' => $color[1],
-                'image' => $this->getUserAvatar(),
-            ],
-            'position' => $this->getPosition(),
-            'tab_no' => $this->getTabNo(),
-            'id_phperson' => $this->id_phperson,
-            'department_guid' => $this->department_guid,
-            'department_guid_real' => $this->realDepartment ? $this->realDepartment->department->id_1c : null,
+            'in_office' => $this->getUserOnline(),
+            'full_name' => $this->getUserFullName(),
+            'department_name' => $this->getUserUnit(),
+            'avatar' => $this->getUserAvatar()->toArray(),
+            'position' => $this->getUserPosition(),
+            'tab_no' => $this->getUserTabNo(),
+            'id_phperson' => $this->getUserPhPerson(),
+            'department_guid' => $this->getUserDepartmentId()
         ];
     }
 }

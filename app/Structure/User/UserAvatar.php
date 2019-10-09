@@ -1,15 +1,15 @@
 <?php
 /**
  * Created by black40x@yandex.ru
- * Date: 01/10/2019
+ * Date: 09/10/2019
  */
 
-namespace App\Services\User;
+namespace App\Structure\User;
 
 
 use Intervention\Image\Facades\Image;
 
-trait UserAvatarTrait
+class UserAvatar
 {
 
     private $avatarColors = [
@@ -30,17 +30,35 @@ trait UserAvatarTrait
         ['#795548', '#ffffff'],
     ];
 
+    private $user;
+
+    public function __construct(UserInterface $user)
+    {
+        $this->user = $user;
+    }
+
+    public function getShortName() : string
+    {
+        if (!$name = $this->user->getUserFullname()) return 'NA';
+
+        $name = explode(' ', $name);
+        if (count($name) >= 2) {
+            return strtoupper(mb_substr($name[0], 0, 1) . mb_substr($name[1], 0, 1));
+        }
+        return strtoupper(mb_substr($name[0], 0, 1));
+    }
+
     public function getAvatarColor() : array
     {
         $color_count = count($this->avatarColors);
-        $color_index = crc32($this->getFullName()) % $color_count;
+        $color_index = crc32($this->user->getUserFullName()) % $color_count;
         return $this->avatarColors[$color_index];
     }
 
-    public function getUserAvatar($update = false)
+    public function getUserAvatarImage(bool $update = false) : ?string
     {
-        $file_name_source = $this->getTabNo() . '_2.jpg';
-        $file_name_avatar = $this->getPhPerson() . '.jpg';
+        $file_name_source = $this->user->getUserTabNo() . '_2.jpg';
+        $file_name_avatar = $this->user->getUserPhPerson() . '.jpg';
         $avatar_path = public_path('uploads/avatars/' . $file_name_avatar);
         $source_path = config('workflow.avatars_path') . $file_name_source;
 
@@ -76,6 +94,18 @@ trait UserAvatarTrait
         }
 
         return null;
+    }
+
+    public function toArray(bool $update = false) : array
+    {
+        $color = $this->getAvatarColor();
+
+        return [
+            'name' => $this->getShortName(),
+            'background' => $color[0],
+            'color' => $color[1],
+            'image' => $this->getUserAvatarImage($update),
+        ];
     }
 
 }

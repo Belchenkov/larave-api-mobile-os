@@ -9,6 +9,8 @@ namespace App\Repositories\User;
 
 use App\Models\Transit\_1C\Transit1cDepartment;
 use App\Models\Transit\_1C\Transit1cEmployee;
+use App\Models\Transit\Portal\ForDepartment;
+use App\Models\Transit\Portal\ForUser;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -20,8 +22,8 @@ class UserRepository
 
     public static function getLatestSkudEvents($query)
     {
-        $query->where(
-            DB::raw("CAST(time as DATE)"),
+        $query->whereDate(
+            'time',
             '>=',
             Carbon::now()->startOfDay()->format('Y-m-d')
         )->orderBy('time', 'ASC');
@@ -32,12 +34,12 @@ class UserRepository
         $items = collect();
 
         foreach ($departments as $department) {
-            if ($department->id_1CParent == $parent_id) {
+            if ($department->parent_external_id == $parent_id) {
                 if (!$asTree) {
                     $items->push($department);
-                    $items = $items->merge($this->getDepartmentsChild($department->id_1c, $departments, $asTree));
+                    $items = $items->merge($this->getDepartmentsChild($department->external_id, $departments, $asTree));
                 } else {
-                    $department['items'] = $this->getDepartmentsChild($department->id_1c, $departments, $asTree);
+                    $department['items'] = $this->getDepartmentsChild($department->external_id, $departments, $asTree);
                     $items->push($department);
                 }
             }
@@ -49,28 +51,16 @@ class UserRepository
     public function getDepartmentsTree($asTree = false, $parent = null)
     {
         $result = collect();
-        $departments = Transit1cDepartment::select([
-            'isdelete',
-            'base',
-            'id_chief',
-            'name',
-            'id_1c',
-            'id_1CParent'
-        ])
-            ->where('isdelete', 0)
-            //->where('active', 1) // ToDo - fix it!?
-            ->whereIn('base', ['ЗУП Основа', 'DOC_FLOW'])
-            ->with(['chief:id_phperson,id_1c,position,tab_no', 'chief.phPerson:id,full_name', 'realDepartment'])
-            ->get();
+        $departments = ForDepartment::where('enabled', 1)->get();
 
         foreach ($departments as $department) {
-            if ($department->id_1CParent == $parent || $department->id_1c == $parent) {
+            if ($department->parent_external_id == $parent || $department->external_id == $parent) {
                 if ($asTree) {
-                    $department['items'] = $this->getDepartmentsChild($department->id_1c, $departments, $asTree);
+                    $department['items'] = $this->getDepartmentsChild($department->external_id, $departments, $asTree);
                     $result->push($department);
                 } else {
                     $result->push($department);
-                    $result = $result->merge($this->getDepartmentsChild($department->id_1c, $departments, $asTree));
+                    $result = $result->merge($this->getDepartmentsChild($department->external_id, $departments, $asTree));
                 }
             }
         }
@@ -85,10 +75,7 @@ class UserRepository
             config('cache.cache_time'),
             function() use ($deprtment_id) {
                 return $this->getDepartmentsTree(false, $deprtment_id)->map(function ($item) {
-                    if ($item->relationLoaded('realDepartment') && $item->realDepartment) {
-                        return $item->realDepartment->Guid1cDepartmentOrganisation;
-                    }
-                    return $item->id_1c;
+                    return $item->external_id;
                 });
             }
         );
@@ -101,7 +88,7 @@ class UserRepository
 
         foreach ($collection as $collect) {
             $departments->push($collect);
-            $departments = $departments->merge($this->getDepartmentsChild($collect->id_1c, $departmentsAll));
+            $departments = $departments->merge($this->getDepartmentsChild($collect->external_id, $departmentsAll));
         }
 
         return $departments;
@@ -109,10 +96,7 @@ class UserRepository
 
     public function getDepartmentsIdsByCollection(Collection $collection) {
         return $this->getDepartmentsByCollection($collection)->map(function ($item) {
-            if ($item->realDepartment) {
-                return $item->realDepartment->Guid1cDepartmentOrganisation;
-            }
-            return $item->id_1c;
+            return $item->external_id;
         });
     }
 
@@ -124,50 +108,48 @@ class UserRepository
         $department_ids = $department_ids->toArray();
 
         $catalog =
-            Transit1cEmployee::with([
-                'phPerson', 'departmentOrganisation', 'skudEvents' => function ($query) {
-                    self::getLatestSkudEvents($query);
-                },
-                'realDepartment.department'
-            ])
-                ->select(['transit_1c_employee.*', 'transit_1c_PhPerson.full_name', 'transit_spr_departmentorganisation.name'])
-                ->leftJoin('transit_1c_PhPerson', function ($leftJoin) {
-                    $leftJoin->on('transit_1c_employee.id_phperson', '=', 'transit_1c_PhPerson.id');
+            ForUser::addSelect([
+                    'for_users.*',
+                    'for_department.name as department_name'
+                ])
+                ->with([
+                    'skudEvents' => function ($query) {
+                        self::getLatestSkudEvents($query);
+                    }
+                ])
+                ->leftJoin('for_department', function ($leftJoin) {
+                    $leftJoin->on('for_users.department_external_id', '=', 'for_department.external_id');
                 })
-                ->leftJoin('transit_spr_departmentorganisation', function ($leftJoin) {
-                    $leftJoin->on('transit_spr_departmentorganisation.guid1c', '=', 'transit_1c_employee.department_guid');
-                })
-                ->orderBy('transit_1c_PhPerson.full_name', 'ASC');
+                ->orderBy(DB::raw("(last_name + ' ' + first_name + ' ' + middle_name)"), 'ASC');
 
         if ($search) {
             $catalog->where(function ($query) use ($search) {
-                $query->where('transit_1c_PhPerson.full_name', 'like', '%' . $search . '%');
-                $query->orWhere('transit_spr_departmentorganisation.name', 'like', '%' . $search . '%');
-                $query->orWhere('transit_1c_employee.position', 'like', '%' . $search . '%');
+                $query->where(DB::raw("(for_users.last_name + ' ' + for_users.first_name + ' ' + for_users.middle_name)"), 'like', '%' . $search . '%');
+                $query->orWhere('for_users.position_name', 'like', '%' . $search . '%');
+                $query->orWhere('for_department.name', 'like', '%' . $search . '%');
+                $query->orWhere('for_users.email', 'like', '%' . $search . '%');
+                $query->orWhere('for_users.organisation_name', 'like', '%' . $search . '%');
             });
         }
 
-        $catalog->where('transit_1c_employee.main_place', 1);
-        $catalog->whereIn('transit_1c_employee.department_guid', $department_ids);
-        $catalog->whereNotNull('transit_1c_PhPerson.full_name')
-                ->whereNull('transit_1c_employee.out_date');
+        $catalog->where('for_users.enabled', 1);
+        $catalog->whereIn('for_users.department_external_id', $department_ids);
 
         return $catalog;
     }
 
-    public function getUserProfileByTabNo(string $tab_no) : ?Transit1cEmployee
+    public function getUserProfileByTabNo(string $tab_no) : ?ForUser
     {
-        return Transit1cEmployee::with([
-            'phPerson',
+        return ForUser::with([
             'department',
-            'coreUserData',
-            'departmentOrganisation',
+            'departmentChief',
+            'employee',
             'employeeStatus',
-            'employeeChief',
-            'departmentChief.realDepartment',
+            'manager',
+            'managerSecond',
             'skudEvents' => function ($query) {
                 self::getLatestSkudEvents($query);
             }
-        ])->where('tab_no', $tab_no)->first();
+        ])->where('employee_external_id', $tab_no)->first();
     }
 }

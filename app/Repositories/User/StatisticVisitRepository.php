@@ -7,7 +7,7 @@
 namespace App\Repositories\User;
 
 use App\Http\Resources\Api\v1\Statistic\UserVisits;
-use App\Services\User\UserInterface;
+use App\Structure\User\UserInterface;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Collection;
@@ -181,7 +181,7 @@ class StatisticVisitRepository
      * @return \Illuminate\Support\Collection
      */
     public function getVisitSchedule(UserInterface $user) {
-        $schedules = $user->scheduleEmployee()->orderBy('date_in', 'ASC')->get();
+        $schedules = $user->schedule()->orderBy('date_in', 'ASC')->get();
 
         $result = collect([
             'name' => '',

@@ -20,34 +20,31 @@ class UserProfile extends JsonApiResourse
      */
     public function toArray($request)
     {
-        $color = $this->getAvatarColor();
-
         return [
-            'in_office' => $this->isUserOnline(),
-            'full_name' => $this->getFullName(),
-            'avatar' => [
-                'name' => $this->getShortName(),
-                'background' => $color[0],
-                'color' => $color[1],
-                'image' => $this->getUserAvatar(true),
+            'in_office' => $this->getUserOnline(),
+            'name' => [
+                'full_name' => $this->getUserFullName(),
+                'first_name' => $this->getUserFirstName(),
+                'middle_name' => $this->getUserMiddleName(),
+                'last_name' => $this->getUserLastName(),
             ],
-            'position' => $this->getPosition(),
-            'unit' => $this->getDepartment(),
-            'email' => $this->getEmail(),
-            'address_office' => $this->getOfficeAddress(),
-            'cabinet' => $this->getCabinet(),
-            'work_phone' => $this->getWorkPhone(),
-            'mobile_phone' => $this->getMobilePhone(),
-            'amount_holiday_days' => $this->getCountHolidayDays(),
-            'schedule' => $this->getSchedule(),
-            'status' => $this->getStatus(),
-            'is_chief' => $this->isChief(),
-            'chief' => $this->getChiefName(),
-            'chief_main' => $this->getChiefMainName(),
-            'tab_no' => $this->tab_no,
-            'id_phperson' => $this->id_phperson,
-            'department_guid' => $this->department_guid,
-            'department_guid_real' => $this->getRealDepartmentGuid(),
+            'avatar' => $this->getUserAvatar()->toArray(true),
+            'position' => $this->getUserPosition(),
+            'unit' => $this->getUserUnit(),
+            'email' => $this->email,
+            'office_address' => $this->getUserOfficeTerritory(),
+            'office_cabinet' => $this->getUserOfficeCabinet(),
+            'phone_work' => $this->getUserPhoneWork(),
+            'phone_mobile' => $this->getUserPhoneMobile(),
+            'amount_holiday_days' => $this->getUserHolidaysCount(),
+            'schedule' => $this->getUserSchedule(),
+            'status' => $this->getUserStatus(),
+            'is_chief' => $this->getUserIsManager(),
+            'chief' => $this->getUserManagerName(),
+            'chief_main' => $this->getUserManagerSecondName(),
+            'tab_no' => $this->getUserTabNo(),
+            'id_phperson' => $this->getUserPhPerson(),
+            'department_guid' => $this->getUserDepartmentId(),
         ];
     }
 

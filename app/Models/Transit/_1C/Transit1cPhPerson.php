@@ -65,56 +65,11 @@ class Transit1cPhPerson extends TransitionModel
     protected $hidden = ['UpdateNum'];
 
     /**
-     * Get Core User Data (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function coreUserData() : BelongsTo
-    {
-        return $this->belongsTo(CoreUserData::class, 'id_phperson');
-    }
-
-    /**
-     * Get Skud Events Data from transit_skud_events (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
-     */
-    public function skudEvents() : HasMany
-    {
-        return $this->hasMany(TransitSkudEvent::class, 'ID_PhPerson');
-    }
-
-    /**
-     * Get Department Chief from transit_1c_department (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function department() : BelongsTo
-    {
-        return $this->belongsTo(Transit1cDepartment::class, 'id_chief');
-    }
-
-    /**
-     * Get Employee Data from transit_1c_employee (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function employee() : BelongsTo
-    {
-        return $this->belongsTo(Transit1cEmployee::class, 'id_phperson');
-    }
-
-    /**
-     * Get Office Data from transit_spr_offices (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function sprOffice() : BelongsTo
-    {
-        return $this->belongsTo(TransitSprOffice::class, 'id_Responsible');
-    }
-
-    /**
      * Get User Data (Mobile DB)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user() : BelongsTo
     {
-        return $this->belongsTo(User::class, 'id_person');
+        return $this->belongsTo(ForUser::class, 'id_phperson');
     }
 }

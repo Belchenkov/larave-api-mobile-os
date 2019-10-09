@@ -8,9 +8,8 @@ namespace App\Actions\Users;
 
 use App\Actions\BaseAction;
 use App\Exceptions\Api\ApiException;
-use App\Models\Transit\CoreUserData;
+use App\Models\Transit\Portal\ForUser;
 use App\Models\User;
-use App\Models\UserPinCode;
 
 class UpdatePinCodeAction extends BaseAction
 {
@@ -18,14 +17,13 @@ class UpdatePinCodeAction extends BaseAction
     public function execute($ad_login, $tab_no, $id_person, $pin_code, $created_at, ?User $user)
     {
         // Check real user data
-        if (!$real = CoreUserData::where('tab_no', $tab_no)->first())
+        if (!$real = ForUser::where('employee_external_id', $tab_no)->first())
             throw new ApiException(404, 'User not found.');
 
-        if (!$real->Email)
-            throw new ApiException(404, 'User have not email.');
+        if (!$real->email)
+            throw new ApiException(422, 'User have not email.');
 
-        // Check real all variables
-        if ($real->SamAccountName <> $ad_login || $real->id_phperson <> $id_person)
+        if ($real->user_ad_login <> $ad_login || $real->id_phperson <> $id_person)
             throw new ApiException(422, 'User data not valid.');
 
         if (!$user) {

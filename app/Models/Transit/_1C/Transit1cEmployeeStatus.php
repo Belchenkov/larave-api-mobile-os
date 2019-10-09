@@ -40,15 +40,7 @@ class Transit1cEmployeeStatus extends TransitionModel
      */
     public function user() : BelongsTo
     {
-        return $this->belongsTo(User::class, 'tab_no', 'tab_no');
+        return $this->belongsTo(ForUser::class, 'tab_no', 'employee_external_id');
     }
 
-    /**
-     * Get Employee Data from transit_1c_employee (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function employee() : BelongsTo
-    {
-        return $this->belongsTo(User::class, 'tab_no', 'tab_no');
-    }
 }

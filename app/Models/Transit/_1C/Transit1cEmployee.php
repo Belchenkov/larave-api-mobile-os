@@ -7,6 +7,7 @@
 namespace App\Models\Transit\_1C;
 
 use App\Models\Transit\CoreUserData;
+use App\Models\Transit\Portal\ForUser;
 use App\Models\Transit\TransitionModel;
 use App\Models\Transit\TransitSkudEvent;
 use App\Models\Transit\TransitSprDepartmentorganisation;
@@ -20,10 +21,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 
-class Transit1cEmployee extends TransitionModel implements UserInterface
+class Transit1cEmployee extends TransitionModel
 {
-    use UserTrait;
-
     protected $table = 'transit_1c_employee';
 
     /**
@@ -57,186 +56,8 @@ class Transit1cEmployee extends TransitionModel implements UserInterface
 
     protected $hidden = ['UpdateNum'];
 
-    /**
-     * Get User Data from ITS.Core_UserData Table (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
-     */
-    public function coreUserData() : HasOne
+    public function forUser() : BelongsTo
     {
-        return $this->hasOne(CoreUserData::class, 'tab_no', 'tab_no');
-    }
-
-    /**
-     * Get PhPerson Info from transit_1c_PhPerson (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
-     */
-    public function phPerson() : HasOne
-    {
-        return $this->hasOne(Transit1cPhPerson::class, 'id', 'id_phperson');
-    }
-
-    /**
-     * Get Employee Chief Info from transit_1c_employee_chief (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
-     */
-    public function employeeChief() : HasOne
-    {
-        return $this->hasOne(Transit1cEmployeeChief::class, 'tab_no_employee', 'tab_no');
-    }
-
-    /**
-     * Get Schedule Employee Info from transit_1c_schedule_employee (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
-     */
-    public function scheduleEmployee() : HasMany
-    {
-        return $this->hasMany(Transit1cScheduleEmployee::class, 'tab_no', 'tab_no');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function employeeStatus() : HasMany
-    {
-        return $this->hasMany(Transit1cEmployeeStatus::class, 'tab_no', 'tab_no');
-    }
-
-    /**
-     * Get Skud Events from transit_skud_events (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
-     */
-    public function skudEvents() : HasMany
-    {
-        return $this->hasMany(TransitSkudEvent::class, 'ID_PhPerson', 'id_phperson');
-    }
-
-    /**
-     * Get Spr Office from transit_spr_offices (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
-     */
-    public function sprOffice() : HasOne
-    {
-        return $this->hasOne(TransitSprOffice::class, 'id_Responsible', 'id_phperson');
-    }
-
-    /**
-     * Get User Data from users (Mobile DB)
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user() : BelongsTo
-    {
-        return $this->belongsTo(User::class, 'tab_no', 'tab_no');
-    }
-
-    /**
-     * Get My Department where im a chief
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
-     */
-    public function department() : HasOne
-    {
-        return $this->hasOne(Transit1cDepartment::class, 'tab_no_chief', 'tab_no');
-    }
-
-    /**
-     * Get My Department where im a chief
-     * @return HasMany
-     */
-    public function departmentChief() : HasMany
-    {
-        return $this->hasMany(Transit1cDepartment::class, 'id_chief', 'id_1c');
-    }
-
-    /**
-     * Get Department Organisation Data from transit_spr_departmentorganisation (Transit DB)
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function departmentOrganisation() : BelongsTo
-    {
-        return $this->belongsTo(TransitSprDepartmentorganisation::class, 'department_guid', 'Guid1c');
-    }
-
-    public function realDepartment() : BelongsTo
-    {
-        return $this->belongsTo(Transit1cDepartmentLink::class, 'department_guid', 'Guid1cDepartmentOrganisation');
-    }
-
-    public function getTabNo()
-    {
-        return $this->tab_no;
-    }
-
-    public function getPhPerson()
-    {
-        return $this->id_phperson;
-    }
-
-    public function getAdLogin()
-    {
-        return $this->getModelAttribute('coreUserData.SamAccountName');
-    }
-
-    public function getEmail()
-    {
-        return $this->getModelAttribute('coreUserData.Email');
-    }
-
-    public function getFullName()
-    {
-        return $this->getModelAttribute('phPerson.full_name');
-    }
-
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    public function getOffice()
-    {
-        return $this->getModelAttribute('coreUserData.Office');
-    }
-
-    public function getSchedule()
-    {
-        return $this->schedule;
-    }
-
-    public function getDepartment()
-    {
-        return $this->getModelAttribute('departmentOrganisation.Name');
-    }
-
-    public function getChiefName()
-    {
-        return $this->getModelAttribute('employeeChief.employeeChiefInfo.phPerson.full_name');
-    }
-
-    public function getWorkPhone()
-    {
-        return $this->getModelAttribute('phPerson.phone_internal');
-    }
-
-    public function getMobilePhone()
-    {
-        return $this->getModelAttribute('phPerson.phone_mobile');
-    }
-
-    public function getChiefMainName()
-    {
-        return $this->getModelAttribute('realDepartment.department.chief.phPerson.full_name');
-    }
-
-    public function getRealDepartmentGuid()
-    {
-        return $this->getModelAttribute('realDepartment.department.id_1c');
-    }
-
-    public function getExecutorTasks()
-    {
-        return $this->getModelAttribute('coreUserData.initiatorTasks');
-    }
-
-    public function getInitiatorTasks()
-    {
-        return $this->getModelAttribute('coreUserData.initiatorTasks');
+        return $this->belongsTo(ForUser::class, 'id_1c', 'id_phperson');
     }
 }

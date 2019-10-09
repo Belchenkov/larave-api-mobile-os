@@ -24,4 +24,5 @@ class ForDepartment extends TransitionModel
         'enabled',
         'dt_update'
     ];
+
 }

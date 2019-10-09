@@ -8,18 +8,19 @@ namespace App\Repositories;
 
 
 use App\Models\Transit\DoTask;
-use App\Models\User;
+use App\Structure\ApprovalTask\ApprovalTaskActions;
+use App\Structure\User\UserInterface;
 use Carbon\Carbon;
 
 class ApprovalTaskRepository
 {
 
-    public function getUserTasks(User $user, bool $archive = false)
+    public function getUserTasks(UserInterface $user, bool $archive = false)
     {
         if ($archive) {
-            $tasks = $user->approvalExecutorTasks()->where('task_status', '<>', DoTask::TASK_CAN_EDIT);
+            $tasks = $user->approvalTasksExecutor()->where('task_status', '<>', DoTask::TASK_CAN_EDIT);
         } else {
-            $tasks = $user->approvalExecutorTasks()->where('task_status', '=', DoTask::TASK_CAN_EDIT);
+            $tasks = $user->approvalTasksExecutor()->where('task_status', '=', DoTask::TASK_CAN_EDIT);
         }
 
         $tasks->with(['initiator.employee']);
@@ -39,10 +40,10 @@ class ApprovalTaskRepository
         ])->first();
     }
 
-    public function getUserTask(User $user, $task_id) : ?DoTask
+    public function getUserTask(UserInterface $user, $task_id) : ?DoTask
     {
         return $user
-            ->approvalExecutorTasks()
+            ->approvalTasksExecutor()
             ->with([
                 'initiator.employee',
                 'relatedTasks.executor.employee',
@@ -56,7 +57,7 @@ class ApprovalTaskRepository
 
     public function updateUserTask(DoTask $task, $status, $comment) : bool
     {
-        if ($task->task_status != DoTask::TASK_CAN_EDIT)
+        if ($task->task_status != ApprovalTaskActions::TASK_CAN_EDIT)
             return false;
 
         $task->setPrimaryKey()->update([

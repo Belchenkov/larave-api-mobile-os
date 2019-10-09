@@ -7,6 +7,7 @@ use App\Http\Resources\Api\v1\Statistic\UserVisits;
 use App\Http\Resources\Api\v1\User\UserCatalog;
 use App\Http\Resources\Api\v1\User\UserProfile;
 use App\Models\Transit\_1C\Transit1cEmployee;
+use App\Models\Transit\Portal\ForUser;
 use App\Repositories\User\StatisticVisitRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
@@ -26,7 +27,9 @@ class UserCatalogController extends Controller
                 'user.catalog.my.ids.'.Auth::user()->tab_no,
                 config('cache.cache_time'),
                 function () use ($userRepository) {
-                    return $userRepository->getDepartmentsIdsByCollection(Auth::user()->departmentChief);
+                    Auth::user()->departmentChief->map(function($item) {
+                        return $item->external_id;
+                    });
                 }
             );
         } else
@@ -76,7 +79,7 @@ class UserCatalogController extends Controller
             'user.catalog.visit.'.$tab_no.'.'.$previous,
             config('cache.cache_time'),
             function () use ($tab_no, $previous, $statisticVisitRepository) {
-                if (!$user = Transit1cEmployee::where('tab_no', $tab_no)->first()) {
+                if (!$user = ForUser::where('employee_external_id', $tab_no)->first()) {
                     throw new ApiException(404, 'User not found.');
                 }
 

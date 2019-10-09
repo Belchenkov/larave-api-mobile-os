@@ -11,6 +11,7 @@ use App\Actions\BaseAction;
 use App\Exceptions\Api\ApiException;
 use App\Models\Transit\DoTask;
 use App\Repositories\ApprovalTaskRepository;
+use App\Structure\ApprovalTask\ApprovalTaskActions;
 use Carbon\Carbon;
 
 class UpdateTaskAction extends BaseAction
@@ -25,7 +26,7 @@ class UpdateTaskAction extends BaseAction
 
     public function execute(DoTask $task, $status, $comment)
     {
-        if ($task->task_status != DoTask::TASK_CAN_EDIT)
+        if ($task->task_status != ApprovalTaskActions::TASK_CAN_EDIT)
             throw new ApiException(422, 'User task cant be updated');
 
         // ToDo - validate by task type!!!! IMPORTANT type_descriptions
