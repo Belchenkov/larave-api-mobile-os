@@ -37,6 +37,7 @@ class JwtGuard implements Guard
         if (request()->bearerToken()) {
             if ($token = UserJwtToken::where('access_token', request()->bearerToken())
                 ->where('access_expire_at', '>', Carbon::now())->first()) {
+                // ToDo - add out date from for_user table HERE!
                 $user = $token->user;
             }
         }

@@ -24,6 +24,7 @@ class ApprovalTasks extends JsonApiResourse
                 'tab_no' => $this->initiator->getUserTabNo(),
                 'full_name' => $this->initiator->getUserFullName(),
                 'avatar' => $this->initiator->getUserAvatar()->toArray(),
+                'organisation' => $this->initiator->getUserOrganizationName(),
             ],
             'comment' => $this->task_comment_execution,
             'executor' => $this->executor_employee,

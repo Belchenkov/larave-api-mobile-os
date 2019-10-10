@@ -20,6 +20,7 @@ class UserCatalog extends JsonApiResourse
             'department_name' => $this->getUserUnit(),
             'avatar' => $this->getUserAvatar()->toArray(),
             'position' => $this->getUserPosition(),
+            'organisation' => $this->getUserOrganizationName(),
             'tab_no' => $this->getUserTabNo(),
             'id_phperson' => $this->getUserPhPerson(),
             'department_guid' => $this->getUserDepartmentId()

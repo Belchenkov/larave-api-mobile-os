@@ -51,7 +51,7 @@ class UserRepository
     public function getDepartmentsTree($asTree = false, $parent = null)
     {
         $result = collect();
-        $departments = ForDepartment::where('enabled', 1)->get();
+        $departments = ForDepartment::all();//get();
 
         foreach ($departments as $department) {
             if ($department->parent_external_id == $parent || $department->external_id == $parent) {
@@ -106,6 +106,8 @@ class UserRepository
             $department_ids = $this->getDepartmentsIds();
 
         $department_ids = $department_ids->toArray();
+
+        //dd($department_ids);
 
         $catalog =
             ForUser::addSelect([

@@ -6,7 +6,6 @@ use App\Exceptions\Api\ApiException;
 use App\Http\Resources\Api\v1\Statistic\UserVisits;
 use App\Http\Resources\Api\v1\User\UserCatalog;
 use App\Http\Resources\Api\v1\User\UserProfile;
-use App\Models\Transit\_1C\Transit1cEmployee;
 use App\Models\Transit\Portal\ForUser;
 use App\Repositories\User\StatisticVisitRepository;
 use App\Repositories\User\UserRepository;
@@ -32,7 +31,7 @@ class UserCatalogController extends Controller
             );
         } else
             if ($request->get('dep')) {
-                $ids = collect($request->get('dep'));
+                $ids = $userRepository->getDepartmentsIds($request->get('dep'));
             }
 
         return Cache::remember(
