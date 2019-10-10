@@ -201,9 +201,9 @@ class ForUser extends TransitionModel implements UserInterface
         $office = $this->getUserOfficeTerritory();
 
         if (strpos($office, '/')) {
-            return trim(explode('/', $office)[1], ' ');
+            return trim(explode('/', $office)[2], ' ');
         } elseif (strpos($office, '\\')) {
-            return trim(explode('\\', $office)[1], ' ');
+            return trim(explode('\\', $office)[2], ' ');
         }
 
         return null;
