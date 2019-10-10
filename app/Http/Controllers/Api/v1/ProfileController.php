@@ -54,7 +54,7 @@ class ProfileController extends Controller
             config('cache.cache_time'),
             function () use ($statisticVisitRepository, $previous) {
                 return new UserVisits(
-                    $statisticVisitRepository->getVisitStatistic(Auth::user(), $previous)
+                    $statisticVisitRepository->getVisitStatistic(Auth::user()->portalUser, $previous)
                 );
             }
         );

@@ -14,7 +14,6 @@ use App\Http\Resources\Api\v1\User\User;
 use App\Http\Resources\Api\v1\User\UserJwtToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 
 class AuthorizationController extends Controller
 {
@@ -72,6 +71,6 @@ class AuthorizationController extends Controller
      */
     public function me()
     {
-        return new User(Auth::user());
+        return Auth::user();
     }
 }
