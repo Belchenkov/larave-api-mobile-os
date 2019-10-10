@@ -27,9 +27,7 @@ class UserCatalogController extends Controller
                 'user.catalog.my.ids.'.Auth::user()->tab_no,
                 config('cache.cache_time'),
                 function () use ($userRepository) {
-                    Auth::user()->departmentChief->map(function($item) {
-                        return $item->external_id;
-                    });
+                    return $userRepository->getDepartmentsIdsByCollection(Auth::user()->portalUser->departmentChief);
                 }
             );
         } else

@@ -28,7 +28,12 @@ class JwtGuard implements Guard
      */
     public function user()
     {
+        // Set user in guard!
+        if ($this->user)
+            return $this->user;
+
         $user = null;
+
         if ($token = UserJwtToken::where('access_token', request()->bearerToken())
             ->where('access_expire_at', '>', Carbon::now())->first()) {
                 $user = $token->user;

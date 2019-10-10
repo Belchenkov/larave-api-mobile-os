@@ -3,17 +3,13 @@
 namespace Tests\Feature\Api;
 
 use App\Models\User;
+use App\Models\UserJwtToken;
 use App\Models\UserPinCode;
 use Carbon\Carbon;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
-    const user_email = 's.chursin@gk-osnova.ru';
-    const user_login = 's.chursin';
-    const user_tabno = 'BR00000016';
-    const user_phperson = '381004a1-d925-11e8-9126-00155d640b22';
-    const user_pincode = '0000';
 
     /**
      * A basic feature test example.
@@ -39,5 +35,11 @@ class AuthTest extends TestCase
         ]);
 
         $response->assertStatus(201);
+
+        // ToDo - clear tokens for this user!
+        if ($user = User::where('ad_login', self::user_login)->first()) {
+            $user->removeAllSession();
+        }
     }
+
 }

@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\v1\Statistic\UserVisits;
 use App\Http\Resources\Api\v1\User\UserProfile;
+use App\Models\User;
 use App\Repositories\User\StatisticVisitRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class ProfileController extends Controller
     public function getProfileInfo(Request $request, UserRepository $userRepository)
     {
         return Cache::remember(
-            'user.profile.'.Auth::user()->id,
+            'user.profile.'.Auth::user()->tab_no,
             config('cache.cache_time'),
             function () use ($userRepository) {
                 return new UserProfile($userRepository->getUserProfileByTabNo(Auth::user()->tab_no));
@@ -50,11 +51,11 @@ class ProfileController extends Controller
         $previous = (int) $request->get('previous');
 
         return Cache::remember(
-            'user.profile.visits.'.Auth::user()->id.'.'.$previous,
+            'user.profile.visits.'.Auth::user()->tab_no.'.'.$previous,
             config('cache.cache_time'),
             function () use ($statisticVisitRepository, $previous) {
                 return new UserVisits(
-                    $statisticVisitRepository->getVisitStatistic(Auth::user(), $previous)
+                    $statisticVisitRepository->getVisitStatistic(Auth::user()->portalUser, $previous)
                 );
             }
         );
