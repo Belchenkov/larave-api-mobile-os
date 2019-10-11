@@ -185,7 +185,7 @@ class ForUser extends TransitionModel implements UserInterface
     public function getUserUnit(): ?string
     {
         if ($this->department_name) {
-            return $this->department_name;
+            return trim($this->department_name);
         }
 
         return $this->getModelAttribute('department.name');
@@ -296,5 +296,10 @@ class ForUser extends TransitionModel implements UserInterface
             $this->getModelAttribute('managerSecond.first_name') . ' ' .
             $this->getModelAttribute('managerSecond.middle_name')
         );
+    }
+
+    public function getUserOrganizationName(): ?string
+    {
+        return trim($this->organisation_name);
     }
 }

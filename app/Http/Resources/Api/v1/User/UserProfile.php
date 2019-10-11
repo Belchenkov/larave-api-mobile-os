@@ -43,6 +43,7 @@ class UserProfile extends JsonApiResourse
             'chief' => $this->getUserManagerName(),
             'chief_main' => $this->getUserManagerSecondName(),
             'tab_no' => $this->getUserTabNo(),
+            'organisation' => $this->getUserOrganizationName(),
             'id_phperson' => $this->getUserPhPerson(),
             'department_guid' => $this->getUserDepartmentId(),
         ];

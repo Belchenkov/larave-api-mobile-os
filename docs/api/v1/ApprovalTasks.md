@@ -26,6 +26,7 @@ Authorization: Bearer <accessToken>
                 "ad_login": {String},
                 "tab_no": {String},
                 "full_name": {String},
+                "organisation": {String},
                 "avatar": {
                     "name": {String},
                     "background": {String},
@@ -82,6 +83,10 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.initiator.full_name</td>
             <td>ФИО инициатора</td>
+        </tr>
+        <tr>
+            <td>data.initiator.organisation</td>
+            <td>Организация</td>
         </tr>
         <tr>
             <td>data.initiator.avatar.name</td>
@@ -167,6 +172,7 @@ Authorization: Bearer <accessToken>
                 "ad_login": {String},
                 "tab_no": {String},
                 "full_name": {String},
+                "organisation": {String},
                 "avatar": {
                     "name": {String},
                     "background": {String},
@@ -262,6 +268,10 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.initiator.full_name</td>
             <td>ФИО инициатора</td>
+        </tr>
+         <tr>
+            <td>data.initiator.organisation</td>
+            <td>Организация</td>
         </tr>
         <tr>
             <td>data.initiator.avatar.name</td>

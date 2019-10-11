@@ -44,5 +44,6 @@ interface UserInterface
     public function getUserIsManager() : bool;
     public function getUserManagerName() : ?string;
     public function getUserManagerSecondName() : ?string;
+    public function getUserOrganizationName() : ?string;
 
 }
