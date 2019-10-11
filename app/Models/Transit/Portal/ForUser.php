@@ -218,6 +218,11 @@ class ForUser extends TransitionModel implements UserInterface
         return false;
     }
 
+    public function getUserOnlineOfficeName(): ?string
+    {
+        return trim($this->skudEvents->last()->deviceRow->dev_name);
+    }
+
     public function getUserSchedule() : ?string
     {
         return $this->getModelAttribute('employee.schedule');

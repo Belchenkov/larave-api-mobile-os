@@ -6,8 +6,9 @@
  */
 namespace App\Models\Transit;
 
-use App\Models\DoTaskHandle;
+use App\Models\SentPushHandle;
 use App\Models\Transit\Portal\ForUser;
+use App\Models\User;
 use App\Services\MsSQL\OriginalColumns;
 use App\Structure\ApprovalTask\ApprovalTaskActions;
 use App\Structure\ApprovalTask\ApprovalTaskDocInfo;
@@ -96,6 +97,12 @@ class DoTask extends  TransitionModel
         return $this->belongsTo(ForUser::class, 'employee', 'user_ad_login');
     }
 
+    public function user() : HasOne
+    {
+        return $this->hasOne(User::class, 'ad_login', 'executor_employee');
+    }
+
+
     /**
      * Get Related Tasks from do_tasks (Transit DB)
      * @return HasMany
@@ -111,7 +118,7 @@ class DoTask extends  TransitionModel
      */
     public function handleTask() : HasOne
     {
-        return $this->hasOne(DoTaskHandle::class, 'task_id', 'id_task_1C');
+        return $this->hasOne(SentPushHandle::class, 'event_id', 'id_task_1C');
     }
 
     public function setPrimaryKey()

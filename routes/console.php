@@ -2,7 +2,9 @@
 
 use App\Actions\ApprovalTask\NewTaskAction;
 use App\Jobs\HandleNewTask;
+use App\Models\Transit\DoTask;
 use App\Models\User;
+use App\Notifications\ApprovalTask\NewTaskNotification;
 use App\Notifications\Push\SendPush;
 use App\Repositories\ApprovalTaskRepository;
 use App\Services\ApprovalTask\DocumentStructure;
@@ -36,3 +38,4 @@ Artisan::command('jobs:init', function () {
 Artisan::command('jobs:clear', function () {
     DB::table('jobs')->delete();
 })->describe('Clear jobs db table');
+

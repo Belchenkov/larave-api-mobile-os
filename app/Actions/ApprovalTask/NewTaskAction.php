@@ -6,12 +6,10 @@
 
 namespace App\Actions\ApprovalTask;
 
-
 use App\Actions\BaseAction;
 use App\Exceptions\Api\ApiException;
-use App\Models\DoTaskHandle;
 use App\Models\Transit\DoTask;
-use App\Notifications\Push\SendPush;
+use App\Notifications\ApprovalTask\NewTaskNotification;
 
 class NewTaskAction extends BaseAction
 {
@@ -21,13 +19,7 @@ class NewTaskAction extends BaseAction
             throw new ApiException(422, 'Task user not found.');
 
         // Send push, email, etc
-        $task->user->notify(
-            new SendPush(
-                'ГК Основа: Новая задача в кабинете согласования',
-                $task->name_task_1C,
-                ''
-            )
-        );
+        $task->user->notify(new NewTaskNotification($task));
 
         $task->handleTask()->create();
 

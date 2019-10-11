@@ -35,7 +35,6 @@ class HandleNewTask implements ShouldQueue
     public function handle()
     {
         $newTasks = $this->repository->handleNewTasks();
-
         foreach ($newTasks as $task) {
             $this->action->execute($task);
         }

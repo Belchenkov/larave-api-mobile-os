@@ -41,7 +41,7 @@ class TransitSkudEvent extends TransitionModel
      * Get Device Data from spr_dev (Transit DB)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function device() : BelongsTo
+    public function deviceRow() : BelongsTo
     {
         return $this->belongsTo(SprDev::class, 'device');
     }

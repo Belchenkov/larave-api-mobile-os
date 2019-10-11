@@ -13,9 +13,10 @@ class CreateNewTaskPushesTable extends Migration
      */
     public function up()
     {
-        Schema::create('do_task_handle', function (Blueprint $table) {
+        Schema::create('sent_pushes_handle', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->passthru('varchar', 'task_id', 'varchar(50)')->index();
+            $table->passthru('varchar', 'event_id', 'varchar(50)')->index();
+            $table->passthru('int', 'type_push')->unsigned()->index();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateNewTaskPushesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('do_task_handle');
+        Schema::dropIfExists('sent_pushes_handle');
     }
 }

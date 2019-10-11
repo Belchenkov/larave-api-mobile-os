@@ -75,7 +75,6 @@ class ApprovalTaskRepository
     {
         $tasks = collect();
         $unUsedTasks = DoTask::where('task_status', '=', 0)->with(['handleTask', 'user'])->get();
-
         foreach ($unUsedTasks as $task) {
             if (!$task->handleTask && $task->user) {
                 $tasks->push($task);

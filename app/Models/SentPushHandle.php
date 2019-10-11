@@ -6,12 +6,12 @@ use App\Models\Transit\DoTask;
 use App\Services\MsSQL\OriginalColumns;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class DoTaskHandle extends LocalDBModel
+class SentPushHandle extends LocalDBModel
 {
     use OriginalColumns;
 
-    private $originalColumns = ['task_id'];
-    protected $table = 'do_task_handle';
+    private $originalColumns = ['event_id'];
+    protected $table = 'sent_pushes_handle';
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +19,7 @@ class DoTaskHandle extends LocalDBModel
      * @var array
      */
     protected $fillable = [
-        'task_id'
+        'event_id'
     ];
 
     /**
@@ -28,6 +28,6 @@ class DoTaskHandle extends LocalDBModel
      */
     public function doTask() : BelongsTo
     {
-        return $this->belongsTo(DoTask::class, 'task_id', 'id_task_1C');
+        return $this->belongsTo(DoTask::class, 'event_id', 'id_task_1C');
     }
 }

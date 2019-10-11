@@ -41,6 +41,7 @@ interface UserInterface
     public function getUserOfficeCabinet() : ?string;
     public function getUserSchedule() : ?string;
     public function getUserOnline() : bool;
+    public function getUserOnlineOfficeName() : ?string;
     public function getUserIsManager() : bool;
     public function getUserManagerName() : ?string;
     public function getUserManagerSecondName() : ?string;

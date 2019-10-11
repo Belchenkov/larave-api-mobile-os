@@ -13,6 +13,7 @@ class SprDev extends TransitionModel
 {
     protected $table = 'spr_dev';
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,7 +22,6 @@ class SprDev extends TransitionModel
     protected $fillable = [
         'id',
         'dev_name',
-        'ID_PhPerson',
         'office_name',
         'office_code'
     ];

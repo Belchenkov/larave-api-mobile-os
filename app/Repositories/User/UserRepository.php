@@ -148,7 +148,8 @@ class UserRepository
             'managerSecond',
             'skudEvents' => function ($query) {
                 self::getLatestSkudEvents($query);
-            }
+            },
+            'skudEvents.deviceRow'
         ])->where('employee_external_id', $tab_no)->first();
     }
 }

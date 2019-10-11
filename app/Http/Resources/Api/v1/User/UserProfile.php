@@ -22,6 +22,7 @@ class UserProfile extends JsonApiResourse
     {
         return [
             'in_office' => $this->getUserOnline(),
+            'online_office' => $this->getUserOnline() ? $this->getUserOnlineOfficeName() : null,
             'name' => [
                 'full_name' => $this->getUserFullName(),
                 'first_name' => $this->getUserFirstName(),
