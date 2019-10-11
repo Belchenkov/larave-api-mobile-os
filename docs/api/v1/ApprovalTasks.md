@@ -36,25 +36,6 @@ Authorization: Bearer <accessToken>
             "comment": {String},
             "executor": {String},
             "status": {String},
-            "actions": {Int},
-            "related_tasks": {
-                []
-            },
-            "doc_info": {
-                "theme": {String},
-                "organization": {String},
-                "partner": {String},
-                "doc_no": {String},
-                "date": {String},
-                "cost": {Int},
-                "executor": {String},
-                "project": {String},
-                "article": {String},
-                "files": {
-                    "file_id" => {Int},
-                    "file_name" => {String}
-                }
-            },  
             "created_at": {Int},
         }
     ],
@@ -131,56 +112,8 @@ Authorization: Bearer <accessToken>
             <td>Статус задачи</td>
         </tr>
         <tr>
-            <td>data.actions</td>
-            <td>Действие задачи</td>
-        </tr>
-        <tr>
-            <td>data.related_tasks</td>
-            <td>Подписавшиеся к задаче лица</td>
-        </tr>
-        <tr>
-            <td>data.doc_info.theme</td>
-            <td>Тема документа</td>
-        </tr>
-        <tr>
-            <td>data.doc_info.organization</td>
-            <td>Организация</td>
-        </tr>
-        <tr>
-            <td>data.doc_info.partner</td>
-            <td>Контрагент</td>
-        </tr>
-        <tr>
-            <td>data.doc_info.doc_no</td>
-            <td>Номер</td>
-        </tr>
-        <tr>
-            <td>data.doc_info.date</td>
-            <td>Дата</td>
-        </tr>
-        <tr>
-            <td>data.doc_info.cost</td>
-            <td>Сумма</td>
-        </tr>
-        <tr>
-            <td>data.doc_info.executor</td>
-            <td>Ответственный</td>
-        </tr>
-        <tr>
-            <td>data.doc_info.project</td>
-            <td>Проект</td>
-        </tr>
-        <tr>
-            <td>data.doc_info.article</td>
-            <td>СтатьяДДС</td>
-        </tr>
-        <tr>
-            <td>data.doc_info.files.file_id</td>
-            <td>Ссылка на файл</td>
-        </tr>
-        <tr>
-            <td>data.doc_info.files.file_name</td>
-            <td>Название файла</td>
+            <td>data.created_at</td>
+            <td>Время добавления задачи</td>
         </tr>
     </tbody>
 </table>
@@ -229,6 +162,7 @@ Authorization: Bearer <accessToken>
             "name": {String},
             "type": {String},
             "type_descriptions": {String},
+            "type_doc": {String},
             "initiator": {
                 "ad_login": {String},
                 "tab_no": {String},
@@ -243,9 +177,26 @@ Authorization: Bearer <accessToken>
             "comment": {String},
             "executor": {String},
             "status": {String},
-            "actions": {Int},
+            "actions": {
+                [
+                    "caption": {String},    
+                    "action": {Int},    
+                ]
+            },
             "related_tasks": {
-                []
+                [
+                    "status": {Int},
+                    "comment": {String},
+                    "user": {
+                        "full_name": {String},
+                        "avatar": {
+                            "name": {String},
+                            "background": {String},
+                            "color": {String},
+                            "image": {String}
+                        },
+                    }
+                ]
             },
             "doc_info": {
                 "theme": {String},
@@ -296,6 +247,10 @@ Authorization: Bearer <accessToken>
             <td>data.type_descriptions</td>
             <td>Описание типа</td>
         </tr>
+         <tr>
+            <td>data.type_doc</td>
+            <td>Тип документа</td>
+        </tr>
         <tr>
             <td>data.initiator.ad_login</td>
             <td>AD инициатора</td>
@@ -337,12 +292,40 @@ Authorization: Bearer <accessToken>
             <td>Статус задачи</td>
         </tr>
         <tr>
-            <td>data.actions</td>
-            <td>Действие задачи</td>
+            <td>data.actions.caption</td>
+            <td>Описание действия с задачей (на кнопку)</td>
+        </tr>
+         <tr>
+            <td>data.actions.action</td>
+            <td>Возможное действие с задачей</td>
         </tr>
         <tr>
-            <td>data.related_tasks</td>
-            <td>Подписавшиеся к задаче лица</td>
+            <td>data.related_tasks.status</td>
+            <td>Подписавшиеся к задаче лица - статус задачи</td>
+        </tr>
+        <tr>
+            <td>data.related_tasks.comment</td>
+            <td>Подписавшиеся к задаче лица - комментарий к задаче</td>
+        </tr>
+        <tr>
+            <td>data.related_tasks.user.full_name</td>
+            <td>Подписавшиеся к задаче лица - ФИО</td>
+        </tr>
+        <tr>
+            <td>data.related_tasks.user.avatar.name</td>
+            <td>Первая буквы фамилии и имени подписавшегося к задаче лица</td>
+        </tr>
+        <tr>
+            <td>data.related_tasks.user.avatar.background</td>
+            <td>Фон аватара подписавшегося к задаче лица</td>
+        </tr>
+        <tr>
+            <td>data.related_tasks.user.avatar.color</td>
+            <td>Цвет шрифта аватара подписавшегося к задаче лица</td>
+        </tr>
+        <tr>
+            <td>data.related_tasks.user.avatar.image</td>
+            <td>Аватар подписавшегося к задаче лица</td>
         </tr>
         <tr>
             <td>data.doc_info.theme</td>

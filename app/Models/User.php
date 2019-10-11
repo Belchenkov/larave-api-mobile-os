@@ -32,7 +32,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get User Token(PIN)
+     * Get User Token(PIN) from user_tokens (Mobile DB)
      * @return \Illuminate\Database\Eloquent\Relations\hasOne
      */
     public function pinCode() : HasOne
@@ -41,7 +41,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get User JWT Token
+     * Get User JWT Token from user_jwt_tokens (Mobile DB)
      * @return HasMany
      */
     public function jwtToken() : HasMany
@@ -50,7 +50,7 @@ class User extends Authenticatable
     }
 
      /**
-     * Get User Devices
+     * Get User Devices from user_devices (Mobile DB)
      * @return HasMany
      */
     public function devices() : HasMany
@@ -59,6 +59,7 @@ class User extends Authenticatable
     }
 
     /**
+     * Get User Info from for_users (Transit DB)
      * @return HasOne
      */
     public function portalUser() : HasOne

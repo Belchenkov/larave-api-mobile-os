@@ -18,14 +18,25 @@ Authorization: Bearer <accessToken>
 {
     "data": {
         "in_office": {Boolean},
-        "fullName": {String},
+        "name": {
+            "full_name": {String},
+            "first_name": {String},
+            "middle_name": {String},
+            "last_name": {String}
+        },
+        "avatar": {
+            "name": {String},
+            "background": {String},
+            "color": {String},
+            "image": {String}
+        },
         "position": {String},
         "unit": {String},
         "email": {String},
-        "address_office": {String},
-        "cabinet": {String},
-        "work_phone": {String},
-        "mobile_phone": {String},
+        "office_address": {String},
+        "office_cabinet": {String},
+        "phone_work": {String},
+        "phone_mobile": {String},
         "amount_holiday_days": {String},
         "schedule": {String},
         "status": {String},
@@ -35,13 +46,7 @@ Authorization: Bearer <accessToken>
         "tab_no": {String},
         "id_phperson": {String},
         "department_guid": {String},
-        "department_guid_real": {String},
-        "avatar": {
-            "name": {String},
-            "background": {String},
-            "color": {String},
-            "image": {String}
-        },
+        "id_phperson": {String}
     },
     "result": {Boolean},
     "debug": {
@@ -64,8 +69,20 @@ Authorization: Bearer <accessToken>
             <td>Статус сотрудника (на территории/вне)</td>
         </tr>
         <tr>
-            <td>data.fullName</td>
+            <td>data.name.full_name</td>
             <td>ФИО</td>
+        </tr>
+        <tr>
+            <td>data.name.first_name</td>
+            <td>Имя</td>
+        </tr>
+        <tr>
+            <td>data.name.middle_name</td>
+            <td>Отчество</td>
+        </tr>
+        <tr>
+            <td>data.name.last_name</td>
+            <td>Фамилия</td>
         </tr>
         <tr>
             <td>data.position</td>
@@ -80,19 +97,19 @@ Authorization: Bearer <accessToken>
             <td>Почта</td>
         </tr>
         <tr>
-            <td>data.address_office</td>
+            <td>data.office_address</td>
             <td>Адрес офиса</td>
         </tr>
         <tr>
-            <td>data.cabinet</td>
+            <td>data.office_cabinet</td>
             <td>Кабинет</td>
         </tr>
         <tr>
-            <td>data.work_phone</td>
+            <td>data.phone_work</td>
             <td>Рабочий телефон</td>
         </tr>
         <tr>
-            <td>data.mobile_phone</td>
+            <td>data.phone_mobile</td>
             <td>Мобильный телефон</td>
         </tr>
         <tr>
@@ -130,10 +147,6 @@ Authorization: Bearer <accessToken>
         <tr>
            <td>data.department_guid</td>
            <td>ID из таблицы ID из таблицы transit_1c_department</td>
-        </tr>
-        <tr>
-           <td>data.department_guid_real</td>
-           <td>ID из таблицы transit_1c_link_department</td>
         </tr>
         <tr>
             <td>data.avatar.name</td>

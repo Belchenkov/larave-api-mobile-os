@@ -222,7 +222,7 @@ Authorization: Bearer <accessToken>
         "ad_login": {String},
         "tab_no": {String},
         "id_person": {String},
-        "id_device": {String},
+        "email": {String},
         "created_at": {datetime}
     },
     "result": {Boolean}
@@ -243,7 +243,7 @@ Authorization: Bearer <accessToken>
         </tr>
         <tr>
             <td>data.ad_login</td>
-            <td>Логин/Email</td>
+            <td>Логин</td>
         </tr>
         <tr>
             <td>data.tab_no</td>
@@ -254,8 +254,8 @@ Authorization: Bearer <accessToken>
             <td>ID из таблицы PhPerson</td>
         </tr>
         <tr>
-            <td>data.id_device</td>
-            <td>ID устройства</td>
+            <td>data.email</td>
+            <td>Email</td>
         </tr>
         <tr>
             <td>data.created_at</td>

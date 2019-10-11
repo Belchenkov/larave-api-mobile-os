@@ -5,8 +5,6 @@
  */
 namespace App\Models\Transit;
 
-use App\Models\Transit\_1C\Transit1cEmployee;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TransitSprDepartmentorganisation extends TransitionModel
 {

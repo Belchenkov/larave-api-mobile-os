@@ -56,8 +56,7 @@ Authorization: Bearer <accessToken>
         "position": {String},
         "tab_no": {String},
         "id_phperson": {String},
-        "department_guid": {String},
-        "department_guid_real": {String}
+        "department_guid": {String}
     },
     "links": {
         "first": {String},
@@ -216,7 +215,12 @@ Authorization: Bearer <accessToken>
 {
     "data": {
         "in_office": {Boolean},
-        "full_name": {String},
+        "name": {
+            "full_name": {String},
+            "first_name": {String},
+            "middle_name": {String},
+            "last_name": {String}
+        },
         "avatar": {
             "name": {String},
             "background": {String},
@@ -226,22 +230,20 @@ Authorization: Bearer <accessToken>
         "position": {String},
         "unit": {String},
         "email": {String},
-        "address_office": {String},
-        "cabinet": {String},
-        "work_phone": {String},
-        "mobile_phone": {String},
-        "amount_holiday_days": {Int},
+        "office_address": {String},
+        "office_cabinet": {String},
+        "phone_work": {String},
+        "phone_mobile": {String},
+        "amount_holiday_days": {String},
         "schedule": {String},
         "status": {String},
-        "chief": {String},
-        "chief_main": {String}",
         "is_chief": {Boolean},
         "chief": {String},
         "chief_main": {String},
         "tab_no": {String},
         "id_phperson": {String},
         "department_guid": {String},
-        "department_guid_real": {String}
+        "id_phperson": {String}
     },
     "result": {Boolean},
     "debug": {
@@ -259,13 +261,89 @@ Authorization: Bearer <accessToken>
         </tr>
     </thead>
     <tbody>
-         <tr>
+        <tr>
             <td>data.in_office</td>
             <td>Статус сотрудника (на территории/вне)</td>
         </tr>
-         <tr>
-            <td>data.full_name</td>
+        <tr>
+            <td>data.name.full_name</td>
             <td>ФИО</td>
+        </tr>
+        <tr>
+            <td>data.name.first_name</td>
+            <td>Имя</td>
+        </tr>
+        <tr>
+            <td>data.name.middle_name</td>
+            <td>Отчество</td>
+        </tr>
+        <tr>
+            <td>data.name.last_name</td>
+            <td>Фамилия</td>
+        </tr>
+        <tr>
+            <td>data.position</td>
+            <td>Должность</td>
+        </tr>
+        <tr>
+            <td>data.unit</td>
+            <td>Подразделение</td>
+        </tr>
+        <tr>
+            <td>data.email</td>
+            <td>Почта</td>
+        </tr>
+        <tr>
+            <td>data.office_address</td>
+            <td>Адрес офиса</td>
+        </tr>
+        <tr>
+            <td>data.office_cabinet</td>
+            <td>Кабинет</td>
+        </tr>
+        <tr>
+            <td>data.phone_work</td>
+            <td>Рабочий телефон</td>
+        </tr>
+        <tr>
+            <td>data.phone_mobile</td>
+            <td>Мобильный телефон</td>
+        </tr>
+        <tr>
+            <td>data.amount_holiday_days</td>
+            <td>Кол-во отпускных дней</td>
+        </tr>
+        <tr>
+            <td>data.schedule</td>
+            <td>График</td>
+        </tr>
+        <tr>
+            <td>data.status</td>
+            <td>Статус</td>
+        </tr>
+        <tr>
+            <td>data.is_chief</td>
+            <td>Является руководителем подразделения</td>
+         </tr>
+         <tr>
+            <td>data.chief</td>
+            <td>Функциональный руководитель</td>
+         </tr>
+         <tr>
+            <td>data.chief_main</td>
+            <td>Основной руководитель</td>
+         </tr>
+         <tr>
+            <td>data.tab_no</td>
+            <td>Табельный номер</td>
+        </tr>
+        <tr>
+           <td>data.id_phperson</td>
+           <td>ID из таблицы transit_1c_PhPerson</td>
+        </tr>
+        <tr>
+           <td>data.department_guid</td>
+           <td>ID из таблицы ID из таблицы transit_1c_department</td>
         </tr>
         <tr>
             <td>data.avatar.name</td>
@@ -282,74 +360,6 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.avatar.image</td>
             <td>Аватар</td>
-        </tr>
-        <tr>
-            <td>data.unit</td>
-            <td>Подразделение</td>
-        </tr>
-        <tr>
-            <td>data.position</td>
-            <td>Должность</td>
-        </tr>
-        <tr>
-            <td>data.email</td>
-            <td>Почта</td>
-        </tr>
-        <tr>
-            <td>data.address_office</td>
-            <td>Адрес офиса</td>
-        </tr>
-        <tr>
-            <td>data.cabinet</td>
-            <td>Кабинет</td>
-        </tr>
-        <tr>
-            <td>data.work_phone</td>
-            <td>Рабочий телефон</td>
-        </tr>
-        <tr>
-            <td>data.mobile_phone</td>
-            <td>Мобильный телефон</td>
-        </tr>
-        <tr>
-            <td>data.amount_holiday_days</td>
-            <td>Кол-во отпускных дней</td>
-        </tr>
-        <tr>
-            <td>data.schedule</td>
-            <td>График</td>
-        </tr>
-        <tr>
-            <td>data.status</td>
-            <td>Статус работника</td>
-        </tr>
-        <tr>
-            <td>data.is_chief</td>
-            <td>Является руководителем подразделения</td>
-        </tr>
-        <tr>
-            <td>data.chief</td>
-            <td>Функциональный руководитель</td>
-        </tr>
-        <tr>
-            <td>data.chief_main</td>
-            <td>Основной руководитель</td>
-        </tr>
-        <tr>
-            <td>data.tab_no</td>
-            <td>Табельный номер</td>
-        </tr>
-        <tr>
-           <td>data.id_phperson</td>
-           <td>ID из таблицы transit_1c_PhPerson</td>
-        </tr>
-        <tr>
-           <td>data.department_guid</td>
-           <td>ID из таблицы ID из таблицы transit_1c_department</td>
-        </tr>
-        <tr>
-           <td>data.department_guid_real</td>
-           <td>ID из таблицы transit_1c_link_department</td>
         </tr>
     </tbody>
 </table>

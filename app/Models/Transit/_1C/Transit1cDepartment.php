@@ -9,9 +9,7 @@
 namespace App\Models\Transit\_1C;
 
 use App\Models\Transit\TransitionModel;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Transit1cDepartment extends TransitionModel
 {
@@ -41,7 +39,7 @@ class Transit1cDepartment extends TransitionModel
     ];
 
     /**
-     * Get User Data from users (Mobile DB)
+     * Get User Data from for_users (Transit DB)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user() : BelongsTo

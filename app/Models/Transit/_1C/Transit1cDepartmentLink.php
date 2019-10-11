@@ -9,7 +9,6 @@
 namespace App\Models\Transit\_1C;
 
 use App\Models\Transit\TransitionModel;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transit1cDepartmentLink extends TransitionModel
@@ -30,6 +29,10 @@ class Transit1cDepartmentLink extends TransitionModel
         'dt'
     ];
 
+    /**
+     * Get Department from transit_1c_department (Transit DB)
+     * @return BelongsTo
+     */
     public function department() : BelongsTo
     {
         return $this->belongsTo(Transit1cDepartment::class, 'Guid1cDepartment', 'id_1c');

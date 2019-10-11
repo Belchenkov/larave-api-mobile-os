@@ -6,20 +6,11 @@
  */
 namespace App\Models\Transit\_1C;
 
-use App\Models\Transit\CoreUserData;
 use App\Models\Transit\Portal\ForUser;
 use App\Models\Transit\TransitionModel;
-use App\Models\Transit\TransitSkudEvent;
-use App\Models\Transit\TransitSprDepartmentorganisation;
-use App\Models\Transit\TransitSprOffice;
-use App\Models\User;
 use App\Services\User\UserInterface;
 use App\Services\User\UserTrait;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Support\Facades\DB;
 
 class Transit1cEmployee extends TransitionModel
 {
@@ -56,6 +47,10 @@ class Transit1cEmployee extends TransitionModel
 
     protected $hidden = ['UpdateNum'];
 
+    /**
+     * Get User Info from for_users (Transit DB)
+     * @return BelongsTo
+     */
     public function forUser() : BelongsTo
     {
         return $this->belongsTo(ForUser::class, 'id_1c', 'id_phperson');

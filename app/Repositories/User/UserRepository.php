@@ -6,9 +6,6 @@
 
 namespace App\Repositories\User;
 
-
-use App\Models\Transit\_1C\Transit1cDepartment;
-use App\Models\Transit\_1C\Transit1cEmployee;
 use App\Models\Transit\Portal\ForDepartment;
 use App\Models\Transit\Portal\ForUser;
 use Carbon\Carbon;

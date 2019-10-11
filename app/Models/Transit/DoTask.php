@@ -6,10 +6,8 @@
  */
 namespace App\Models\Transit;
 
-
 use App\Models\DoTaskHandle;
 use App\Models\Transit\Portal\ForUser;
-use App\Models\User;
 use App\Services\MsSQL\OriginalColumns;
 use App\Structure\ApprovalTask\ApprovalTaskActions;
 use App\Structure\ApprovalTask\ApprovalTaskDocInfo;
@@ -81,7 +79,7 @@ class DoTask extends  TransitionModel
     }
 
     /**
-     * Get Executor Data from ITS.Core_UserData (Transit DB)
+     * Get Executor Data from for_users (Transit DB)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function executor() : BelongsTo
@@ -90,7 +88,7 @@ class DoTask extends  TransitionModel
     }
 
     /**
-     * Get Initiator Data from ITS.Core_UserData (Transit DB)
+     * Get Initiator Data from for_users (Transit DB)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function initiator() : BelongsTo
@@ -98,11 +96,19 @@ class DoTask extends  TransitionModel
         return $this->belongsTo(ForUser::class, 'employee', 'user_ad_login');
     }
 
+    /**
+     * Get Related Tasks from do_tasks (Transit DB)
+     * @return HasMany
+     */
     public function relatedTasks() : HasMany
     {
         return $this->hasMany(DoTask::class, 'id_process_1C_parent', 'id_process_1C_parent');
     }
 
+    /**
+     * Get Sended Pushes Tasks from do_task_handle (Mobile DB)
+     * @return HasOne
+     */
     public function handleTask() : HasOne
     {
         return $this->hasOne(DoTaskHandle::class, 'task_id', 'id_task_1C');
@@ -114,11 +120,20 @@ class DoTask extends  TransitionModel
         return $this;
     }
 
+    /**
+     * Get Doc Info - Parse XML
+     * @return Collection|null
+     */
     public function getDocInfo() : ?Collection
     {
         return (new ApprovalTaskDocInfo($this->doc_info))->getDocInfo();
     }
 
+    /**
+     * Define Task Actions
+     * @param string $key
+     * @return array
+     */
     public function getRelevantActions($key = 'actions') {
         return $this->approvalTaskActions->getRelevantActions(trim($this->type_descriptions), $key);
     }

@@ -7,10 +7,6 @@
 
 namespace App\Models\Transit;
 
-use App\Models\Transit\_1C\Transit1cDepartment;
-use App\Models\Transit\_1C\Transit1cEmployee;
-use App\Models\Transit\_1C\Transit1cPhPerson;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TransitSkudEvent extends TransitionModel

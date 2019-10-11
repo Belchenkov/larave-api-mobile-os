@@ -8,17 +8,7 @@
 
 namespace App\Models\Transit;
 
-use App\Models\Transit\_1C\Transit1cDepartment;
-use App\Models\Transit\_1C\Transit1cEmployee;
-use App\Models\Transit\_1C\Transit1cEmployeeChief;
-use App\Models\Transit\_1C\Transit1cEmployeeStatus;
-use App\Models\Transit\_1C\Transit1cPhPerson;
-use App\Models\Transit\_1C\Transit1cScheduleEmployee;
-use App\Models\User;
 use App\Services\MsSQL\DottedQueryBuilder;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CoreUserData extends TransitionModel
 {

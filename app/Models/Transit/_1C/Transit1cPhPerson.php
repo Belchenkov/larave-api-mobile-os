@@ -8,14 +8,9 @@
 
 namespace App\Models\Transit\_1C;
 
-use App\Models\Transit\CoreUserData;
 use App\Models\Transit\TransitionModel;
-use App\Models\Transit\TransitSkudEvent;
-use App\Models\Transit\TransitSprOffice;
-use App\Models\User;
 use App\Services\MsSQL\OriginalColumns;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Transit1cPhPerson extends TransitionModel
 {
@@ -65,7 +60,7 @@ class Transit1cPhPerson extends TransitionModel
     protected $hidden = ['UpdateNum'];
 
     /**
-     * Get User Data (Mobile DB)
+     * Get User Data from for_users (Transit DB)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user() : BelongsTo

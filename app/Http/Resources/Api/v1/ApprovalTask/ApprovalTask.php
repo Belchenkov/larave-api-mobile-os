@@ -20,12 +20,12 @@ class ApprovalTask extends JsonApiResourse
             'type' => $this->type,
             'type_descriptions' => $this->type_descriptions,
             'type_doc' => $this->type_doc,
-            'initiator' => [
+            'initiator' => $this->initiator ? [
                 'ad_login' => $this->initiator->getUserAdLogin(),
                 'tab_no' => $this->initiator->getUserTabNo(),
                 'full_name' => $this->initiator->getUserFullName(),
                 'avatar' => $this->initiator->getUserAvatar()->toArray(),
-            ],
+            ] : null,
             'comment' => $this->task_comment_execution,
             'executor' => $this->executor_employee,
             'status' => $this->task_status,
