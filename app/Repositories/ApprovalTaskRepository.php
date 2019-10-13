@@ -7,6 +7,7 @@
 namespace App\Repositories;
 
 
+use App\Models\EventHandle;
 use App\Models\Transit\DoTask;
 use App\Structure\ApprovalTask\ApprovalTaskActions;
 use App\Structure\User\UserInterface;
@@ -74,7 +75,12 @@ class ApprovalTaskRepository
     public function handleNewTasks()
     {
         $tasks = collect();
-        $unUsedTasks = DoTask::where('task_status', '=', 0)->with(['handleTask', 'user'])->get();
+        $unUsedTasks = DoTask::where('task_status', '=', 0)->with([
+            'handleTask' => function($query) {
+                $query->where('handle_type', EventHandle::HANDLE_TYPE_DOTASK);
+            },
+            'user'
+        ])->get();
         foreach ($unUsedTasks as $task) {
             if (!$task->handleTask && $task->user) {
                 $tasks->push($task);

@@ -2,10 +2,10 @@
 
 namespace App\Notifications\Schedule;
 
+use App\Services\Firebase\FirebaseChannel;
+use App\Services\Firebase\FirebaseMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 
 class IsLateUserNotification extends Notification
 {
@@ -29,33 +29,21 @@ class IsLateUserNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return [FirebaseChannel::class];
     }
 
     /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @param $notifiable
+     * @return FirebaseMessage
      */
-    public function toMail($notifiable)
+    public function toFirebase($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
+        return new FirebaseMessage(
+            'ГК Основа: опоздание',
+            'Вы пришли на работу в ' . $notifiable['stat']['enter_time']->format('H:i:s'),
+            'push-channel',
+            '',
+            $notifiable->devices->pluck('device_id')->toArray()
+        );
     }
 }

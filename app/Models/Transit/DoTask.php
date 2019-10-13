@@ -6,7 +6,7 @@
  */
 namespace App\Models\Transit;
 
-use App\Models\SentPushHandle;
+use App\Models\EventHandle;
 use App\Models\Transit\Portal\ForUser;
 use App\Models\User;
 use App\Services\MsSQL\OriginalColumns;
@@ -118,7 +118,7 @@ class DoTask extends  TransitionModel
      */
     public function handleTask() : HasOne
     {
-        return $this->hasOne(SentPushHandle::class, 'event_id', 'id_task_1C');
+        return $this->hasOne(EventHandle::class, 'event_id', 'id_task_1C');
     }
 
     public function setPrimaryKey()

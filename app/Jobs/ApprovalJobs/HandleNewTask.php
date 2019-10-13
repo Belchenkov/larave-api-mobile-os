@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\ApprovalJobs;
 
 use App\Actions\ApprovalTask\NewTaskAction;
 use App\Repositories\ApprovalTaskRepository;

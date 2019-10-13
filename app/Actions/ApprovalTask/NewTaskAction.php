@@ -8,6 +8,7 @@ namespace App\Actions\ApprovalTask;
 
 use App\Actions\BaseAction;
 use App\Exceptions\Api\ApiException;
+use App\Models\EventHandle;
 use App\Models\Transit\DoTask;
 use App\Notifications\ApprovalTask\NewTaskNotification;
 
@@ -21,7 +22,9 @@ class NewTaskAction extends BaseAction
         // Send push, email, etc
         $task->user->notify(new NewTaskNotification($task));
 
-        $task->handleTask()->create();
+        $task->handleTask()->create([
+            'handle_type' => EventHandle::HANDLE_TYPE_DOTASK
+        ]);
 
         return $this;
     }

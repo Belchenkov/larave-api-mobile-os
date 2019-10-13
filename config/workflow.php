@@ -13,6 +13,7 @@ return [
 
     'avatars_path' => env('APP_AVATARS_PATH'),
     'time_update_new_approval_tasks' => 5,
+    'time_update_late_users' => 5,
     'callback_key' => env('APP_CALLBACK_KEY'),
 
     'doc_download' => env('APP_DOC_DOWNLOAD_URL'),

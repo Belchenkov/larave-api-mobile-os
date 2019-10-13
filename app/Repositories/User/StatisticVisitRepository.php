@@ -7,6 +7,9 @@
 namespace App\Repositories\User;
 
 use App\Http\Resources\Api\v1\Statistic\UserVisits;
+use App\Models\EventHandle;
+use App\Models\Transit\Portal\ForUser;
+use App\Models\User;
 use App\Structure\User\UserInterface;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -169,7 +172,7 @@ class StatisticVisitRepository
             'exit_time' => $endDay ? $endDay : null,
             'work_time' => Carbon::createFromTimestampUTC($inTime),
             'idle_time' => Carbon::parse($outTime),
-            'territory_time' => Carbon::parse($endDay->diffInSeconds($startDay)),
+            'territory_time' => $startDay ? Carbon::parse($endDay->diffInSeconds($startDay)) : null,
             'is_late' => $lateTime != 0,
             'is_earlier' => $earlierTime != 0,
             'day_of_week' => $currentDay ? $currentDay->minDayName : null
@@ -219,5 +222,39 @@ class StatisticVisitRepository
         }
 
         return null;
+    }
+
+    public function handleLateUsers(?Carbon $date = null)
+    {
+        $laters = collect();
+
+        if (!$date)
+            $date = Carbon::now();
+
+        $date = $date->format('Y-m-d');
+
+        User::with([
+            'handleLate' => function($query) use ($date) {
+                $query->where('handle_type', EventHandle::HANDLE_TYPE_LATE)
+                    ->whereDate('created_at', $date);
+            },
+            'portalUser.schedule',
+            'portalUser.skudEvents' => function ($query) use ($date) {
+                $query->whereDate('time', '>=', $date)->orderBy('time', 'ASC');
+            },
+        ])->chunk(100, function($users) use ($laters) {
+            foreach ($users as $user) {
+                if ($user->portalUser->skudEvents->count() > 0 && !$user->handleLate) {
+                    $stat = $this->getDayVisit($user->portalUser->skudEvents, $this->getVisitSchedule($user->portalUser));
+                    if ($stat['is_late']) {
+                        $user->setAttribute('stat', $stat);
+                        dd();
+                        $laters->push($user);
+                    }
+                }
+            }
+        });
+
+        return $laters;
     }
 }

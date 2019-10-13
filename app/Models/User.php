@@ -67,4 +67,10 @@ class User extends Authenticatable
         return $this->hasOne(ForUser::class, 'employee_external_id', 'tab_no');
     }
 
+    public function handleLate() : HasOne
+    {
+        return $this->hasOne(EventHandle::class, 'event_id', 'id_person');
+    }
+
+
 }

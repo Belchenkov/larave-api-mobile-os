@@ -7,7 +7,10 @@ use App\Models\User;
 use App\Notifications\ApprovalTask\NewTaskNotification;
 use App\Notifications\Push\SendPush;
 use App\Repositories\ApprovalTaskRepository;
+use App\Repositories\User\StatisticVisitRepository;
+use App\Repositories\User\UserRepository;
 use App\Services\ApprovalTask\DocumentStructure;
+use Carbon\Carbon;
 use Illuminate\Foundation\Inspiring;
 
 /*
@@ -30,12 +33,11 @@ Artisan::command('push', function () {
     $u->notify(new SendPush('New task', 'You have new document! Please visit app.', 'Test Data'));
 })->describe('Send test push message');
 
-
 Artisan::command('jobs:init', function () {
-    App\Jobs\HandleNewTask::dispatch();
+    App\Jobs\ApprovalJobs\HandleNewTask::dispatch();
+    App\Jobs\Schedule\HandleIsLateUser::dispatch();
 })->describe('Send push of new task');
 
 Artisan::command('jobs:clear', function () {
     DB::table('jobs')->delete();
 })->describe('Clear jobs db table');
-

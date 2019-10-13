@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNewTaskPushesTable extends Migration
+class CreateEventHandleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateNewTaskPushesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sent_pushes_handle', function (Blueprint $table) {
+        Schema::create('event_handle', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->passthru('varchar', 'event_id', 'varchar(50)')->index();
-            $table->passthru('int', 'type_push')->unsigned()->index();
+            $table->passthru('int', 'handle_type')->unsigned()->index();
             $table->timestamps();
         });
     }
