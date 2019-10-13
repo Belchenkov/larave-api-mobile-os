@@ -248,7 +248,6 @@ class StatisticVisitRepository
                     $stat = $this->getDayVisit($user->portalUser->skudEvents, $this->getVisitSchedule($user->portalUser));
                     if ($stat['is_late']) {
                         $user->setAttribute('stat', $stat);
-                        dd();
                         $laters->push($user);
                     }
                 }
