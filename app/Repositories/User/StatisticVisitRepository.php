@@ -140,7 +140,6 @@ class StatisticVisitRepository
                 }
             }
         }
-
         if ($startDay && $schedule->get('schedule')) {
             $scheduleStartDay = $schedule->get('schedule')->first()->get('date_in');
             $lateTime = $startDay
@@ -172,7 +171,7 @@ class StatisticVisitRepository
             'exit_time' => $endDay ? $endDay : null,
             'work_time' => Carbon::createFromTimestampUTC($inTime),
             'idle_time' => Carbon::parse($outTime),
-            'territory_time' => $startDay ? Carbon::parse($endDay->diffInSeconds($startDay)) : null,
+            'territory_time' => $startDay && $endDay ? Carbon::parse($endDay->diffInSeconds($startDay)) : null,
             'is_late' => $lateTime != 0,
             'is_earlier' => $earlierTime != 0,
             'day_of_week' => $currentDay ? $currentDay->minDayName : null

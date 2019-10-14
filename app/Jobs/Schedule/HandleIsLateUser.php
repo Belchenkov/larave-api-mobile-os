@@ -42,6 +42,7 @@ class HandleIsLateUser implements ShouldQueue
             ->delete();
 
         $laters = $this->repository->handleLateUsers();
+
         foreach ($laters as $user) {
             $this->action->execute($user);
         }
