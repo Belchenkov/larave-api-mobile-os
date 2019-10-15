@@ -14,6 +14,11 @@ use App\Notifications\ApprovalTask\NewTaskNotification;
 
 class NewTaskAction extends BaseAction
 {
+    /**
+     * @param DoTask $task
+     * @return $this
+     * Execute new task
+     */
     public function execute(DoTask $task)
     {
         if (!$task->user)

@@ -37,6 +37,10 @@ class UserAvatar
         $this->user = $user;
     }
 
+    /**
+     * @return string
+     * Get First Letter of FirstName && LastName
+     */
     public function getShortName() : string
     {
         if (!$name = $this->user->getUserFullname()) return 'NA';
@@ -55,6 +59,10 @@ class UserAvatar
         return $this->avatarColors[$color_index];
     }
 
+    /**
+     * @param bool $update
+     * @return string|null
+     */
     public function getUserAvatarImage(bool $update = false) : ?string
     {
         $file_name_source = $this->user->getUserTabNo() . '_2.jpg';
@@ -96,6 +104,11 @@ class UserAvatar
         return null;
     }
 
+    /**
+     * @param bool $update
+     * @return array
+     * Get Avatar Info - array view
+     */
     public function toArray(bool $update = false) : array
     {
         $color = $this->getAvatarColor();

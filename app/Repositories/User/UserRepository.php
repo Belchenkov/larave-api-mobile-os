@@ -14,9 +14,18 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class UserRepository
+ * @package App\Repositories\User
+ * Пользователь системы
+ */
 class UserRepository
 {
 
+    /**
+     * @param $query
+     * Get Latest Records of Visit User
+     */
     public static function getLatestSkudEvents($query)
     {
         $query->whereDate(
@@ -26,6 +35,13 @@ class UserRepository
         )->orderBy('time', 'ASC');
     }
 
+    /**
+     * @param $parent_id
+     * @param $departments
+     * @param bool $asTree
+     * @return Collection
+     * Get Departments Child
+     */
     public function getDepartmentsChild($parent_id, $departments, $asTree = false) : Collection
     {
         $items = collect();
@@ -45,6 +61,12 @@ class UserRepository
         return $items;
     }
 
+    /**
+     * @param bool $asTree
+     * @param null $parent
+     * @return Collection
+     * Get Departments in tree view
+     */
     public function getDepartmentsTree($asTree = false, $parent = null)
     {
         $result = collect();
@@ -65,6 +87,11 @@ class UserRepository
         return $result;
     }
 
+    /**
+     * @param null $deprtment_id
+     * @return mixed
+     * Get Array of Departments Ids
+     */
     public function getDepartmentsIds($deprtment_id = null)
     {
         return Cache::remember(
@@ -78,6 +105,11 @@ class UserRepository
         );
     }
 
+    /**
+     * @param Collection $collection
+     * @return Collection
+     * Get Departments in collection view
+     */
     public function getDepartmentsByCollection(Collection $collection)
     {
         $departments = collect();
@@ -91,20 +123,29 @@ class UserRepository
         return $departments;
     }
 
+    /**
+     * @param Collection $collection
+     * @return Collection
+     * Get Departments Ids in collection view
+     */
     public function getDepartmentsIdsByCollection(Collection $collection) {
         return $this->getDepartmentsByCollection($collection)->map(function ($item) {
             return $item->external_id;
         });
     }
 
+    /**
+     * @param null $search
+     * @param Collection|null $department_ids
+     * @return Builder
+     * Get User Catalog
+     */
     public function getUserCatalog($search = null, ?Collection $department_ids = null) : Builder
     {
         if (!$department_ids)
             $department_ids = $this->getDepartmentsIds();
 
         $department_ids = $department_ids->toArray();
-
-        //dd($department_ids);
 
         $catalog =
             ForUser::addSelect([
@@ -137,6 +178,11 @@ class UserRepository
         return $catalog;
     }
 
+    /**
+     * @param string $tab_no
+     * @return ForUser|null
+     * Get User Profile Info by tab_no
+     */
     public function getUserProfileByTabNo(string $tab_no) : ?ForUser
     {
         return ForUser::with([

@@ -18,6 +18,13 @@ class LoginUserAction extends BaseAction
      */
     private $user = null;
 
+    /**
+     * @param $email
+     * @param $pin_code
+     * @param null $id_device
+     * @return $this
+     * Login User
+     */
     public function execute($email, $pin_code, $id_device = null)
     {
         if ($user = User::where('email', $email)->first()) {

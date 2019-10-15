@@ -19,6 +19,9 @@ class ApprovalTaskDocInfo
         $this->xml = $xml;
     }
 
+    /**
+     * @return Collection|null
+     */
     public function getDocInfo() : ?Collection
     {
         if (!$this->xml) return null;

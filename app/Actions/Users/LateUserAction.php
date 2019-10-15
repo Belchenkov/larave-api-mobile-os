@@ -11,8 +11,17 @@ use App\Models\EventHandle;
 use App\Models\User;
 use App\Notifications\Schedule\IsLateUserNotification;
 
+/**
+ * Class LateUserAction
+ * @package App\Actions\Users
+ * Execute Action if User be late
+ */
 class LateUserAction extends BaseAction
 {
+    /**
+     * @param User $user
+     * @return $this
+     */
     public function execute(User $user)
     {
         // Send push, email, etc

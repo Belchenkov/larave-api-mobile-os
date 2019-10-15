@@ -18,6 +18,7 @@ class FirebaseSender
      * @param null $data
      * @param array $tokens
      * @throws \LaravelFCM\Message\Exceptions\InvalidOptionsException
+     * Send Push from Firebase Account
      */
     public function send($title = null, $body = null, $channelId = null, $data = null, $tokens = [])
     {

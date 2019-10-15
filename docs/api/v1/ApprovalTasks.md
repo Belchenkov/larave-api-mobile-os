@@ -9,6 +9,27 @@
 ```
 Authorization: Bearer <accessToken>
 ```
+<b>BODY</b>
+ ```
+{
+    "archive": {Boolean|null}
+}
+```
+
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>my</td>
+            <td>Фильтр - Задачи в архиве</td>
+        </tr>
+    </tbody>
+</table> 
 
 <b>RESPONSE</b>
 

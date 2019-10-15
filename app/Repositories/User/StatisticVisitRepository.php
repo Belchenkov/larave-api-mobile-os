@@ -43,6 +43,7 @@ class StatisticVisitRepository
      * @param null $timestamp
      * @param int $subDays
      * @return \Illuminate\Support\Collection
+     * Get User Visit Statistic
      */
     public function getVisitStatistic(UserInterface $user, $timestamp = null, $subDays = 14)
     {
@@ -108,6 +109,7 @@ class StatisticVisitRepository
      * @param Collection $events
      * @param \Illuminate\Support\Collection $schedule
      * @return \Illuminate\Support\Collection
+     * Get Statistic Visit for day
      */
     public function getDayVisit(Collection $events, \Illuminate\Support\Collection $schedule)
     {
@@ -181,6 +183,7 @@ class StatisticVisitRepository
     /**
      * @param User $user
      * @return \Illuminate\Support\Collection
+     * Get User visit schedule
      */
     public function getVisitSchedule(UserInterface $user) {
         $schedules = $user->schedule()->orderBy('date_in', 'ASC')->get();
@@ -206,6 +209,7 @@ class StatisticVisitRepository
      * @param Collection $holidays
      * @param Carbon $date
      * @return bool|\Illuminate\Support\Collection
+     * Check Holiday Users
      */
     public function checkHolidayUser(Collection $holidays, Carbon $date)
     {
@@ -223,6 +227,11 @@ class StatisticVisitRepository
         return null;
     }
 
+    /**
+     * @param Carbon|null $date
+     * @return \Illuminate\Support\Collection
+     * Get is late Users
+     */
     public function handleLateUsers(?Carbon $date = null)
     {
         $laters = collect();

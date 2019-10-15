@@ -13,6 +13,11 @@ use App\Models\User;
  */
 class LogoutUserAction extends BaseAction
 {
+    /**
+     * @param User $user
+     * @return $this
+     * Logout User
+     */
     public function execute(User $user)
     {
         $user->removeSession(request()->bearerToken());

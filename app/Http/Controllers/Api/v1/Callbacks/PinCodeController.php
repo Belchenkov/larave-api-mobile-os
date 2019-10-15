@@ -10,6 +10,12 @@ use App\Models\User;
 class PinCodeController extends Controller
 {
 
+    /**
+     * @param ReceivePinCodeRequest $request
+     * @param UpdatePinCodeAction $action
+     * @return \Illuminate\Http\JsonResponse
+     * Record Data from Portal at update pin-code
+     */
     public function receivePinCode(ReceivePinCodeRequest $request, UpdatePinCodeAction $action)
     {
         return $action->execute(
