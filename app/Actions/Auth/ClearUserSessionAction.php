@@ -13,6 +13,11 @@ use App\Models\User;
  */
 class ClearUserSessionAction extends BaseAction
 {
+    /**
+     * @param User $user
+     * @return $this
+     * Clear User Session
+     */
     public function execute(User $user)
     {
         $user->removeOtherSession(request()->bearerToken());

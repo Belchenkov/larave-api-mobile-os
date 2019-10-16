@@ -14,6 +14,16 @@ use App\Models\User;
 class UpdatePinCodeAction extends BaseAction
 {
 
+    /**
+     * @param $ad_login
+     * @param $tab_no
+     * @param $id_person
+     * @param $pin_code
+     * @param $created_at
+     * @param User|null $user
+     * @return $this
+     * Update Pin-code from Portal
+     */
     public function execute($ad_login, $tab_no, $id_person, $pin_code, $created_at, ?User $user)
     {
         // Check real user data

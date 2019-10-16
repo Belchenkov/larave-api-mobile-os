@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\v1\Statistic\UserVisits;
 use App\Http\Resources\Api\v1\User\UserProfile;
-use App\Models\User;
 use App\Repositories\User\StatisticVisitRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
@@ -23,7 +22,6 @@ class ProfileController extends Controller
 
     /**
      * Get Profile Info for Auth User
-     *
      * @param Request $request
      * @param UserRepository $userRepository
      * @return mixed
@@ -41,7 +39,6 @@ class ProfileController extends Controller
 
     /**
      * Get Statistic Visit User
-     *
      * @param Request $request
      * @param StatisticVisitRepository $statisticVisitRepository
      * @return UserVisits

@@ -19,6 +19,11 @@ class RefreshUserAction extends BaseAction
      */
     private $user = null;
 
+    /**
+     * @param $refresh_token
+     * @return $this
+     * Refresh Token
+     */
     public function execute($refresh_token)
     {
         if ($token = UserJwtToken::where('refresh_token', $refresh_token)

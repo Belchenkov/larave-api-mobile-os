@@ -10,7 +10,6 @@ namespace App\Structure\ApprovalTask;
 class ApprovalTaskActions
 {
 
-
     const TASK_CAN_EDIT = 0;
     const TASK_ACCEPT = 1;
     const TASK_CANCEL = 2;
@@ -102,6 +101,11 @@ class ApprovalTaskActions
         ],
     ];
 
+    /**
+     * @param string $type
+     * @param string $key
+     * @return array
+     */
     public function getRelevantActions(string $type, $key = 'actions') : array
     {
         foreach ($this->statusStruct as $status) {

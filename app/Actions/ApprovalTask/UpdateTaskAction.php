@@ -22,6 +22,13 @@ class UpdateTaskAction extends BaseAction
         $this->approvalTaskRepository = new ApprovalTaskRepository();
     }
 
+    /**
+     * @param DoTask $task
+     * @param $status
+     * @param $comment
+     * @return $this
+     * Update Task
+     */
     public function execute(DoTask $task, $status, $comment)
     {
         if ($task->task_status != ApprovalTaskActions::TASK_CAN_EDIT)

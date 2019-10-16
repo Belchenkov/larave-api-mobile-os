@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Actions\ApprovalTask\UpdateTaskAction;
-use App\Actions\ApprovalTask\CancelTaskAction;
 use App\Exceptions\Api\ApiException;
 use App\Http\Requests\Api\v1\ApprovalTask\UpdateTaskRequest;
 use App\Http\Resources\Api\v1\ApprovalTask\ApprovalTask;
@@ -23,6 +22,11 @@ class ApprovalTaskController extends Controller
         $this->approvalTaskRepository = new ApprovalTaskRepository();
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * Get Tasks List
+     */
     public function getTasks(Request $request)
     {
         return ApprovalTasks::collection(
@@ -33,6 +37,12 @@ class ApprovalTaskController extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @param $task_id
+     * @return ApprovalTask
+     * Get Task Info by task_id
+     */
     public function getTask(Request $request, $task_id)
     {
         if (!$task = $this->approvalTaskRepository->getUserTask(Auth::user()->portalUser, $task_id)) {
@@ -54,6 +64,12 @@ class ApprovalTaskController extends Controller
         )->apiSuccess();
     }
 
+    /**
+     * @param Request $request
+     * @param $doc_id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * Download File by file_id
+     */
     public function downloadDocument(Request $request, $doc_id)
     {
         try {

@@ -47,8 +47,9 @@ Artisan::command('push', function () {
 Artisan::command('jobs:init', function () {
     App\Jobs\ApprovalJobs\HandleNewTask::dispatch();
     App\Jobs\Schedule\HandleIsLateUser::dispatch();
-})->describe('Send push of new task');
+})->describe('Send push');
 
 Artisan::command('jobs:clear', function () {
     DB::table('jobs')->delete();
 })->describe('Clear jobs db table');
+

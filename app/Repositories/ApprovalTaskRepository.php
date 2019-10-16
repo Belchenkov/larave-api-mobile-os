@@ -13,9 +13,20 @@ use App\Structure\ApprovalTask\ApprovalTaskActions;
 use App\Structure\User\UserInterface;
 use Carbon\Carbon;
 
+/**
+ * Class ApprovalTaskRepository
+ * @package App\Repositories
+ * Задачи на согласование
+ */
 class ApprovalTaskRepository
 {
 
+    /**
+     * @param UserInterface $user
+     * @param bool $archive
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Get user tasks
+     */
     public function getUserTasks(UserInterface $user, bool $archive = false)
     {
         if ($archive) {
@@ -30,6 +41,11 @@ class ApprovalTaskRepository
         return $tasks->orderBy('Date', 'DESC');
     }
 
+    /**
+     * @param $task_id
+     * @return DoTask|null
+     * Get Task Info by id
+     */
     public function getTask($task_id) : ?DoTask
     {
         return DoTask::with([
@@ -41,6 +57,12 @@ class ApprovalTaskRepository
         ])->first();
     }
 
+    /**
+     * @param UserInterface $user
+     * @param $task_id
+     * @return DoTask|null
+     * Get Task Info of user by task id
+     */
     public function getUserTask(UserInterface $user, $task_id) : ?DoTask
     {
         return $user
@@ -56,6 +78,13 @@ class ApprovalTaskRepository
             ->first();
     }
 
+    /**
+     * @param DoTask $task
+     * @param $status
+     * @param $comment
+     * @return bool
+     * Edit Task of user by task id
+     */
     public function updateUserTask(DoTask $task, $status, $comment) : bool
     {
         if ($task->task_status != ApprovalTaskActions::TASK_CAN_EDIT)
@@ -72,6 +101,10 @@ class ApprovalTaskRepository
         return true;
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     * Get Tasks can be edit
+     */
     public function handleNewTasks()
     {
         $tasks = collect();

@@ -9,6 +9,27 @@
 ```
 Authorization: Bearer <accessToken>
 ```
+<b>BODY</b>
+ ```
+{
+    "archive": {Boolean|null}
+}
+```
+
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>my</td>
+            <td>Фильтр - Задачи в архиве</td>
+        </tr>
+    </tbody>
+</table> 
 
 <b>RESPONSE</b>
 
@@ -437,6 +458,51 @@ Authorization: Bearer <accessToken>
 ```
 {
     "result": {Boolean},
+    "debug": {
+        "queries": {Int},
+        "queries_time": {String}
+    }
+}
+```
+#### GET /api/v1/tasks/approval/download/{doc_id}
+
+Загрузка файла по doc_id
+
+<b>HEADERS</b>
+
+```
+Authorization: Bearer <accessToken>
+```
+
+<b>BODY</b>
+ ```
+{
+    "doc_id": {uuid}
+}
+```
+
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+        </tr>
+    </thead>
+    <tbody>
+         <tr>
+            <td>doc_id</td>
+            <td>ID файла (file_id)</td>
+        </tr>
+    </tbody>
+</table> 
+
+<b>RESPONSE</b>
+
++ 200 OK
+
+```
+{
+    "result": {Resourse},
     "debug": {
         "queries": {Int},
         "queries_time": {String}

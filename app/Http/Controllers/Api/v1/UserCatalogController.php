@@ -17,6 +17,12 @@ use Illuminate\Support\Facades\Cache;
 class UserCatalogController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @return mixed
+     * Get Catalog of Users
+     */
     public function getCatalog(Request $request, UserRepository $userRepository)
     {
         $ids = null;
@@ -53,6 +59,13 @@ class UserCatalogController extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @param $tab_no
+     * @return mixed
+     * Get User Profile by tab_no
+     */
     public function getUserProfile(Request $request, UserRepository $userRepository, $tab_no)
     {
         return Cache::remember(
@@ -68,6 +81,13 @@ class UserCatalogController extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @param StatisticVisitRepository $statisticVisitRepository
+     * @param $tab_no
+     * @return mixed
+     * Get User Visit Statistic Info by tab_no
+     */
     public function getUserVisitInfo(Request $request, StatisticVisitRepository $statisticVisitRepository, $tab_no)
     {
         $previous = (int) $request->get('previous');
