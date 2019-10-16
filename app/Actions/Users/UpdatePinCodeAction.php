@@ -27,13 +27,13 @@ class UpdatePinCodeAction extends BaseAction
     public function execute($ad_login, $tab_no, $id_person, $pin_code, $created_at, ?User $user)
     {
         // Check real user data
-        if (!$real = ForUser::where('employee_external_id', $tab_no)->first())
+        if (!$real = ForUser::where('id_phperson', $id_person)->first())
             throw new ApiException(404, 'User not found.');
 
         if (!$real->email)
             throw new ApiException(422, 'User have not email.');
 
-        if ($real->user_ad_login <> $ad_login || $real->id_phperson <> $id_person)
+        if ($real->user_ad_login <> $ad_login)
             throw new ApiException(422, 'User data not valid.');
 
         if (!$user) {

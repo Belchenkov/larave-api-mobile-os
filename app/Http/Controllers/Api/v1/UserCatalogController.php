@@ -29,7 +29,7 @@ class UserCatalogController extends Controller
 
         if ($request->get('my')) {
             $ids = Cache::remember(
-                'user.catalog.my.ids.'.Auth::user()->tab_no,
+                'user.catalog.my.ids.'.Auth::user()->id_person,
                 config('cache.cache_time'),
                 function () use ($userRepository) {
                     return $userRepository->getDepartmentsIdsByCollection(Auth::user()->portalUser->departmentChief);
@@ -42,7 +42,7 @@ class UserCatalogController extends Controller
 
         return Cache::remember(
             'user.catalog.tree.'.
-            ($request->get('my') ? 'my.' . Auth::user()->tab_no : 'all.').
+            ($request->get('my') ? 'my.' . Auth::user()->id_person : 'all.').
             ($request->get('dep') ? 'dep.'.$request->get('dep').'.' : '').
             $request->get('page').'.'.$request->get('search'),
             config('cache.cache_time'),
@@ -66,13 +66,13 @@ class UserCatalogController extends Controller
      * @return mixed
      * Get User Profile by tab_no
      */
-    public function getUserProfile(Request $request, UserRepository $userRepository, $tab_no)
+    public function getUserProfile(Request $request, UserRepository $userRepository, $id_phperson)
     {
         return Cache::remember(
-            'user.catalog.profile.'.$tab_no,
+            'user.catalog.profile.'.$id_phperson,
             config('cache.cache_time'),
-            function () use ($tab_no, $userRepository) {
-                if (!$user = $userRepository->getUserProfileByTabNo($tab_no)) {
+            function () use ($id_phperson, $userRepository) {
+                if (!$user = $userRepository->getUserProfileByIdPerson($id_phperson)) {
                     throw new ApiException(404, 'User not found.');
                 }
 
@@ -88,15 +88,15 @@ class UserCatalogController extends Controller
      * @return mixed
      * Get User Visit Statistic Info by tab_no
      */
-    public function getUserVisitInfo(Request $request, StatisticVisitRepository $statisticVisitRepository, $tab_no)
+    public function getUserVisitInfo(Request $request, StatisticVisitRepository $statisticVisitRepository, $id_phperson)
     {
         $previous = (int) $request->get('previous');
 
         return Cache::remember(
-            'user.catalog.visit.'.$tab_no.'.'.$previous,
+            'user.catalog.visit.'.$id_phperson.'.'.$previous,
             config('cache.cache_time'),
-            function () use ($tab_no, $previous, $statisticVisitRepository) {
-                if (!$user = ForUser::where('employee_external_id', $tab_no)->first()) {
+            function () use ($id_phperson, $previous, $statisticVisitRepository) {
+                if (!$user = ForUser::where('employee_external_id', $id_phperson)->first()) {
                     throw new ApiException(404, 'User not found.');
                 }
 

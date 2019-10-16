@@ -13,8 +13,8 @@ Route::group(['middleware' => ['auth:api', 'admin'], 'as' => 'admin.'], function
     Route::get('admins/list', 'Api\Admin\AdminsController@index')->name('admins');
 
     Route::get('/users/catalog', 'Api\Admin\UsersController@getCatalog')->name('users');
-    Route::get('/users/catalog/{tab_no}', 'Api\Admin\UsersController@getUserProfile')->name('users.profile');
-    Route::get('/users/catalog/{tab_no}/visits', 'Api\Admin\UsersController@getUserVisitInfo')->name('users.visits');
+    Route::get('/users/catalog/{id_phperson}', 'Api\Admin\UsersController@getUserProfile')->name('users.profile');
+    Route::get('/users/catalog/{id_phperson}/visits', 'Api\Admin\UsersController@getUserVisitInfo')->name('users.visits');
 
     Route::get('/news', 'Api\Admin\NewsController@index')->name('news');
     Route::post('/news/create', 'Api\Admin\NewsController@store')->name('news.create');

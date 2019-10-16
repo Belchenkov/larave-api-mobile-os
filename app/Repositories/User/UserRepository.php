@@ -180,11 +180,11 @@ class UserRepository
     }
 
     /**
-     * @param string $tab_no
+     * @param string $id_phperson
      * @return ForUser|null
      * Get User Profile Info by tab_no
      */
-    public function getUserProfileByTabNo(string $tab_no) : ?ForUser
+    public function getUserProfileByIdPerson(string $id_phperson) : ?ForUser
     {
         return ForUser::with([
             'department',
@@ -197,6 +197,6 @@ class UserRepository
                 self::getLatestSkudEvents($query);
             },
             'skudEvents.deviceRow'
-        ])->where('employee_external_id', $tab_no)->first();
+        ])->where('id_phperson', $id_phperson)->first();
     }
 }

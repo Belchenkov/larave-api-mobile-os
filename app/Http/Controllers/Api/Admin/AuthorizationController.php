@@ -42,7 +42,7 @@ class AuthorizationController extends Controller
 
     public function profile(Request $request, UserRepository $userRepository)
     {
-        return new UserProfile($userRepository->getUserProfileByTabNo(Auth::user()->tab_no));
+        return new UserProfile($userRepository->getUserProfileByIdPerson(Auth::user()->id_person));
     }
 
     public function sessionClear(Request $request, ClearUserSessionAction $action)

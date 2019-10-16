@@ -29,10 +29,10 @@ class ProfileController extends Controller
     public function getProfileInfo(Request $request, UserRepository $userRepository)
     {
         return Cache::remember(
-            'user.profile.'.Auth::user()->tab_no,
+            'user.profile.'.Auth::user()->id_person,
             config('cache.cache_time'),
             function () use ($userRepository) {
-                return new UserProfile($userRepository->getUserProfileByTabNo(Auth::user()->tab_no));
+                return new UserProfile($userRepository->getUserProfileByIdPerson(Auth::user()->id_person));
             }
         );
     }
@@ -48,7 +48,7 @@ class ProfileController extends Controller
         $previous = (int) $request->get('previous');
 
         return Cache::remember(
-            'user.profile.visits.'.Auth::user()->tab_no.'.'.$previous,
+            'user.profile.visits.'.Auth::user()->id_person.'.'.$previous,
             config('cache.cache_time'),
             function () use ($statisticVisitRepository, $previous) {
                 return new UserVisits(

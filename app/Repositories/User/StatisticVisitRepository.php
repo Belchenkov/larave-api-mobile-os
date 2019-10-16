@@ -121,7 +121,7 @@ class StatisticVisitRepository
         $endDay = $events->where('direction', self::VISIT_EXIT)->last();
         $startDay = $startDay ? Carbon::parse($startDay->time) : null;
         $endDay = $endDay ? Carbon::parse($endDay->time) : null;
-        $currentDay = $startDay ? $startDay->copy() : $endDay ? $endDay->copy() : null;
+        $currentDay = $startDay ? $startDay->copy() : ($endDay ? $endDay->copy() : null);
         $lateTime = 0;
         $earlierTime = 0;
 
@@ -142,7 +142,7 @@ class StatisticVisitRepository
                 }
             }
         }
-        if ($startDay && $schedule->get('schedule')) {
+        if ($startDay && $schedule->get('schedule.0')) {
             $scheduleStartDay = $schedule->get('schedule')->first()->get('date_in');
             $lateTime = $startDay
                     ->setDay($scheduleStartDay->day)
@@ -153,7 +153,7 @@ class StatisticVisitRepository
             if ($lateTime < 0) $lateTime = 0;
         }
 
-        if ($endDay && $schedule->get('schedule')) {
+        if ($endDay && $schedule->get('schedule.0')) {
             $scheduleEndDay = $schedule->get('schedule')->last()->get('date_out');
             $earlierTime = $scheduleEndDay->timestamp - $endDay
                     ->setDay($scheduleEndDay->day)

@@ -64,7 +64,7 @@ class User extends Authenticatable
      */
     public function portalUser() : HasOne
     {
-        return $this->hasOne(ForUser::class, 'employee_external_id', 'tab_no');
+        return $this->hasOne(ForUser::class, 'id_phperson', 'id_person');
     }
 
     public function handleLate() : HasOne
