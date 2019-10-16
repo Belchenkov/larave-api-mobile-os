@@ -174,7 +174,7 @@ Authorization: Bearer <accessToken>
     </tbody>
 </table>
 
-#### GET /api/v1/users/catalog/{tab_no}
+#### GET /api/v1/users/catalog/{id_phperson}
 
 Метод получения информации о сотруднике
 
@@ -187,7 +187,7 @@ Authorization: Bearer <accessToken>
 <b>BODY</b>
  ```
 {
-    "tab_no": {String}
+    "id_phperson": {String}
 }
 ```
 
@@ -200,8 +200,8 @@ Authorization: Bearer <accessToken>
     </thead>
     <tbody>
          <tr>
-            <td>tab_no</td>
-            <td>Табельный номер сотрудника</td>
+            <td>id_phperson</td>
+            <td>ID из таблицы transit_1c_PhPerson</td>
         </tr>
     </tbody>
 </table> 
@@ -365,7 +365,7 @@ Authorization: Bearer <accessToken>
 </table>
 
 
-#### GET /api/v1/users/catalog/{tab_no}/visits
+#### GET /api/v1/users/catalog/{id_phperson}/visits
 
 Метод получения статистики посещаемости сотрудника
 
@@ -378,7 +378,7 @@ Authorization: Bearer <accessToken>
 <b>BODY</b>
  ```
 {
-    "tab_no": {String},
+    "id_phperson": {String},
     "previous": {Int|null}
 }
 ```
@@ -392,8 +392,8 @@ Authorization: Bearer <accessToken>
     </thead>
     <tbody>
          <tr>
-            <td>tab_no</td>
-            <td>Табельный номер сотрудника</td>
+            <td>id_phperson</td>
+            <td>ID из таблицы transit_1c_PhPerson</td>
         </tr>
         <tr>
             <td>previous</td>

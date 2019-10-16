@@ -28,6 +28,6 @@ class CreateEventHandleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sent_pushes_handle');
+        Schema::dropIfExists('event_handle');
     }
 }
