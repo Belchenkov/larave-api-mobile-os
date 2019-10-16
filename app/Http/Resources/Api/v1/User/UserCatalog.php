@@ -17,6 +17,7 @@ class UserCatalog extends JsonApiResourse
         return [
             'in_office' => $this->getUserOnline(),
             'full_name' => $this->getUserFullName(),
+            'email' => $this->email,
             'department_name' => $this->getUserUnit(),
             'avatar' => $this->getUserAvatar()->toArray(),
             'position' => $this->getUserPosition(),

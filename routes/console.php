@@ -12,6 +12,7 @@ use App\Repositories\User\UserRepository;
 use App\Services\ApprovalTask\DocumentStructure;
 use Carbon\Carbon;
 use Illuminate\Foundation\Inspiring;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,16 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('make:admin {ad_login} {password}', function () {
+    if ($user = User::where('ad_login', $this->argument('ad_login'))->first()) {
+        $user->password = Hash::make($this->argument('password'));
+        $user->is_admin = 1;
+        $user->save();
+        $this->info('Administrator created!');
+    } else
+        $this->error('User not found!');
+})->describe('Send test push message');
 
 Artisan::command('push', function () {
     $u = User::find(1);

@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Api\CORSMiddleware;
 use App\Http\Middleware\ApiGuestMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -15,6 +16,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
+        \Spatie\Cors\Cors::class,
         \App\Http\Middleware\DebugJsonResponse::class,
         // ToDo - Debug middleware
         \App\Http\Middleware\CheckForMaintenanceMode::class,
@@ -56,6 +58,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Api\AuthenticatedMiddleware::class,
         'guest' => \App\Http\Middleware\Api\GuestMiddleware::class,
+        'admin' => \App\Http\Middleware\Api\AdminMiddleware::class,
         'callbacks' => \App\Http\Middleware\Api\ProtectedCallbacks::class,
         //'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

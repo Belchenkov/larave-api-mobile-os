@@ -119,7 +119,7 @@ class StatisticVisitRepository
         $endDay = $events->where('direction', self::VISIT_EXIT)->last();
         $startDay = $startDay ? Carbon::parse($startDay->time) : null;
         $endDay = $endDay ? Carbon::parse($endDay->time) : null;
-        $currentDay = $startDay ? $startDay->copy() : null;
+        $currentDay = $startDay ? $startDay->copy() : $endDay ? $endDay->copy() : null;
         $lateTime = 0;
         $earlierTime = 0;
 

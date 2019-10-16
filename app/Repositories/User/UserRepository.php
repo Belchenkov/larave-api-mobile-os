@@ -104,14 +104,13 @@ class UserRepository
 
         $department_ids = $department_ids->toArray();
 
-        //dd($department_ids);
-
         $catalog =
             ForUser::addSelect([
                     'for_users.*',
                     'for_department.name as department_name'
                 ])
                 ->with([
+                    'department',
                     'skudEvents' => function ($query) {
                         self::getLatestSkudEvents($query);
                     }
