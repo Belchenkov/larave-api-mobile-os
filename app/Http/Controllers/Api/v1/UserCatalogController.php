@@ -62,9 +62,9 @@ class UserCatalogController extends Controller
     /**
      * @param Request $request
      * @param UserRepository $userRepository
-     * @param $tab_no
+     * @param $id_phperson
      * @return mixed
-     * Get User Profile by tab_no
+     * Get User Profile by id_phperson
      */
     public function getUserProfile(Request $request, UserRepository $userRepository, $id_phperson)
     {
@@ -84,9 +84,9 @@ class UserCatalogController extends Controller
     /**
      * @param Request $request
      * @param StatisticVisitRepository $statisticVisitRepository
-     * @param $tab_no
+     * @param $id_phperson
      * @return mixed
-     * Get User Visit Statistic Info by tab_no
+     * Get User Visit Statistic Info by id_phperson
      */
     public function getUserVisitInfo(Request $request, StatisticVisitRepository $statisticVisitRepository, $id_phperson)
     {
@@ -96,7 +96,7 @@ class UserCatalogController extends Controller
             'user.catalog.visit.'.$id_phperson.'.'.$previous,
             config('cache.cache_time'),
             function () use ($id_phperson, $previous, $statisticVisitRepository) {
-                if (!$user = ForUser::where('employee_external_id', $id_phperson)->first()) {
+                if (!$user = ForUser::where('id_phperson', $id_phperson)->first()) {
                     throw new ApiException(404, 'User not found.');
                 }
 
