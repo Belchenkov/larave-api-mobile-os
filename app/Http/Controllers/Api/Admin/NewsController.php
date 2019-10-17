@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Models\File;
 use App\Models\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -26,6 +27,10 @@ class NewsController extends Controller
 
         $news = News::create($request->all());
 
+        if ($request->get('files')) {
+            $news->images()->saveMany(File::whereIn('id', $request->get('files'))->get());
+        }
+
         return $this->apiSuccess([
             'id' => $news->id
         ]);
@@ -41,6 +46,10 @@ class NewsController extends Controller
 
         $news->update($request->all());
 
+        if ($request->get('files')) {
+            $news->images()->saveMany(File::whereIn('id', $request->get('files'))->get());
+        }
+
         return $this->apiSuccess([
             'id' => $news->id
         ]);
@@ -48,7 +57,7 @@ class NewsController extends Controller
 
     public function show(Request $request, News $news)
     {
-        return $this->apiSuccess($news);
+        return new \App\Http\Resources\Api\v1\News($news);
     }
 
     public function delete(Request $request, News $news)
