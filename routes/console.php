@@ -37,7 +37,7 @@ Artisan::command('make:admin {ad_login} {password}', function () {
         $this->info('Administrator created!');
     } else
         $this->error('User not found!');
-})->describe('Send test push message');
+})->describe('Make Admin user');
 
 Artisan::command('push', function () {
     $u = User::find(1);

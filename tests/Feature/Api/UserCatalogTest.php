@@ -19,11 +19,11 @@ class UserCatalogTest extends TestCase
         $response = $this->get('/api/v1/users/catalog');
         $response->assertStatus(200);
 
-        $tab_no = $response->json('data.0.tab_no');
-        $response = $this->get('/api/v1/users/catalog/' . urlencode($tab_no));
+        $id_phperson = $response->json('data.0.id_phperson');
+        $response = $this->get('/api/v1/users/catalog/' . urlencode($id_phperson));
         $response->assertStatus(200);
 
-        $response = $this->get('/api/v1/users/catalog/' . urlencode($tab_no) . '/visits');
+        $response = $this->get('/api/v1/users/catalog/' . urlencode($id_phperson) . '/visits');
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/users/catalog?my=1');
