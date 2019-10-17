@@ -33,7 +33,7 @@ class ApprovalTaskController extends Controller
             $this->approvalTaskRepository->getUserTasks(
                 Auth::user()->portalUser,
                 (bool) $request->get('archive', false)
-            )->get()
+            )->simplePaginate(15)
         );
     }
 

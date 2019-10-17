@@ -21,6 +21,9 @@ Route::group(['middleware' => ['auth:api', 'admin'], 'as' => 'admin.'], function
     Route::get('/news/{news}', 'Api\Admin\NewsController@show')->name('news.show');
     Route::patch('/news/{news}', 'Api\Admin\NewsController@update')->name('news.update');
     Route::delete('/news/{news}', 'Api\Admin\NewsController@delete')->name('news.delete');
+
+    Route::post('/files/upload', 'Api\Admin\FileUploadController@upload')->name('file.upload');
+    Route::delete('/files/delete/{id}', 'Api\Admin\FileUploadController@uploadDelete')->name('file.delete');
 });
 
 // Not Found Exception
