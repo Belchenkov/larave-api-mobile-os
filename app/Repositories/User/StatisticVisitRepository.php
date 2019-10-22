@@ -142,7 +142,8 @@ class StatisticVisitRepository
                 }
             }
         }
-        if ($startDay && $schedule->get('schedule.0')) {
+
+        if ($startDay && $schedule->get('schedule')[0]) {
             $scheduleStartDay = $schedule->get('schedule')->first()->get('date_in');
             $lateTime = $startDay
                     ->setDay($scheduleStartDay->day)
@@ -153,7 +154,7 @@ class StatisticVisitRepository
             if ($lateTime < 0) $lateTime = 0;
         }
 
-        if ($endDay && $schedule->get('schedule.0')) {
+        if ($endDay && $schedule->get('schedule')[0]) {
             $scheduleEndDay = $schedule->get('schedule')->last()->get('date_out');
             $earlierTime = $scheduleEndDay->timestamp - $endDay
                     ->setDay($scheduleEndDay->day)
@@ -252,8 +253,10 @@ class StatisticVisitRepository
             },
         ])->chunk(100, function($users) use ($laters) {
             foreach ($users as $user) {
+
                 if ($user->portalUser->skudEvents->count() > 0 && !$user->handleLate) {
                     $stat = $this->getDayVisit($user->portalUser->skudEvents, $this->getVisitSchedule($user->portalUser));
+
                     if ($stat['is_late']) {
                         $user->setAttribute('stat', $stat);
                         $laters->push($user);

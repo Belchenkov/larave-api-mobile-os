@@ -34,7 +34,6 @@ class ApprovalTaskRepository
         } else {
             $tasks = $user->approvalTasksExecutor()->where('task_status', '=', ApprovalTaskActions::TASK_CAN_EDIT);
         }
-
         $tasks->with(['initiator']);
 
         // ToDo - only valid columns ?
