@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\File;
 use App\Models\News;
+use App\Notifications\News\NewNewsNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class NewsController extends Controller
 {
@@ -30,6 +32,9 @@ class NewsController extends Controller
         if ($request->get('files')) {
             $news->images()->saveMany(File::whereIn('id', $request->get('files'))->get());
         }
+
+        // Send Push
+        Auth::user()->notify(new NewNewsNotification($news));
 
         return $this->apiSuccess([
             'id' => $news->id
