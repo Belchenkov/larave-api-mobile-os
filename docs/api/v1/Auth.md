@@ -182,6 +182,28 @@ User-Agent: *
 Authorization: Bearer <accessToken>
 ```
 
+<b>BODY</b>
+ ```
+{
+    "device_id": {String|null}
+}
+```
+
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+        </tr>
+    </thead>
+    <tbody>
+         <tr>
+            <td>device_id</td>
+            <td>ID устройства</td>
+        </tr>
+    </tbody>
+</table> 
+
 <b>RESPONSE</b>
 
 + 200 OK

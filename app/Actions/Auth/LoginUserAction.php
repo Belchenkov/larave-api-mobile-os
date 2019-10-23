@@ -9,6 +9,7 @@ namespace App\Actions\Auth;
 use App\Actions\BaseAction;
 use App\Exceptions\Api\ApiException;
 use App\Models\User;
+use App\Models\UserDevice;
 use Carbon\Carbon;
 
 class LoginUserAction extends BaseAction
@@ -33,6 +34,8 @@ class LoginUserAction extends BaseAction
                 $this->user = $user;
 
                 if ($id_device) {
+                    UserDevice::where('device_id', $id_device)->delete();
+
                     $this->user->devices()->updateOrCreate(
                         [
                             'device_id' => $id_device

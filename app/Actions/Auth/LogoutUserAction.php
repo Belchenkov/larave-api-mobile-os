@@ -18,8 +18,12 @@ class LogoutUserAction extends BaseAction
      * @return $this
      * Logout User
      */
-    public function execute(User $user)
+    public function execute(User $user, $id_device = null)
     {
+        if ($id_device) {
+            $user->devices()->where('device_id', $id_device)->delete();
+        }
+
         $user->removeSession(request()->bearerToken());
         return $this;
     }

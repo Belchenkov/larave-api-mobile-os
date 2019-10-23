@@ -51,7 +51,7 @@ class AuthorizationController extends Controller
      */
     public function logout(LogoutRequest $request, LogoutUserAction $action)
     {
-        return $action->execute(Auth::user())->apiSuccess();
+        return $action->execute(Auth::user(), $request->get('device_id', null))->apiSuccess();
     }
 
     /**
