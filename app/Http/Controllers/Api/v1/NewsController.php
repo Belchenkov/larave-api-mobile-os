@@ -12,7 +12,7 @@ class NewsController extends Controller
 
     public function index(Request $request)
     {
-        return NewsResource::collection(ModelNews::where('publish', 1)->with('images')->simplePaginate(15));
+        return NewsResource::collection(ModelNews::where('publish', 1)->with('images')->orderBy('created_at', 'DESC')->simplePaginate(15));
     }
 
 

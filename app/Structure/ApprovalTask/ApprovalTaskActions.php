@@ -91,7 +91,7 @@ class ApprovalTaskActions
         ],
         [
             'name' => 'Рассмотреть вопрос',
-            'actions' => [self::TASK_APPLY],
+            'actions' => [self::TASK_ACCEPT],
             'buttons' => [
                 [
                     'caption' => 'Выполнено',
