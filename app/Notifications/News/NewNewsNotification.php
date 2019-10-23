@@ -23,7 +23,8 @@ class NewNewsNotification extends Notification implements ShouldQueue
      */
     public function __construct(News $news)
     {
-        $this->newsTitle = $news->title;
+        $this->news_title = $news->title;
+        $this->news_id = $news->id;
     }
 
     /**
@@ -45,9 +46,12 @@ class NewNewsNotification extends Notification implements ShouldQueue
     {
         return new FirebaseMessage(
             'ГК Основа: Добавлена новость',
-            $this->newsTitle,
+            $this->news_title,
             'push-channel',
-            '',
+            [
+                'screen' => 'news',
+                'news_id' => $this->news_id
+            ],
             UserDevice::all()->pluck('device_id')->toArray()
         );
     }

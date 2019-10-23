@@ -22,7 +22,8 @@ class NewTaskNotification extends Notification implements ShouldQueue
      */
     public function __construct(DoTask $task)
     {
-        $this->taskName = $task->name_task_1C; //   $this->task = $task - так не прокатывает - выбивает ошибку!
+        $this->task_name = $task->name_task_1C;
+        $this->task_id = $task->id_task_1C;
     }
 
     /**
@@ -44,9 +45,11 @@ class NewTaskNotification extends Notification implements ShouldQueue
     {
         return new FirebaseMessage(
             'ГК Основа: Новая задача в кабинете согласования',
-            $this->taskName,
+            $this->task_name,
             'push-channel',
-            '',
+            [
+                'screen' => 'task-approval'
+            ],
             $notifiable->devices->pluck('device_id')->toArray()
         );
     }

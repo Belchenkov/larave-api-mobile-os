@@ -42,7 +42,10 @@ class IsLateUserNotification extends Notification
             'ГК Основа: опоздание',
             'Вы пришли на работу в ' . $notifiable['stat']['enter_time']->format('H:i:s'),
             'push-channel',
-            '',
+            [
+                'screen' => 'statistic-visit',
+                'news_id' => $this->task_id
+            ],
             $notifiable->devices->pluck('device_id')->toArray()
         );
     }
