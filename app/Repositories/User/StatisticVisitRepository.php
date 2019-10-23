@@ -14,6 +14,7 @@ use App\Structure\User\UserInterface;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -142,8 +143,7 @@ class StatisticVisitRepository
                 }
             }
         }
-
-        if ($startDay && isset($schedule->get('schedule')[0]) && $schedule->get('schedule')[0]) {
+        if ($startDay && Arr::get($schedule, 'schedule.0')) {
             $scheduleStartDay = $schedule->get('schedule')->first()->get('date_in');
             $lateTime = $startDay
                     ->setDay($scheduleStartDay->day)
@@ -154,7 +154,7 @@ class StatisticVisitRepository
             if ($lateTime < 0) $lateTime = 0;
         }
 
-        if ($endDay && isset($schedule->get('schedule')[0]) && $schedule->get('schedule')[0]) {
+        if ($endDay && Arr::get($schedule, 'schedule.0')) {
             $scheduleEndDay = $schedule->get('schedule')->last()->get('date_out');
             $earlierTime = $scheduleEndDay->timestamp - $endDay
                     ->setDay($scheduleEndDay->day)
