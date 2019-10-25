@@ -2,7 +2,7 @@
 
 namespace App\Notifications\News;
 
-use App\Models\News;
+use App\Models\Mailing;
 use App\Models\UserDevice;
 use App\Services\Firebase\FirebaseChannel;
 use App\Services\Firebase\FirebaseMessage;
@@ -10,7 +10,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewNewsNotification extends Notification implements ShouldQueue
+class NewMailingNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -41,12 +41,11 @@ class NewNewsNotification extends Notification implements ShouldQueue
     public function toFirebase($notifiable)
     {
         return new FirebaseMessage(
-            'ГК Основа: Добавлена новость',
-            $notifiable->title,
+            'ГК Основа',
+            $notifiable->content,
             'push-channel',
             [
-                'screen' => 'OSNOVA_APPROVING_TASK_DECISION',
-                'news_id' => $notifiable->id
+                'screen' => 'OSNOVA'
             ],
             UserDevice::all()->pluck('device_id')->toArray()
         );

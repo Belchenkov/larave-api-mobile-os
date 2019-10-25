@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->hasMany(UserDevice::class, 'user_id');
     }
 
+    public function mailing() : HasMany
+    {
+        return $this->hasMany(Mailing::class);
+    }
+
     /**
      * Get User Info from for_users (Transit DB)
      * @return HasOne
