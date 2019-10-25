@@ -11,14 +11,16 @@ class IsLateUserNotification extends Notification
 {
     use Queueable;
 
+    private $time;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($time)
     {
-        //
+        $this->time = $time->format('H:i:s');
     }
 
     /**
@@ -43,7 +45,7 @@ class IsLateUserNotification extends Notification
 
         return new FirebaseMessage(
             'ГК Основа',
-            'Вы опоздали на работу и пришли в ' . $notifiable['stat']['enter_time']->format('H:i:s'),
+            'Вы опоздали на работу и пришли в ' . $this->time,
             'push-channel',
             [
                 'screen' => 'statistic-visit'

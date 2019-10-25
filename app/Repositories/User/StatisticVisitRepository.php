@@ -260,8 +260,8 @@ class StatisticVisitRepository
                         $user->setAttribute('stat', $stat);
                         $laters->push($user);
                     } else {
-                        $user->setAttribute('stat', $stat);
-                        $laters->push($user);
+                        //$user->setAttribute('stat', $stat);
+                        //$laters->push($user);
                     }
                 }
             }

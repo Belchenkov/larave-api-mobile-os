@@ -25,7 +25,7 @@ class LateUserAction extends BaseAction
     public function execute(User $user)
     {
         // Send push, email, etc
-        $user->notify(new IsLateUserNotification());
+        $user->notify(new IsLateUserNotification($user['stat']['enter_time']));
 
         $user->handleEvent()->create([
             'handle_type' => EventHandle::HANDLE_TYPE_LATE
