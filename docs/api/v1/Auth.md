@@ -222,6 +222,114 @@ Authorization: Bearer <accessToken>
 
 + 200 OK
 
+#### GET /api/v1/auth/session/list
+
+Показ всех сессий.
+
+<b>HEADERS</b>
+
+```
+Authorization: Bearer <accessToken>
+```
+
+<b>RESPONSE</b>
+
++ 200 OK
+
+
+```
+{
+    "data": {
+        "id": {Int},
+        "user_agent": {String},
+        "ip_address": {String},
+        "access_token_expire_at": {Date},
+        "refresh_token_expire_at": {Date}
+        "created_at": {Date}
+        "updated_at": {Date}
+    },
+    "result": {Boolean}
+}
+```
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+        </tr>
+    </thead>
+    <tbody>
+         <tr>
+            <td>data.id</td>
+            <td>ID сессии</td>
+        </tr>
+        <tr>
+            <td>data.user_agent</td>
+            <td>User Agent пользователя</td>
+        </tr>
+        <tr>
+            <td>data.ip_address</td>
+            <td>ip_address пользователя</td>
+        </tr>
+        <tr>
+            <td>data.access_token_expire_at</td>
+            <td>Дата истечения access токена</td>
+        </tr>
+        <tr>
+            <td>data.refresh_token_expire_at</td>
+            <td>Дата истечения refresh токена</td>
+        </tr>
+        <tr>
+            <td>data.created_at</td>
+            <td>Дата создания записи</td>
+        </tr>
+        <tr>
+            <td>data.updated_at</td>
+            <td>Дата обновления записи</td>
+        </tr>
+    </tbody>
+</table>
+
+#### DELETE /api/v1/auth/session/delete/{session_id}
+
+Удаление переданной сессии.
+
+<b>HEADERS</b>
+
+```
+Authorization: Bearer <accessToken>
+```
+<b>BODY</b>
+ ```
+{
+    "session_id": {Int}
+}
+```
+
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+        </tr>
+    </thead>
+    <tbody>
+         <tr>
+            <td>session_id</td>
+            <td>ID сессии</td>
+        </tr>
+    </tbody>
+</table> 
+
+<b>RESPONSE</b>
+
++ 200 OK
+
+```
+{
+    "result": {Boolean}
+}
+```
 
 #### GET /api/v1/auth/me
 
