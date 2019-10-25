@@ -3,7 +3,9 @@
 namespace App\Http\Middleware\Api;
 
 use App\Exceptions\Api\ApiAuthorizationException;
+use App\Exceptions\Api\ApiException;
 use Closure;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\IpUtils;
 /**
  * @package App\Http\Middleware\Api
@@ -26,6 +28,6 @@ class LocalProtectMiddleware
             return $next($request);
         }
 
-        throw new ApiAuthorizationException();
+        throw new ApiException(401, 'You IP Address have no permissions (' . $request->getClientIp() . ')');
     }
 }
