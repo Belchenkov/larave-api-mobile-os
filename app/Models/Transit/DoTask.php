@@ -116,7 +116,7 @@ class DoTask extends  TransitionModel
      * Get Sended Pushes Tasks from do_task_handle (Mobile DB)
      * @return HasOne
      */
-    public function handleTask() : HasOne
+    public function handleEvent() : HasOne
     {
         return $this->hasOne(EventHandle::class, 'event_id', 'id_task_1C');
     }

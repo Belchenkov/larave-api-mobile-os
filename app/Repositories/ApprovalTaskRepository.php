@@ -108,13 +108,13 @@ class ApprovalTaskRepository
     {
         $tasks = collect();
         $unUsedTasks = DoTask::where('task_status', '=', 0)->with([
-            'handleTask' => function($query) {
+            'handleEvent' => function($query) {
                 $query->where('handle_type', EventHandle::HANDLE_TYPE_DOTASK);
             },
             'user'
         ])->get();
         foreach ($unUsedTasks as $task) {
-            if (!$task->handleTask && $task->user) {
+            if (!$task->handleEvent && $task->user) {
                 $tasks->push($task);
             }
         }

@@ -9,11 +9,12 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewTaskNotification extends Notification implements ShouldQueue
+class NewTaskNotification extends Notification
 {
     use Queueable;
 
-    private $taskName;
+    private $task_name;
+    private $task_id;
 
     /**
      * Create a new notification instance.
@@ -48,7 +49,8 @@ class NewTaskNotification extends Notification implements ShouldQueue
             $this->task_name,
             'push-channel',
             [
-                'screen' => 'task-approval'
+                'screen' => 'task-approval',
+                'id' => $this->task_id
             ],
             $notifiable->devices->pluck('device_id')->toArray()
         );

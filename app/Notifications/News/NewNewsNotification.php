@@ -50,7 +50,7 @@ class NewNewsNotification extends Notification implements ShouldQueue
             'push-channel',
             [
                 'screen' => 'OSNOVA_APPROVING_TASK_DECISION',
-                'news_id' => $this->news_id
+                'id' => $this->news_id
             ],
             UserDevice::all()->pluck('device_id')->toArray()
         );
