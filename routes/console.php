@@ -53,8 +53,3 @@ Artisan::command('jobs:init', function () {
 Artisan::command('jobs:clear', function () {
     DB::table('jobs')->delete();
 })->describe('Clear jobs db table');
-
-Artisan::command('test', function () {
-
-})->describe('Clear jobs db table');
-
