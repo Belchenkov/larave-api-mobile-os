@@ -4,10 +4,11 @@ namespace App\Models;
 
 use App\Services\MsSQL\MillesecondFixTrait;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Notifications\Notifiable;
 
 class News extends LocalDBModel
 {
-    use MillesecondFixTrait;
+    use MillesecondFixTrait, Notifiable;
 
     protected $table = 'news';
 

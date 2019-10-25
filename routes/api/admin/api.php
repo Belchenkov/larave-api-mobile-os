@@ -21,6 +21,9 @@ Route::group(['middleware' => ['protector']], function () {
         Route::get('/users/catalog/{id_phperson}/visits', 'Api\Admin\UsersController@getUserVisitInfo')->name('users.visits');
         Route::get('/users/catalog/{id_phperson}/approval', 'Api\Admin\UsersController@getUserApprovalTasks')->name('users.approval');
 
+        Route::get('/mailing', 'Api\Admin\MailingController@index')->name('mailing');
+        Route::post('/mailing/create', 'Api\Admin\MailingController@store')->name('mailing.create');
+
         Route::get('/news', 'Api\Admin\NewsController@index')->name('news');
         Route::post('/news/create', 'Api\Admin\NewsController@store')->name('news.create');
         Route::get('/news/{news}', 'Api\Admin\NewsController@show')->name('news.show');

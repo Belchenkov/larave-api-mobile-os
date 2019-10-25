@@ -34,7 +34,7 @@ class NewsController extends Controller
         }
 
         // Send Push
-        Auth::user()->notify(new NewNewsNotification($news));
+        $news->notify(new NewNewsNotification());
 
         return $this->apiSuccess([
             'id' => $news->id
