@@ -16,6 +16,14 @@ trait JwtAuthenticatable
     private $refresh_token = null;
 
     /**
+     * @param $session_id
+     */
+    public function removeSessionById($session_id)
+    {
+        $this->jwtToken()->where('id', $session_id)->delete();
+    }
+
+    /**
      * @param $access_token
      * Remove session by access_token
      */
@@ -62,6 +70,8 @@ trait JwtAuthenticatable
                 'refresh_token' => $this->refresh_token,
                 'access_expire_at' => Carbon::now()->addHours(6)->format('Y-m-d H:i:s'),
                 'refresh_expire_at' => Carbon::now()->addDays(3)->format('Y-m-d H:i:s'),
+                'ip_address' => request()->getClientIp(),
+                'user_agent' => request()->header('User-Agent')
             ]
         );
 

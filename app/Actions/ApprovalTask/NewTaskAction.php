@@ -27,7 +27,7 @@ class NewTaskAction extends BaseAction
         // Send push, email, etc
         $task->user->notify(new NewTaskNotification($task));
 
-        $task->handleTask()->create([
+        $task->handleEvent()->create([
             'handle_type' => EventHandle::HANDLE_TYPE_DOTASK
         ]);
 

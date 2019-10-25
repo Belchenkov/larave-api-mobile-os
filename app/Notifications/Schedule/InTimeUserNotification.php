@@ -7,7 +7,7 @@ use App\Services\Firebase\FirebaseMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
-class IsLateUserNotification extends Notification
+class InTimeUserNotification extends Notification
 {
     use Queueable;
 
@@ -43,7 +43,7 @@ class IsLateUserNotification extends Notification
 
         return new FirebaseMessage(
             'ГК Основа',
-            'Вы опоздали на работу и пришли в ' . $notifiable['stat']['enter_time']->format('H:i:s'),
+            'Вы пришли на работу в ' . $notifiable['stat']['enter_time']->format('H:i:s'),
             'push-channel',
             [
                 'screen' => 'statistic-visit'

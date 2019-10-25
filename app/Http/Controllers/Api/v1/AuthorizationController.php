@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Actions\Auth\ClearUserSessionAction;
+use App\Actions\Auth\DeleteUserSessionAction;
 use App\Actions\Auth\LoginUserAction;
 use App\Actions\Auth\LogoutUserAction;
 use App\Actions\Auth\RefreshUserAction;
@@ -62,6 +63,37 @@ class AuthorizationController extends Controller
     public function sessionClear(Request $request, ClearUserSessionAction $action)
     {
         return $action->execute(Auth::user())->apiSuccess();
+    }
+
+    /**
+     * @param Request $request
+     * @param DeleteUserSessionAction $action
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sessionDelete(Request $request, DeleteUserSessionAction $action, $session_id)
+    {
+        return $action->execute(Auth::user(), $session_id)->apiSuccess();
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sessionsList(Request $request)
+    {
+        return $this->apiSuccess(
+            Auth::user()->jwtToken()->orderBy('created_at', 'DESC')->get(
+                [
+                    'id',
+                    'user_agent',
+                    'ip_address',
+                    'access_expire_at',
+                    'refresh_expire_at',
+                    'created_at',
+                    'updated_at'
+                ]
+            )
+        );
     }
 
     /**

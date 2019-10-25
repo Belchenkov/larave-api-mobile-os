@@ -26,7 +26,7 @@ class UserJwtToken extends LocalDBModel
      * @var array
      */
     protected $fillable = [
-        'access_token', 'refresh_token', 'user_id', 'access_expire_at', 'refresh_expire_at',
+        'access_token', 'refresh_token', 'user_id', 'access_expire_at', 'refresh_expire_at', 'user_agent', 'ip_address',
     ];
 
     /**

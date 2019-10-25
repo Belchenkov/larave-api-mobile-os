@@ -22,13 +22,15 @@ class FirebaseChannel
     public function send($notifiable, Notification $notification)
     {
         $message = $notification->toFirebase($notifiable);
-        $this->fcmSender->send(
-            $message->getTitle(),
-            $message->getMessage(),
-            $message->getChannel(),
-            $message->getData(),
-            $message->getToken()
-        );
+
+        if ($message != null)
+            $this->fcmSender->send(
+                $message->getTitle(),
+                $message->getMessage(),
+                $message->getChannel(),
+                $message->getData(),
+                $message->getToken()
+            );
     }
 
 }

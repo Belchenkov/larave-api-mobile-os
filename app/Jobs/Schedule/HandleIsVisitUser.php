@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Schedule;
 
+use App\Actions\Users\InTimeUserAction;
 use App\Actions\Users\LateUserAction;
 use App\Models\EventHandle;
 use App\Repositories\User\StatisticVisitRepository;
@@ -12,12 +13,13 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class HandleIsLateUser implements ShouldQueue
+class HandleIsVisitUser implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $repository;
-    private $action;
+    private $actionLate;
+    private $actionInTime;
 
     /**
      * Create a new job instance.
@@ -27,7 +29,8 @@ class HandleIsLateUser implements ShouldQueue
     public function __construct()
     {
         $this->repository = new StatisticVisitRepository();
-        $this->action = new LateUserAction();
+        $this->actionLate = new LateUserAction();
+        $this->actionInTime = new InTimeUserAction();
     }
 
     /**
@@ -41,12 +44,20 @@ class HandleIsLateUser implements ShouldQueue
             ->whereDate('created_at', '<', Carbon::now()->format('Y-m-d'))
             ->delete();
 
-        $laters = $this->repository->handleLateUsers();
+        EventHandle::where('handle_type', EventHandle::HANDLE_TYPE_INTIME)
+            ->whereDate('created_at', '<', Carbon::now()->format('Y-m-d'))
+            ->delete();
 
-        foreach ($laters as $user) {
-            $this->action->execute($user);
+        $visitors = $this->repository->handleEnterUsers();
+
+        foreach ($visitors as $user) {
+            if ($user['stat']['is_late']) {
+                $this->actionLate->execute($user);
+            } else {
+                $this->actionInTime->execute($user);
+            }
         }
 
-        HandleIsLateUser::dispatch()->delay(now()->addMinutes(config('workflow.time_update_late_users')));
+        HandleIsVisitUser::dispatch()->delay(now()->addMinutes(config('workflow.time_update_late_users')));
     }
 }

@@ -31,7 +31,7 @@ class ApprovalTask extends JsonApiResourse
             'executor' => $this->executor_employee,
             'status' => $this->task_status,
             'actions' => $this->getRelevantActions('buttons'),
-            'related_tasks' => $this->relatedTasks->map(function($item) {
+            'related_tasks' => $this->relationLoaded('relatedTasks') ? $this->relatedTasks->map(function($item) {
                 return [
                     'status' => $item->task_status,
                     'comment' => $item->task_comment_execution,
@@ -40,7 +40,7 @@ class ApprovalTask extends JsonApiResourse
                         'avatar' => $this->executor->getUserAvatar()->toArray(),
                     ]
                 ];
-            }),
+            }) : null,
             'doc_info' => $this->getDocInfo(),
             'created_at' => $this->Date,
         ];

@@ -9,14 +9,14 @@ namespace App\Actions\Users;
 use App\Actions\BaseAction;
 use App\Models\EventHandle;
 use App\Models\User;
-use App\Notifications\Schedule\IsLateUserNotification;
+use App\Notifications\Schedule\InTimeUserNotification;
 
 /**
  * Class LateUserAction
  * @package App\Actions\Users
  * Execute Action if User be late
  */
-class LateUserAction extends BaseAction
+class InTimeUserAction extends BaseAction
 {
     /**
      * @param User $user
@@ -25,10 +25,10 @@ class LateUserAction extends BaseAction
     public function execute(User $user)
     {
         // Send push, email, etc
-        $user->notify(new IsLateUserNotification());
+        $user->notify(new InTimeUserNotification());
 
         $user->handleEvent()->create([
-            'handle_type' => EventHandle::HANDLE_TYPE_LATE
+            'handle_type' => EventHandle::HANDLE_TYPE_INTIME
         ]);
 
         return $this;

@@ -15,6 +15,7 @@ class EventHandle extends LocalDBModel
 
     const HANDLE_TYPE_DOTASK = 1;
     const HANDLE_TYPE_LATE = 2;
+    const HANDLE_TYPE_INTIME = 3;
 
     /**
      * The attributes that are mass assignable.

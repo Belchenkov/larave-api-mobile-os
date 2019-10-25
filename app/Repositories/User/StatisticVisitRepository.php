@@ -233,7 +233,7 @@ class StatisticVisitRepository
      * @return \Illuminate\Support\Collection
      * Get is late Users
      */
-    public function handleLateUsers(?Carbon $date = null)
+    public function handleEnterUsers(?Carbon $date = null, $late_only = false)
     {
         $laters = collect();
 
@@ -243,7 +243,7 @@ class StatisticVisitRepository
         $date = $date->format('Y-m-d');
 
         User::with([
-            'handleLate' => function($query) use ($date) {
+            'handleEvent' => function($query) use ($date) {
                 $query->where('handle_type', EventHandle::HANDLE_TYPE_LATE)
                     ->whereDate('created_at', $date);
             },
@@ -251,12 +251,15 @@ class StatisticVisitRepository
             'portalUser.skudEvents' => function ($query) use ($date) {
                 $query->whereDate('time', '>=', $date)->orderBy('time', 'ASC');
             },
-        ])->chunk(100, function($users) use ($laters) {
+        ])->chunk(100, function($users) use ($laters, $late_only) {
             foreach ($users as $user) {
 
-                if ($user->portalUser->skudEvents->count() > 0 && !$user->handleLate) {
+                if ($user->portalUser->skudEvents->count() > 0 && !$user->handleEvent) {
                     $stat = $this->getDayVisit($user->portalUser->skudEvents, $this->getVisitSchedule($user->portalUser));
-                    if ($stat['is_late']) {
+                    if ($stat['is_late'] && $late_only) {
+                        $user->setAttribute('stat', $stat);
+                        $laters->push($user);
+                    } else {
                         $user->setAttribute('stat', $stat);
                         $laters->push($user);
                     }

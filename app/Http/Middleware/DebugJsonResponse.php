@@ -24,6 +24,7 @@ class DebugJsonResponse
 
         if (
             $response instanceof JsonResponse &&
+            config('app.debug') &&
             app()->bound('debugbar') &&
             app('debugbar')->isEnabled() &&
             is_object($response->getData())

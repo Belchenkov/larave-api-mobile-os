@@ -25,3 +25,8 @@
 - pdo_sqlsrv 
 > <a href="https://docs.microsoft.com/ru-ru/sql/connect/php/installation-tutorial-linux-mac?view=sql-server-2017">https://docs.microsoft.com/ru-ru/sql/connect/php/installation-tutorial-linux-mac?view=sql-server-2017
 
+## Глобальный ToDo
+
+Добавить дополнительный ключ защиты API 
+Скрыть админку для внешнего доступа
+Добавить API удаления сессий

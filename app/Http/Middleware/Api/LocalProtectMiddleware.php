@@ -4,12 +4,12 @@ namespace App\Http\Middleware\Api;
 
 use App\Exceptions\Api\ApiAuthorizationException;
 use Closure;
-
+use Symfony\Component\HttpFoundation\IpUtils;
 /**
  * @package App\Http\Middleware\Api
- * Protected Route Admins
+ * Protected Route For admins
  */
-class AdminMiddleware
+class LocalProtectMiddleware
 {
     /**
      * Handle an incoming request.
@@ -20,7 +20,9 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user('api') && $request->user('api')->is_admin) {
+        $ip_range = explode(',' ,config('workflow.admin_ip_range', ''));
+
+        if (IpUtils::checkIp($request->getClientIp(), $ip_range)) {
             return $next($request);
         }
 

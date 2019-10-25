@@ -15,5 +15,10 @@ class NewsController extends Controller
         return NewsResource::collection(ModelNews::where('publish', 1)->with('images')->orderBy('created_at', 'DESC')->simplePaginate(15));
     }
 
+    public function show(Request $request, ModelNews $news)
+    {
+        return new NewsResource($news);
+    }
+
 
 }

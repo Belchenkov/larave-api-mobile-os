@@ -2,6 +2,7 @@
 
 Route::get('/profile', 'Api\v1\ProfileController@getProfileInfo')->name('profile');
 Route::get('/news', 'Api\v1\NewsController@index')->name('news');
+Route::get('/news/{news}', 'Api\v1\NewsController@show')->name('news.show');
 
 // Статистика посещаемости
 Route::group(['prefix' => '/statistic', 'as' => 'statistic.'], function () {

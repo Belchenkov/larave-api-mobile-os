@@ -21,3 +21,5 @@ Route::get('/', function () {
         'data' => 'Welcome to GKOsnova Mobile Server'
     ]);
 });
+
+Route::get('/download/{doc_id}', 'Api\v1\ApprovalTaskController@downloadDocument')->name('downloadDocument');

@@ -56,6 +56,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'protector' => \App\Http\Middleware\Api\LocalProtectMiddleware::class,
         'auth' => \App\Http\Middleware\Api\AuthenticatedMiddleware::class,
         'guest' => \App\Http\Middleware\Api\GuestMiddleware::class,
         'admin' => \App\Http\Middleware\Api\AdminMiddleware::class,
@@ -79,6 +80,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewarePriority = [
+        \App\Http\Middleware\Api\LocalProtectMiddleware::class,
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
         //\App\Http\Middleware\Authenticate::class,

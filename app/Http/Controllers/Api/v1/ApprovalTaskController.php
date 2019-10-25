@@ -75,15 +75,13 @@ class ApprovalTaskController extends Controller
         try {
             $client = new Client([
                 'base_uri' => config('workflow.doc_download'),
-                'timeout' => 10.0,
+                'timeout' => 25.0,
                 'auth' => [
                     config('workflow.doc_download_user'),
                     config('workflow.doc_download_pass')
                 ]
             ]);
-
             $response = $client->get('?id=' . $doc_id);
-
             return response($response->getBody()->getContents(), 200, $response->getHeaders());
         } catch (\Exception $exception) {
             throw new ApiException(404, 'File not found.');

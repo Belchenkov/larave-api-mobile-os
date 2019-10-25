@@ -11,6 +11,8 @@ return [
         'life_time' => env('APP_PINCODE_LIFETIME', 5) * 60
     ],
 
+    'admin_ip_range' => env('ADMIN_IP_RANGE'),
+
     'avatars_path' => env('APP_AVATARS_PATH'),
     'time_update_new_approval_tasks' => 5,
     'time_update_late_users' => 5,
