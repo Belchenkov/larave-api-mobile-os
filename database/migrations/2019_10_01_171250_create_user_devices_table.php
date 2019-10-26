@@ -17,9 +17,11 @@ class CreateUserDevicesTable extends Migration
             $table->bigIncrements('id');
             $table->passthru('bigint', 'user_id')->unsigned();
             $table->passthru('varchar', 'device_id', 'varchar(255)')->index()->nullable();
+            $table->passthru('bigint', 'session_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('session_id')->references('id')->on('user_jwt_tokens')->onDelete('cascade');
         });
     }
 

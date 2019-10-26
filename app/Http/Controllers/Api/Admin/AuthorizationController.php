@@ -83,9 +83,6 @@ class AuthorizationController extends Controller
         } elseif ($request->get('all') == 1) {
             $user->removeAllSession();
             return $this->apiSuccess();
-        } elseif ($request->get('others') == 1) {
-            $user->removeOtherSession(request()->bearerToken());
-            return $this->apiSuccess();
         }
 
         return $this->apiError('No action selected');

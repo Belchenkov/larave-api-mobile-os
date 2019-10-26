@@ -18,7 +18,7 @@ class UserDevice extends LocalDBModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'device_id'
+        'user_id', 'device_id', 'session_id'
     ];
 
     /**
