@@ -44,8 +44,8 @@ class IsLateUserNotification extends Notification
             return null;
 
         return new FirebaseMessage(
-            'ГК Основа',
-            'Вы опоздали на работу и пришли в ' . $this->stat['enter_time']->format('H:i:s'),
+            '',
+            'Сегодня Вы пришли в офис в ' . $this->stat['enter_time']->format('H:i:s'),
             'push-channel',
             [
                 'screen' => 'statistic-visit'

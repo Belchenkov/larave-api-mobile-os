@@ -45,7 +45,7 @@ class NewTaskNotification extends Notification implements ShouldQueue
     public function toFirebase($notifiable)
     {
         return new FirebaseMessage(
-            'ГК Основа: Новая задача в кабинете согласования',
+            'У Вас новая задача',
             $this->task_name,
             'push-channel',
             [

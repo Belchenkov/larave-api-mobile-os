@@ -13,8 +13,17 @@ class MailingController extends Controller
 
     public function index(Request $request)
     {
+        $mailings = Mailing::orderBy('created_at', 'DESC')->paginate(15);
+        $mailings->getCollection()->transform(function($item) {
+            return [
+                'id' => $item->id,
+                'content' => $item->content,
+                'created_at' => $item->created_at->format('Y.m.d H:i:s'),
+            ];
+        });
+
         return $this->apiSuccess(
-            Mailing::orderBy('created_at', 'DESC')->paginate(15)
+            $mailings
         );
     }
 

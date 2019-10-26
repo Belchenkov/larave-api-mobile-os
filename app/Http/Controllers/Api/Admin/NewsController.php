@@ -24,7 +24,7 @@ class NewsController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'content' => 'required',
-            'publish' => 'boolean',
+            'publish' => 'required|in:0,1',
         ]);
 
         $news = News::create($request->all());
@@ -34,7 +34,8 @@ class NewsController extends Controller
         }
 
         // Send Push
-        $news->notify(new NewNewsNotification());
+        if ($request->get('publish'))
+            $news->notify(new NewNewsNotification());
 
         return $this->apiSuccess([
             'id' => $news->id
@@ -46,13 +47,18 @@ class NewsController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'content' => 'required',
-            'publish' => 'in:0,1',
+            'publish' => 'required|in:0,1',
         ]);
 
+        $publish = $news->publish;
         $news->update($request->all());
 
         if ($request->get('files')) {
             $news->images()->saveMany(File::whereIn('id', $request->get('files'))->get());
+        }
+
+        if (!$publish && $request->get('publish')) {
+            $news->notify(new NewNewsNotification());
         }
 
         return $this->apiSuccess([

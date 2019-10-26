@@ -41,7 +41,7 @@ class NewNewsNotification extends Notification implements ShouldQueue
     public function toFirebase($notifiable)
     {
         return new FirebaseMessage(
-            'ГК Основа: Добавлена новость',
+            'Новая новость',
             $notifiable->title,
             'push-channel',
             [

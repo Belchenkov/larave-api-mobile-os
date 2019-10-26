@@ -44,8 +44,8 @@ class InTimeUserNotification extends Notification
             return null;
 
         return new FirebaseMessage(
-            'ГК Основа',
-            'Вы пришли на работу в ' . $this->stat['enter_time']->format('H:i:s'),
+            '',
+            'Добро пожаловать в офис ГК ОСНОВА',
             'push-channel',
             [
                 'screen' => 'statistic-visit'

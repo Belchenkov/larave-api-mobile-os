@@ -42,7 +42,7 @@ Artisan::command('make:admin {ad_login} {password}', function () {
 
 Artisan::command('push', function () {
     $u = User::find(1);
-    $u->notify(new SendPush('Hello!', 'Hello every body.', 'Test Data'));
+    $u->notify(new SendPush('', 'Hello every body. 🔥', 'Test Data'));
 })->describe('Send test push message');
 
 Artisan::command('jobs:init', function () {
@@ -54,10 +54,3 @@ Artisan::command('jobs:clear', function () {
     DB::table('jobs')->delete();
 })->describe('Clear jobs db table');
 
-Artisan::command('test', function () {
-    $r = new StatisticVisitRepository();
-    //$u = $r->handleEnterUsers();
-
-    $j = new HandleIsVisitUser();
-    $j->handle();
-})->describe('Clear jobs db table');

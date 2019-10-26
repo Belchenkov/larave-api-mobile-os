@@ -41,7 +41,7 @@ class NewMailingNotification extends Notification implements ShouldQueue
     public function toFirebase($notifiable)
     {
         return new FirebaseMessage(
-            'ГК Основа',
+            '',
             $notifiable->content,
             'push-channel',
             [
