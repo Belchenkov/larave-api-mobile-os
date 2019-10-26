@@ -235,7 +235,7 @@ class StatisticVisitRepository
      */
     public function handleEnterUsers(?Carbon $date = null, $late_only = false)
     {
-        $laters = collect();
+        $visitors = collect();
 
         if (!$date)
             $date = Carbon::now();
@@ -244,29 +244,30 @@ class StatisticVisitRepository
 
         User::with([
             'handleEvent' => function($query) use ($date) {
-                $query->where('handle_type', EventHandle::HANDLE_TYPE_LATE)
-                    ->whereDate('created_at', $date);
+                $query->where('handle_type', EventHandle::HANDLE_TYPE_VISITOR)
+                      ->whereDate('created_at', $date);
             },
             'portalUser.schedule',
             'portalUser.skudEvents' => function ($query) use ($date) {
                 $query->whereDate('time', '>=', $date)->orderBy('time', 'ASC');
             },
-        ])->chunk(100, function($users) use ($laters, $late_only) {
+        ])->chunk(100, function($users) use ($visitors, $late_only) {
             foreach ($users as $user) {
-
                 if ($user->portalUser->skudEvents->count() > 0 && !$user->handleEvent) {
                     $stat = $this->getDayVisit($user->portalUser->skudEvents, $this->getVisitSchedule($user->portalUser));
-                    if ($stat['is_late'] && $late_only) {
-                        $user->setAttribute('stat', $stat);
-                        $laters->push($user);
-                    } else {
-                        //$user->setAttribute('stat', $stat);
-                        //$laters->push($user);
+                    if ($stat['enter_time'] != null) {
+                        if ($stat['is_late'] && $late_only) {
+                            $user->setAttribute('stat', $stat);
+                            $visitors->push($user);
+                        } else {
+                            $user->setAttribute('stat', $stat);
+                            $visitors->push($user);
+                        }
                     }
                 }
             }
         });
 
-        return $laters;
+        return $visitors;
     }
 }

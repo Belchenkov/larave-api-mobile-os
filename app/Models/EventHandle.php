@@ -14,8 +14,7 @@ class EventHandle extends LocalDBModel
     protected $table = 'event_handle';
 
     const HANDLE_TYPE_DOTASK = 1;
-    const HANDLE_TYPE_LATE = 2;
-    const HANDLE_TYPE_INTIME = 3;
+    const HANDLE_TYPE_VISITOR = 2;
 
     /**
      * The attributes that are mass assignable.

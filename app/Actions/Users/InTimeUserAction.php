@@ -25,10 +25,10 @@ class InTimeUserAction extends BaseAction
     public function execute(User $user)
     {
         // Send push, email, etc
-        $user->notify(new InTimeUserNotification($user['stat']['enter_time']));
+        $user->notify(new InTimeUserNotification($user['stat']));
 
         $user->handleEvent()->create([
-            'handle_type' => EventHandle::HANDLE_TYPE_INTIME
+            'handle_type' => EventHandle::HANDLE_TYPE_VISITOR
         ]);
 
         return $this;

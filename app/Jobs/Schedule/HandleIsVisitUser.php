@@ -40,11 +40,7 @@ class HandleIsVisitUser implements ShouldQueue
      */
     public function handle()
     {
-        EventHandle::where('handle_type', EventHandle::HANDLE_TYPE_LATE)
-            ->whereDate('created_at', '<', Carbon::now()->format('Y-m-d'))
-            ->delete();
-
-        EventHandle::where('handle_type', EventHandle::HANDLE_TYPE_INTIME)
+        EventHandle::where('handle_type', EventHandle::HANDLE_TYPE_VISITOR)
             ->whereDate('created_at', '<', Carbon::now()->format('Y-m-d'))
             ->delete();
 
