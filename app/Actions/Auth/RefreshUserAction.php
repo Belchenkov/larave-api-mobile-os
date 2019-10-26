@@ -29,9 +29,8 @@ class RefreshUserAction extends BaseAction
         if ($token = UserJwtToken::where('refresh_token', $refresh_token)
             ->where('refresh_expire_at', '>', Carbon::now())->first()) {
             $this->user = $token->user;
-            $this->user->removeSession($refresh_token);
-            $jwtToken = $this->user->generateJwt();
-            $this->setActionResult($jwtToken);
+            $this->user->updateJwt($token);
+            $this->setActionResult($token);
         } else
             throw new ApiAuthorizationException();
 

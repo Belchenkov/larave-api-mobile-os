@@ -49,19 +49,12 @@ trait JwtAuthenticatable
         $this->jwtToken()->where('access_token', '<>', $access_token)->delete();
     }
 
-    public function removeOldSessions()
-    {
-        $this->jwtToken()->whereDate('refresh_expire_at', '<', Carbon::now()->format('Y.m.s'))->delete();
-    }
-
     /**
      * @return mixed
      * Generate access/refresh tokens
      */
     public function generateJwt()
     {
-        $this->removeOldSessions();
-
         do {
             $this->access_token = str_random(60);
         } while (UserJwtToken::where('access_token', $this->access_token)->exists());
@@ -82,6 +75,28 @@ trait JwtAuthenticatable
             ]
         );
 
+    }
+
+    public function updateJwt(UserJwtToken $token)
+    {
+        do {
+            $this->access_token = str_random(60);
+        } while (UserJwtToken::where('access_token', $this->access_token)->exists());
+
+        do {
+            $this->refresh_token = str_random(60);
+        } while (UserJwtToken::where('refresh_token', $this->refresh_token)->exists());
+
+        $token->update(
+            [
+                'access_token' => $this->access_token,
+                'refresh_token' => $this->refresh_token,
+                'access_expire_at' => Carbon::now()->addHours(6)->format('Y-m-d H:i:s'),
+                'refresh_expire_at' => Carbon::now()->addDays(3)->format('Y-m-d H:i:s'),
+            ]
+        );
+
+        return $token;
     }
 
 }
