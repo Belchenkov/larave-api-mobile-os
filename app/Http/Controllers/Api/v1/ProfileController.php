@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\v1\Statistic\UserVisits;
+use App\Http\Resources\Api\v1\User\UserBadges;
 use App\Http\Resources\Api\v1\User\UserProfile;
+use App\Repositories\BadgesRepository;
 use App\Repositories\User\StatisticVisitRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
@@ -21,9 +23,9 @@ class ProfileController extends Controller
 {
 
     /**
-     * Get Profile Info for Auth User
      * @param Request $request
      * @param UserRepository $userRepository
+     * @param BadgesRepository $badgesRepository
      * @return mixed
      */
     public function getProfileInfo(Request $request, UserRepository $userRepository)
@@ -32,8 +34,17 @@ class ProfileController extends Controller
             'user.profile.'.Auth::user()->id_person,
             config('cache.cache_time'),
             function () use ($userRepository) {
-                return new UserProfile($userRepository->getUserProfileByIdPerson(Auth::user()->id_person));
+                return new UserProfile(
+                    $userRepository->getUserProfileByIdPerson(Auth::user()->id_person)
+                );
             }
+        );
+    }
+
+    public function getBadges(Request $request, BadgesRepository $badgesRepository)
+    {
+        return new UserBadges(
+            $badgesRepository->getUserBadges(Auth::user()->portalUser)
         );
     }
 

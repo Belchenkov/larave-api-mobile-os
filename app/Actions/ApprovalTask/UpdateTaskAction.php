@@ -10,26 +10,30 @@ use App\Actions\BaseAction;
 use App\Exceptions\Api\ApiException;
 use App\Models\Transit\DoTask;
 use App\Repositories\ApprovalTaskRepository;
+use App\Repositories\BadgesRepository;
 use App\Structure\ApprovalTask\ApprovalTaskActions;
+use App\Structure\User\UserInterface;
 
 class UpdateTaskAction extends BaseAction
 {
 
     private $approvalTaskRepository;
+    private $badgesRepository;
 
     public function __construct()
     {
         $this->approvalTaskRepository = new ApprovalTaskRepository();
+        $this->badgesRepository = new BadgesRepository();
     }
 
     /**
+     * @param UserInterface $user
      * @param DoTask $task
      * @param $status
      * @param $comment
      * @return $this
-     * Update Task
      */
-    public function execute(DoTask $task, $status, $comment)
+    public function execute(UserInterface $user, DoTask $task, $status, $comment)
     {
         if ($task->task_status != ApprovalTaskActions::TASK_CAN_EDIT)
             throw new ApiException(422, 'User task cant be updated');
@@ -39,8 +43,7 @@ class UpdateTaskAction extends BaseAction
             throw new ApiException(422, 'Invalid task status');
 
         $this->approvalTaskRepository->updateUserTask($task, $status, $comment);
-
-        // ToDo - send push or other?
+        $this->badgesRepository->clearUserBadgesCache($user);
 
         return $this;
     }

@@ -59,6 +59,7 @@ class ApprovalTaskController extends Controller
         }
 
         return $action->execute(
+            Auth::user()->portalUser,
             $task,
             $request->get('status'), $request->get('comment')
         )->apiSuccess();
