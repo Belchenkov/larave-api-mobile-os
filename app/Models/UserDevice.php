@@ -29,4 +29,12 @@ class UserDevice extends LocalDBModel
     {
         return $this->belongsTo(User::class, 'device_id');
     }
+    /**
+     * Get User Data from Users Table (Mobile DB)
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function session(): BelongsTo
+    {
+        return $this->belongsTo(UserJwtToken::class, 'session_id');
+    }
 }
