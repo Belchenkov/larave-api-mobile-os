@@ -43,10 +43,10 @@ class NewNewsNotification extends Notification implements ShouldQueue
         return new FirebaseMessage(
             'Новая новость',
             $notifiable->title,
-            'push-channel',
+            'osnova',
             [
-                'screen' => 'OSNOVA_APPROVING_TASK_DECISION',
-                'news_id' => $notifiable->id
+                'screen' => 'OSNOVA_NEWS_OPENED_VIEW',
+                'id' => $notifiable->id
             ],
             UserDevice::all()->pluck('device_id')->toArray()
         );
