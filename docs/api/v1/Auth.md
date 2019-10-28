@@ -241,6 +241,7 @@ Authorization: Bearer <accessToken>
 {
     "data": {
         "id": {Int},
+        "current": {Boolean},
         "user_agent": {String},
         "ip_address": {String},
         "access_token_expire_at": {Date},
@@ -262,6 +263,10 @@ Authorization: Bearer <accessToken>
          <tr>
             <td>data.id</td>
             <td>ID сессии</td>
+        </tr>
+        <tr>
+            <td>data.current</td>
+            <td>Текущая сессия</td>
         </tr>
         <tr>
             <td>data.user_agent</td>
