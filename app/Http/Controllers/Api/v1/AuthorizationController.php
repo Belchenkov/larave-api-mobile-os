@@ -12,6 +12,7 @@ use App\Http\Requests\Api\v1\Auth\LogoutRequest;
 use App\Http\Requests\Api\v1\Auth\RefreshRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\v1\User\UserJwtToken;
+use App\Http\Resources\Api\v1\User\UserSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -81,19 +82,7 @@ class AuthorizationController extends Controller
      */
     public function sessionsList(Request $request)
     {
-        return $this->apiSuccess(
-            Auth::user()->jwtToken()->orderBy('created_at', 'DESC')->get(
-                [
-                    'id',
-                    'user_agent',
-                    'ip_address',
-                    'access_expire_at',
-                    'refresh_expire_at',
-                    'created_at',
-                    'updated_at'
-                ]
-            )
-        );
+        return UserSession::collection(Auth()->user()->getSessionList());
     }
 
     /**

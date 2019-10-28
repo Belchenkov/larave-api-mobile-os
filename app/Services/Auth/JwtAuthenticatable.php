@@ -49,6 +49,30 @@ trait JwtAuthenticatable
         $this->jwtToken()->where('access_token', '<>', $access_token)->delete();
     }
 
+    public function getSessionList()
+    {
+        $current = $this->jwtToken()->where('access_token', request()->bearerToken())->first();
+        $sessions = $this->jwtToken()->orderBy('created_at', 'DESC')->get(
+            [
+                'id',
+                'user_agent',
+                'ip_address',
+                'access_expire_at',
+                'refresh_expire_at',
+                'created_at',
+                'updated_at'
+            ]
+        );
+
+        return $sessions->map(function ($session) use ($current) {
+            $session->setAttribute('current', false);
+            if ($session->id == $current->id)
+                $session->setAttribute('current', true);
+
+            return $session;
+        });
+    }
+
     /**
      * @return mixed
      * Generate access/refresh tokens
