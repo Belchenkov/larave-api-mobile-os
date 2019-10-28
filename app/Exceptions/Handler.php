@@ -2,10 +2,12 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Api\ApiAuthorizationException;
 use App\Exceptions\Api\ApiException;
 use App\Exceptions\Api\ApiNotFoundException;
 use App\Exceptions\Api\ApiValidationException;
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Validation\ValidationException;
@@ -57,6 +59,10 @@ class Handler extends ExceptionHandler
 
         if ($exception instanceof ValidationException) {
             throw new ApiValidationException($exception->validator->errors()->messages());
+        }
+
+        if ($exception instanceof AuthenticationException) {
+            throw new ApiAuthorizationException();
         }
 
         if (!config('app.debug')) {
