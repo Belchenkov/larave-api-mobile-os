@@ -49,7 +49,7 @@ class NewTaskNotification extends Notification implements ShouldQueue
             $this->task_name,
             'osnova',
             [
-                'screen' => 'OSNOVA_APPROVING_TASK_DECISION',
+                'screen' => 'OSNOVA_APPROVING_TASK_INFO',
                 'id' => $this->task_id
             ],
             $notifiable->devices->pluck('device_id')->toArray()
