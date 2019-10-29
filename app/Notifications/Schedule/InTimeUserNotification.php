@@ -46,9 +46,9 @@ class InTimeUserNotification extends Notification
         return new FirebaseMessage(
             '',
             'Добро пожаловать в офис ГК ОСНОВА',
-            'push-channel',
+            'osnova',
             [
-                'screen' => 'statistic-visit'
+                'screen' => 'OSNOVA_VISITS_STATISTIC'
             ],
             $notifiable->devices->pluck('device_id')->toArray()
         );

@@ -11,9 +11,18 @@ use App\Exceptions\Api\ApiException;
 use App\Models\EventHandle;
 use App\Models\Transit\DoTask;
 use App\Notifications\ApprovalTask\NewTaskNotification;
+use App\Repositories\BadgesRepository;
 
 class NewTaskAction extends BaseAction
 {
+
+    private $badgesRepository;
+
+    public function __construct()
+    {
+        $this->badgesRepository = new BadgesRepository();
+    }
+
     /**
      * @param DoTask $task
      * @return $this
@@ -30,6 +39,9 @@ class NewTaskAction extends BaseAction
         $task->handleEvent()->create([
             'handle_type' => EventHandle::HANDLE_TYPE_DOTASK
         ]);
+
+        if ($task->user->portalUser)
+            $this->badgesRepository->clearUserBadgesCache($task->user->portalUser);
 
         return $this;
     }

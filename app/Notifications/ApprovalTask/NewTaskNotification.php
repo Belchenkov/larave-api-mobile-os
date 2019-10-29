@@ -47,9 +47,9 @@ class NewTaskNotification extends Notification implements ShouldQueue
         return new FirebaseMessage(
             'У Вас новая задача',
             $this->task_name,
-            'push-channel',
+            'osnova',
             [
-                'screen' => 'task-approval',
+                'screen' => 'OSNOVA_APPROVING_TASK_DECISION',
                 'id' => $this->task_id
             ],
             $notifiable->devices->pluck('device_id')->toArray()

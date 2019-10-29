@@ -27,7 +27,7 @@ class BadgesRepository
         if (!$cache)
             $this->clearUserBadgesCache($user);
 
-        return Cache::rememberForever('badges.' . $user->getUserPhPerson(), function () use ($user, $repository) {
+        return Cache::remember('badges.' . $user->getUserPhPerson(), config('cache.cache_time'), function () use ($user, $repository) {
             return collect([
                 'approval' => $repository->approvalTaskRepository->getUserTasks($user)->count(),
                 'messages' => 0,
