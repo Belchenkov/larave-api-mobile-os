@@ -6,7 +6,9 @@
  */
 namespace App\Models\Transit;
 
+use App\Models\Transit\Portal\ForUser;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DoSessionHeader extends TransitionModel
 {
@@ -43,13 +45,18 @@ class DoSessionHeader extends TransitionModel
         'error_message_sync',
     ];
 
+    public function employee() : BelongsTo
+    {
+        return $this->belongsTo(ForUser::class, 'employee', 'user_ad_login');
+    }
+
     /**
      * Get DoSessionPass Data from do_sessions_pass (Transit DB)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function doSessionPass() : BelongsTo
+    public function doSessionPass() : HasMany
     {
-        return $this->belongsTo(DoSessionPass::class, 'id');
+        return $this->hasMany(DoSessionPass::class, 'id');
     }
 
     /**

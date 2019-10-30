@@ -9,6 +9,8 @@ use App\Models\Transit\_1C\Transit1cEmployee;
 use App\Models\Transit\_1C\Transit1cEmployeeStatus;
 use App\Models\Transit\_1C\Transit1cPhPerson;
 use App\Models\Transit\_1C\Transit1cScheduleEmployee;
+use App\Models\Transit\DoSessionHeader;
+use App\Models\Transit\DoSessionPass;
 use App\Models\Transit\DoTask;
 use App\Models\Transit\TransitionModel;
 use App\Models\Transit\TransitSkudEvent;
@@ -113,6 +115,14 @@ class ForUser extends TransitionModel implements UserInterface
     public function approvalTasksInitiator() : HasMany
     {
         return $this->hasMany(DoTask::class, 'employee', 'user_ad_login');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function passHeaders() : HasMany
+    {
+        return $this->hasMany(DoSessionHeader::class, 'employee', 'user_ad_login');
     }
 
     /**
