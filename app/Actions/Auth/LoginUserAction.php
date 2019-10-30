@@ -30,7 +30,7 @@ class LoginUserAction extends BaseAction
     {
         if ($user = User::where('email', $email)->first()) {
             if ($user->pinCode && $user->pinCode->pin_code == $pin_code
-                && Carbon::now()->diffInSeconds(Carbon::parse($user->pinCode->updated_at)) < config('workflow.pin.life_time')) {
+                /*&& Carbon::now()->diffInSeconds(Carbon::parse($user->pinCode->updated_at)) < config('workflow.pin.life_time') */)  {
                 $this->user = $user;
 
                 $jwtToken = $this->user->generateJwt();
