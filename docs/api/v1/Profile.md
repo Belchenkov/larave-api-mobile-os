@@ -316,3 +316,51 @@ Authorization: Bearer <accessToken>
         </tr>
     </tbody>
 </table>
+
+
+#### GET /api/v1/badges
+
+Метод получения существуемых у пользователя сообщений, задач
+
+<b>HEADERS</b>
+
+```
+Authorization: Bearer <accessToken>
+```
+
+<b>RESPONSE</b>
+
++ 200 OK
+
+```
+{
+    "result": {Boolean},
+    "data": {
+        "approval": {Int},
+        "messages": {Int},
+        "tasks": {Int}
+    }
+}
+```
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>data.approval</td>
+            <td>Кол-во задач на согласование</td>
+        </tr>
+        <tr>
+            <td>data.messages</td>
+            <td>Кол-во сообщений</td>
+        </tr>
+        <tr>
+            <td>data.tasks</td>
+            <td>Кол-во задач</td>
+        </tr>
+    </tbody>
+</table>

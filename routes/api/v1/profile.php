@@ -2,6 +2,8 @@
 
 Route::get('/profile', 'Api\v1\ProfileController@getProfileInfo')->name('profile');
 Route::get('/badges', 'Api\v1\ProfileController@getBadges')->name('badges');
+
+// Новости
 Route::get('/news', 'Api\v1\NewsController@index')->name('news');
 Route::get('/news/{news}', 'Api\v1\NewsController@show')->name('news.show');
 
