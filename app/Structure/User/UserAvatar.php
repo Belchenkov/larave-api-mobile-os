@@ -92,11 +92,11 @@ class UserAvatar
 
             \File::copy($source_path, $avatar_path);
 
-            if ($update) {
+            //if ($update) {
                 $image = Image::make($avatar_path);
                 $image->resize(250, 250);
                 $image->save();
-            }
+            //}
 
             return request()->getUriForPath('/uploads/avatars/' . $file_name_avatar);
         }
