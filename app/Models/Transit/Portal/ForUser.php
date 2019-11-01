@@ -56,7 +56,8 @@ class ForUser extends TransitionModel implements UserInterface
         'manager2_id',
         'manager2_external_id',
         'department_id',
-        'department_external_id'
+        'department_external_id',
+        'out_date'
     ];
 
     /**

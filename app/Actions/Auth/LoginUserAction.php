@@ -30,6 +30,7 @@ class LoginUserAction extends BaseAction
     {
         if ($user = User::where('email', $email)->first()) {
             if ($user->pinCode && $user->pinCode->pin_code == $pin_code
+                && ($user->portalUser && $user->portalUser->out_date == null)
                 && (Carbon::now()->timestamp - Carbon::parse($user->pinCode->updated_at)->timestamp < config('workflow.pin.life_time'))) {
                 $this->user = $user;
 

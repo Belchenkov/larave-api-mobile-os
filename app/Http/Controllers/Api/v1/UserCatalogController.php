@@ -75,7 +75,6 @@ class UserCatalogController extends Controller
                 if (!$user = $userRepository->getUserProfileByIdPerson($id_phperson)) {
                     throw new ApiException(404, 'User not found.');
                 }
-
                 return new UserProfile($user);
             }
         );
