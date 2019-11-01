@@ -158,7 +158,7 @@ class UserRepository
                         self::getLatestSkudEvents($query);
                     }
                 ])
-                ->whereNotNull('out_date')
+                ->whereNull('out_date')
                 ->leftJoin('for_department', function ($leftJoin) {
                     $leftJoin->on('for_users.department_external_id', '=', 'for_department.external_id');
                 })
