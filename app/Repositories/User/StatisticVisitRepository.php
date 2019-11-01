@@ -212,17 +212,26 @@ class StatisticVisitRepository
      * @return bool|\Illuminate\Support\Collection
      * Check Holiday Users
      */
-    public function checkHolidayUser(Collection $holidays, Carbon $date)
+    public function checkHolidayUser(Collection $holidays, Carbon $date, $latest = false)
     {
-        foreach ($holidays as $holiday) {
-            if ($date->between(Carbon::parse($holiday->date_start)->startOfDay(), Carbon::parse($holiday->date_end)->endOfDay())) return collect([
-                'holiday' => true,
-                'date_start' => Carbon::parse($holiday->date_start)->format('Y-m-d'),
-                'date_end' => Carbon::parse($holiday->date_end)->format('Y-m-d'),
-                'doc_num' => trim($holiday->doc_num),
-                'status' => $holiday->status,
-                'day_of_week' => $date->minDayName,
-            ]);
+        $days = $holidays;
+        if ($latest)
+            $days = [$holidays->sortBy('date_start')->last()];
+
+        if (count($days) == 0)
+            return null;
+
+        foreach ($days as $holiday) {
+            if ($date->between(Carbon::parse($holiday->date_start)->startOfDay(), Carbon::parse($holiday->date_end)->endOfDay())) {
+                return collect([
+                    'holiday' => true,
+                    'date_start' => Carbon::parse($holiday->date_start)->format('Y-m-d'),
+                    'date_end' => Carbon::parse($holiday->date_end)->format('Y-m-d'),
+                    'doc_num' => trim($holiday->doc_num),
+                    'status' => $holiday->status,
+                    'day_of_week' => $date->minDayName,
+                ]);
+            };
         }
 
         return null;

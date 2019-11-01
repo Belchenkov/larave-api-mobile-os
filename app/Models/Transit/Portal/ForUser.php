@@ -267,7 +267,7 @@ class ForUser extends TransitionModel implements UserInterface
         $holidays = null;
 
         if ($employeeStatus = $this->employeeStatus) {
-            $holidays = (new StatisticVisitRepository)->checkHolidayUser($employeeStatus, Carbon::now());
+            $holidays = (new StatisticVisitRepository)->checkHolidayUser($employeeStatus, Carbon::now(), true);
         }
 
         return $holidays;
