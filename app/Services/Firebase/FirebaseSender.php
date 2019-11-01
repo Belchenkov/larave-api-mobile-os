@@ -35,6 +35,7 @@ class FirebaseSender
         $notification = $notificationBuilder->build();
         $data = $dataBuilder->build();
 
-        $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
+        if (count($tokens) > 0)
+            $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
     }
 }

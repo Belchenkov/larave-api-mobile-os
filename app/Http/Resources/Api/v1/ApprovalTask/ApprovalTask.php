@@ -35,12 +35,12 @@ class ApprovalTask extends JsonApiResourse
                 return [
                     'status' => $item->task_status,
                     'comment' => $item->task_comment_execution,
-                    'user' => [
+                    'user' => $item->executor ? [
                         'full_name' => $item->executor->getUserFullName(),
                         'avatar' => $this->executor->getUserAvatar()->toArray(),
-                    ]
+                    ] : null
                 ];
-            }) : null,
+            }) : [],
             'doc_info' => $this->getDocInfo(),
             'created_at' => $this->Date,
         ];
