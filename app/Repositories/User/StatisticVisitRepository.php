@@ -223,7 +223,7 @@ class StatisticVisitRepository
 
         foreach ($days as $holiday) {
             // ToDo - chech date_end == null
-            if ($date->between(Carbon::parse($holiday->date_start)->startOfDay(), Carbon::parse($holiday->date_end)->endOfDay())) {
+            if ($holiday && $date->between(Carbon::parse($holiday->date_start)->startOfDay(), Carbon::parse($holiday->date_end)->endOfDay())) {
                 return collect([
                     'holiday' => true,
                     'date_start' => Carbon::parse($holiday->date_start)->format('Y-m-d'),
