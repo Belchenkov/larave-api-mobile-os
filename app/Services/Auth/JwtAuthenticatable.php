@@ -93,7 +93,7 @@ trait JwtAuthenticatable
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'access_expire_at' => Carbon::now()->addHours(6)->format('Y-m-d H:i:s'),
-                'refresh_expire_at' => Carbon::now()->addDays(3)->format('Y-m-d H:i:s'),
+                'refresh_expire_at' => Carbon::now()->addDays(14)->format('Y-m-d H:i:s'),
                 'ip_address' => request()->getClientIp(),
                 'user_agent' => request()->header('User-Agent')
             ]
@@ -116,7 +116,7 @@ trait JwtAuthenticatable
                 'access_token' => $this->access_token,
                 'refresh_token' => $this->refresh_token,
                 'access_expire_at' => Carbon::now()->addHours(6)->format('Y-m-d H:i:s'),
-                'refresh_expire_at' => Carbon::now()->addDays(3)->format('Y-m-d H:i:s'),
+                'refresh_expire_at' => Carbon::now()->addDays(14)->format('Y-m-d H:i:s'),
             ]
         );
 
