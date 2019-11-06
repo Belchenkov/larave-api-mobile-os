@@ -23,6 +23,7 @@ class ApprovalTask extends JsonApiResourse
             'initiator' => $this->initiator ? [
                 'ad_login' => $this->initiator->getUserAdLogin(),
                 'tab_no' => $this->initiator->getUserTabNo(),
+                'id_phperson' => $this->initiator->getUserPhPerson(),
                 'full_name' => $this->initiator->getUserFullName(),
                 'avatar' => $this->initiator->getUserAvatar()->toArray(),
                 'organisation' => $this->initiator->getUserOrganizationName(),
@@ -36,6 +37,7 @@ class ApprovalTask extends JsonApiResourse
                     'status' => $item->task_status,
                     'comment' => $item->task_comment_execution,
                     'user' => $item->executor ? [
+                        'id_phperson' => $item->executor->getUserPhPerson(),
                         'full_name' => $item->executor->getUserFullName(),
                         'avatar' => $this->executor->getUserAvatar()->toArray(),
                     ] : null
