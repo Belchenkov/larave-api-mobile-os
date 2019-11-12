@@ -9,10 +9,14 @@ Route::get('/news/{news}', 'Api\v1\NewsController@show')->name('news.show');
 
 Route::get('/information/offices', 'Api\v1\OfficesController@index')->name('offices');
 
-Route::group(['prefix' => '/request/pass', 'as' => 'request.pass.'], function () {
-    Route::get('/', 'Api\v1\PassRequestController@index')->name('list');
-    Route::get('/{id}', 'Api\v1\PassRequestController@show')->name('show');
-    Route::post('/create', 'Api\v1\PassRequestController@store')->name('create');
+// Заявки
+Route::group(['prefix' => '/request', 'as' => 'request.'], function () {
+    Route::group(['prefix' => '/pass', 'as' => 'pass.'], function () {
+        Route::get('/', 'Api\v1\PassRequestController@index')->name('list');
+        Route::get('/{id}', 'Api\v1\PassRequestController@show')->name('show');
+        Route::post('/create', 'Api\v1\PassRequestController@store')->name('create');
+    });
+    Route::post('/support', 'Api\v1\RequestSupportController@send')->name('support');
 });
 
 // Статистика посещаемости
