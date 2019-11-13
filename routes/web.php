@@ -11,11 +11,16 @@
 |
 */
 
-use App\Repositories\User\UserRepository;
+use App\Repositories\ApprovalTaskRepository;
 
 Route::get('/', function () {
     return response()->json([
         'result' => true,
         'data' => 'Welcome to GKOsnova Mobile Server'
     ]);
+});
+
+Route::get('/test', function () {
+    $r = (new ApprovalTaskRepository())->getTask('f2d2ea69-05f0-11ea-9127-00155d504e24');
+    return new App\Http\Resources\Api\v1\ApprovalTask\ApprovalTask($r);
 });
