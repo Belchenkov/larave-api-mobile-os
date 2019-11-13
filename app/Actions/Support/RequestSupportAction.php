@@ -46,7 +46,7 @@ class RequestSupportAction extends BaseAction
         }
 
         Auth::user()->notify(new SupportRequestNotification($to));
-
+        dd(123);
         //$mail_request = $this->mailRequestRepository->saveMail(Auth::user()->id, $user->email, $to, $type_request, $comment);
 
         //$this->setActionResult($pass);
