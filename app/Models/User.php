@@ -49,6 +49,15 @@ class User extends Authenticatable
         return $this->hasMany(UserJwtToken::class, 'user_id');
     }
 
+    /**
+     * Get Request Mail Info from request_mail (Mobile DB)
+     * @return HasMany
+     */
+    public function requestMail() : HasMany
+    {
+        return $this->hasMany(RequestSupport::class, 'user_id');
+    }
+
      /**
      * Get User Devices from user_devices (Mobile DB)
      * @return HasMany
