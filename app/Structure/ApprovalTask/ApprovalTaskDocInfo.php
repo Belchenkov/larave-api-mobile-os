@@ -46,6 +46,16 @@ class ApprovalTaskDocInfo
                     'file_id' => (string) $elem[0]['Ссылка'],
                     'file_name' => (string) $elem[0]['Название']
                 ]);
+            }),
+            'visitors' => collect($xml->xpath('СписокДоступ/СписокПосетителей'))->map(function ($item) {
+                return collect([
+                    'start_date' => (string) $item[0]['ДатаНачала'],
+                    'end_date' => (string) $item[0]['ДатаОкончания'],
+                    'visitor' => (string) $item[0]['Посетитель'],
+                    'to_employee' => (string) $item[0]['ККомуПрибыл'],
+                    'visit_point' => (string) $item[0]['ЦельВизита'],
+                    'comment' => (string) $item[0]['Комме нтарий']
+                ]);
             })
         ]);
     }
