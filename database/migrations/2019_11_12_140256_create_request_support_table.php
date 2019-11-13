@@ -21,7 +21,7 @@ class CreateRequestSupportTable extends Migration
             $table->bigIncrements('id');
             $table->passthru('bigint', 'user_id')->unsigned();
             $table->integer('type_request')->index();
-            $table->passthru('nvarchar', 'comment', 'nvarchar(200)');
+            $table->passthru('nvarchar', 'comment', 'nvarchar(2000)');
             $table->passthru('nvarchar', 'from', 'nvarchar(200)');
             $table->passthru('nvarchar', 'to', 'nvarchar(200)');
             $table->timestamps();

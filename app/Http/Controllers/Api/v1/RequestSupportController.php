@@ -12,7 +12,7 @@ class RequestSupportController extends Controller
     /**
      * @param SupportRequest $request
      * @param RequestSupportAction $action
-     * @return RequestSupportAction
+     * @return \Illuminate\Http\JsonResponse
      */
     public function send(SupportRequest $request, RequestSupportAction $action)
     {
@@ -20,6 +20,6 @@ class RequestSupportController extends Controller
             Auth::user()->portalUser,
             $request->comment,
             $request->type_request
-        );
+        )->apiSuccess();
     }
 }

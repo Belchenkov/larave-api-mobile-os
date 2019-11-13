@@ -7,6 +7,7 @@
 namespace App\Actions\Support;
 
 use App\Actions\BaseAction;
+use App\Exceptions\Api\ApiException;
 use App\Models\RequestSupport;
 use App\Notifications\Support\SupportRequestNotification;
 use App\Repositories\SupportRequestRepository;
@@ -45,11 +46,29 @@ class RequestSupportAction extends BaseAction
                 break;
         }
 
-        Auth::user()->notify(new SupportRequestNotification($to));
-        dd(123);
-        //$mail_request = $this->mailRequestRepository->saveMail(Auth::user()->id, $user->email, $to, $type_request, $comment);
+        try {
+            Auth::user()->notify(new SupportRequestNotification(
+                $to,
+                $comment,
+                $user
+            ));
+        } catch (\Exception $exception) {
+            throw new ApiException(500, 'Failed to send email.');
+        }
 
-        //$this->setActionResult($pass);
+        try {
+            $mail_request = $this->mailRequestRepository->saveMail(
+                Auth::user()->id,
+                $user->email,
+                $to,
+                $type_request,
+                $comment
+            );
+        } catch (\Exception $exception) {
+            throw new ApiException(500, 'Failed to save email to database.');
+        }
+
+        $this->setActionResult($mail_request);
 
         return $this;
     }
