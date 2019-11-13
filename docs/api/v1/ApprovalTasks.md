@@ -158,7 +158,7 @@ Authorization: Bearer <accessToken>
 <b>BODY</b>
  ```
 {
-    "taks_id": {uuid}
+    "task_id": {uuid}
 }
 ```
 
@@ -171,7 +171,7 @@ Authorization: Bearer <accessToken>
     </thead>
     <tbody>
          <tr>
-            <td>taks_id</td>
+            <td>task_id</td>
             <td>ID задачи</td>
         </tr>
     </tbody>
@@ -238,6 +238,14 @@ Authorization: Bearer <accessToken>
                 "files": {
                     "file_id" => {Int},
                     "file_name" => {String}
+                },
+                "visitors": {
+                    "start_date" => {String},
+                    "end_date" => {String},
+                    "visitor" => {String},
+                    "to_employee" => {String},
+                    "visit_point"" => {String},
+                    "comment"" => {String}
                 }
             },  
             "created_at": {Int},
@@ -401,6 +409,30 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.doc_info.files.file_name</td>
             <td>Название файла</td>
+        </tr>
+        <tr>
+            <td>data.doc_info.visitors.start_date</td>
+            <td>Дата начала (Список посетителей)</td>
+        </tr>
+        <tr>
+            <td>data.doc_info.visitors.end_date</td>
+            <td>Дата окончания (Список посетителей)</td>
+        </tr>
+        <tr>
+            <td>data.doc_info.visitors.visitor</td>
+            <td>Посетитель (Список посетителей)</td>
+        </tr>
+        <tr>
+            <td>data.doc_info.visitors.to_employee</td>
+            <td>К кому прибыл (Список посетителей)</td>
+        </tr>
+        <tr>
+            <td>data.doc_info.visitors.visit_point</td>
+            <td>Цель визита (Список посетителей)</td>
+        </tr>
+        <tr>
+            <td>data.doc_info.visitors.comment</td>
+            <td>Комментарий (Список посетителей)</td>
         </tr>
         <tr>
             <td>data.created_at</td>
