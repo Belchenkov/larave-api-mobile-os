@@ -24,6 +24,7 @@ class CreateRequestSupportTable extends Migration
             $table->passthru('nvarchar', 'comment', 'nvarchar(2000)');
             $table->passthru('nvarchar', 'from', 'nvarchar(200)');
             $table->passthru('nvarchar', 'to', 'nvarchar(200)');
+            $table->boolean('is_send')->default(0)->index();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

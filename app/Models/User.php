@@ -86,5 +86,14 @@ class User extends Authenticatable
         return $this->hasOne(EventHandle::class, 'event_id', 'id_person');
     }
 
+    /**
+     * Get Request Support Info from request_support (Mobile DB)
+     * @return HasMany
+     */
+    public function requestSupport() : HasMany
+    {
+        return $this->hasMany(RequestSupport::class, 'user_id', 'id');
+    }
+
 
 }

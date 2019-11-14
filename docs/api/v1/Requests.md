@@ -415,3 +415,303 @@ Authorization: Bearer <accessToken>
     </tbody>
 </table>
 
+#### GET /api/v1/request/support
+
+Метод получения всех заявок на поддержку (Заявка в Службу Технической поддержки = 1, Заявка в Службу АХО = 2, Заявка в Службу Эксплуатации = 3)
+
+<b>HEADERS</b>
+
+```
+Content-Type: application/json
+User-Agent: *
+```
+
+```
+Authorization: Bearer <accessToken>
+```
+
+<b>PARAMS</b>
+ ```
+{
+    "type_request": {Int|[1, 2, 3]}
+}
+```
+
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+            <td>Формат</td>
+        </tr>
+    </thead>
+    <tbody>
+         <tr>
+            <td>id</td>
+            <td>Тип заявки</td>
+            <td>Обязательно</td>
+        </tr>
+    </tbody>
+</table> 
+
+
+<b>RESPONSE</b>
+
++ 200 OK
+
+```
+{
+    "data": {
+        "id": {Int},
+        "user_id": {Int},
+        "type_request": {String},
+        "comment": {String},
+        "from": {String},
+        "to": {String},
+        "is_send": {Bool},
+        "created_at": {Datetime}
+    },
+    "meta": {
+        "current_page": {Int},
+        "from": {Int},
+        "path": {String},
+        "per_page": {Int}
+       }, 
+   "links": {
+        "first": {String},
+        "last": {String},
+        "prev": {String},
+        "next": {String}
+    }, 
+    "result": {Boolean},
+    "debug": {
+        "queries": {Int},
+        "queries_time": {String}
+    }
+}
+```
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>data.id</td>
+            <td>ID заявки</td>
+        </tr>
+        <tr>
+            <td>data.user_id</td>
+            <td>ID заявителя</td>
+        </tr> 
+        <tr>
+            <td>data.type_request</td>
+            <td>Тип заявки</td>
+        </tr>
+        <tr>
+            <td>data.comment</td>
+            <td>Комментарий к заявки</td>
+        </tr>
+        <tr>
+            <td>data.from</td>
+            <td>Почта с которой поступила заявка</td>
+        </tr>
+        <tr>
+            <td>data.to</td>
+            <td>Почта на которой поступила заявка</td>
+        </tr>
+        <tr>
+            <td>data.is_send</td>
+            <td>Статус отправки заявки на почту поддержки</td>
+        </tr>
+        <tr>
+            <td>data.created_at</td>
+            <td>Дата создание заявки</td>
+        </tr>
+        <tr>
+            <td>links.first</td>
+            <td>Первая страница (Пагинация)</td>
+        </tr>
+        <tr>
+            <td>links.next</td>
+            <td>Следующая страница (Пагинация)</td>
+        </tr>
+        <tr>
+            <td>meta.current_page</td>
+            <td>Текущий номер страницы (Пагинация)</td>
+        </tr>
+        <tr>
+            <td>meta.from</td>
+            <td>Номер записи (Пагинация)</td>
+        </tr>
+        <tr>
+            <td>meta.path</td>
+            <td>Путь до ресурса (Пагинация)</td>
+        </tr>
+        <tr>
+            <td>meta.per_page</td>
+            <td>Кол-во записей на странице (Пагинация)</td>
+        </tr>
+    </tbody>
+</table>
+
+#### GET /api/v1/request/support/{id}
+
+Метод получения заявоки на поддержку по id
+
+<b>HEADERS</b>
+
+```
+Content-Type: application/json
+User-Agent: *
+```
+
+```
+Authorization: Bearer <accessToken>
+```
+
+<b>BODY</b>
+ ```
+{
+    "id": {Int}
+}
+```
+
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+            <td>Формат</td>
+        </tr>
+    </thead>
+    <tbody>
+         <tr>
+            <td>id</td>
+            <td>ID заявки</td>
+            <td>Обязательно</td>
+        </tr>
+    </tbody>
+</table> 
+
+
+<b>RESPONSE</b>
+
++ 200 OK
+
+```
+{
+    "data": {
+        "id": {Int},
+        "user_id": {Int},
+        "type_request": {String},
+        "comment": {String},
+        "from": {String},
+        "to": {String},
+        "is_send": {Bool},
+        "created_at": {Datetime}
+    },
+    "result": {Boolean},
+    "debug": {
+        "queries": {Int},
+        "queries_time": {String}
+    }
+}
+```
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>data.id</td>
+            <td>ID заявки</td>
+        </tr>
+        <tr>
+            <td>data.user_id</td>
+            <td>ID заявителя</td>
+        </tr> 
+        <tr>
+            <td>data.type_request</td>
+            <td>Тип заявки</td>
+        </tr>
+        <tr>
+            <td>data.comment</td>
+            <td>Комментарий к заявки</td>
+        </tr>
+        <tr>
+            <td>data.from</td>
+            <td>Почта с которой поступила заявка</td>
+        </tr>
+        <tr>
+            <td>data.to</td>
+            <td>Почта на которой поступила заявка</td>
+        </tr>
+        <tr>
+            <td>data.is_send</td>
+            <td>Статус отправки заявки на почту поддержки</td>
+        </tr>
+        <tr>
+            <td>data.created_at</td>
+            <td>Дата создание заявки</td>
+        </tr>
+    </tbody>
+</table>
+
+#### POST /api/v1/request/support
+
+Метод отправки заявки на почту поддержку 
+
+<b>HEADERS</b>
+
+```
+Authorization: Bearer <accessToken>
+```
+<b>BODY</b>
+ ```
+{
+    "comment": {String},
+    "type_request": {Int | in [1, 2, 3]}
+}
+```
+
+<table>
+    <thead>
+        <tr>
+            <td>Название</td>
+            <td>Описание</td>
+            <td>Формат</td>
+        </tr>
+    </thead>
+    <tbody>
+         <tr>
+            <td>comment</td>
+            <td>Комментарий к заявке</td>
+            <td>Обязательно</td>
+        </tr>
+        <tr>
+            <td>type_request</td>
+            <td>Тип заявки на поддержку</td>
+            <td>Обязательно</td>
+        </tr>
+    </tbody>
+</table> 
+
+
+<b>RESPONSE</b>
+
++ 200 OK
+
+```
+{
+    "result": {Boolean},
+    "debug": {
+        "queries": {Int},
+        "queries_time": {String}
+    }
+}

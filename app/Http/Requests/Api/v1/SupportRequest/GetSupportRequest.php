@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\v1\Support;
+namespace App\Http\Requests\Api\v1\SupportRequest;
 
-use App\Structure\PassRequest\PassRequest;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class SupportRequest extends FormRequest
+class GetSupportRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +24,7 @@ class SupportRequest extends FormRequest
     public function rules()
     {
         return [
-            'type_request' => 'required|in:1,2,3',
-            'comment' => 'required|max:1024'
+            'type_request' => 'required|in:1,2,3'
         ];
     }
 }

@@ -1,27 +1,21 @@
 <?php
-/**
- * Created by black40x@yandex.ru
- * Date: 01/10/2019
- */
 
-namespace App\Actions\Support;
+namespace App\Actions\SupportRequest;
 
 use App\Actions\BaseAction;
-use App\Exceptions\Api\ApiException;
 use App\Models\RequestSupport;
 use App\Notifications\Support\SupportRequestNotification;
 use App\Repositories\SupportRequestRepository;
 use App\Structure\User\UserInterface;
-use Illuminate\Support\Facades\Auth;
 
 class RequestSupportAction extends BaseAction
 {
 
-    private $mailRequestRepository;
+    private $supportRequestRepository;
 
-    public function __construct(SupportRequestRepository $mailRequestRepository)
+    public function __construct(SupportRequestRepository $supportRequestRepository)
     {
-        $this->mailRequestRepository = $mailRequestRepository;
+        $this->supportRequestRepository = $supportRequestRepository;
     }
 
     /**
@@ -46,27 +40,20 @@ class RequestSupportAction extends BaseAction
                 break;
         }
 
-        try {
-            Auth::user()->notify(new SupportRequestNotification(
-                $to,
-                $comment,
-                $user
-            ));
-        } catch (\Exception $exception) {
-            throw new ApiException(500, 'Failed to send email.');
-        }
+        $mail_request = $this->supportRequestRepository->saveMail(
+            $user->user->id,
+            $user->email,
+            $to,
+            $type_request,
+            $comment
+        );
 
-        try {
-            $mail_request = $this->mailRequestRepository->saveMail(
-                Auth::user()->id,
-                $user->email,
-                $to,
-                $type_request,
-                $comment
-            );
-        } catch (\Exception $exception) {
-            throw new ApiException(500, 'Failed to save email to database.');
-        }
+        $user->user->notify(new SupportRequestNotification(
+            $to,
+            $comment,
+            $user,
+            $mail_request
+        ));
 
         $this->setActionResult($mail_request);
 

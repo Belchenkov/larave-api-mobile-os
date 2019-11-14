@@ -16,7 +16,9 @@ Route::group(['prefix' => '/request', 'as' => 'request.'], function () {
         Route::get('/{id}', 'Api\v1\PassRequestController@show')->name('show');
         Route::post('/create', 'Api\v1\PassRequestController@store')->name('create');
     });
-    Route::post('/support', 'Api\v1\RequestSupportController@send')->name('support');
+    Route::get('/support', 'Api\v1\RequestSupportController@index')->name('support.index');
+    Route::get('/support/{id}', 'Api\v1\RequestSupportController@show')->name('support.show');
+    Route::post('/support', 'Api\v1\RequestSupportController@send')->name('support.send');
 });
 
 // Статистика посещаемости

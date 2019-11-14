@@ -2,22 +2,23 @@
 
 namespace App\Notifications\Support;
 
+use App\Mail\SupportRequest;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 
 class SupportRequestNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    private $to;
-    private $comment;
-    private $from;
-    private $phone_work;
-    private $phone_mobile;
-    private $position_name;
-    private $fio;
+    public $to;
+    public $comment;
+    public $from;
+    public $phone_work;
+    public $phone_mobile;
+    public $position_name;
+    public $fio;
+    public $mail;
 
     /**
      * Create a new notification instance.
@@ -26,9 +27,10 @@ class SupportRequestNotification extends Notification implements ShouldQueue
      * @param $comment
      * @param $user
      */
-    public function __construct($to, $comment, $user)
+    public function __construct($to, $comment, $user, $mail)
     {
         $this->to = $to;
+        $this->mail = $mail;
         $this->comment = $comment;
         $this->from = $user->email;
         $this->phone_work = $user->phone_work;
@@ -52,22 +54,20 @@ class SupportRequestNotification extends Notification implements ShouldQueue
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return SupportRequest
      */
     public function toMail($notifiable)
     {
-        $notifiable->email = $this->to;
+        dd($notifiable);
+        return (new SupportRequest(
+            $this->comment,
+            $this->phone_work,
+            $this->phone_mobile,
+            $this->position_name,
+            $this->fio))
+            ->from($this->from, $this->fio)
+            ->to($this->to);
 
-       return (new MailMessage)
-           ->from($this->from, $this->fio)
-           ->subject('Мобильное приложение сотрудника ГК Основа')
-           ->markdown('emails.notifications.requests.support', [
-               'comment' => $this->comment,
-               'fio' => $this->fio,
-               'phone_work' => $this->phone_work,
-               'phone_mobile' => $this->phone_mobile,
-               'position_name' => $this->position_name
-           ]);
     }
 
     /**

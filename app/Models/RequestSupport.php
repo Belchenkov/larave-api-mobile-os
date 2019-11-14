@@ -25,6 +25,7 @@ class RequestSupport extends LocalDBModel
         'type_request',
         'comment',
         'from',
+        'is_send',
         'to'
     ];
 
