@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
             $payload = $event->job->payload();
 
             if (SupportRequestNotification::class === $payload['displayName']) {
-                $mail = unserialize($payload['data']['command'], '')->notification->mail;
+                $mail = unserialize($payload['data']['command'])->notification->mail;
 
                 RequestSupport::find($mail->id)
                     ->update([

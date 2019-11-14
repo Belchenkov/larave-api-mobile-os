@@ -51,7 +51,6 @@ class RequestSupportAction extends BaseAction
         $user->user->notify(new SupportRequestNotification(
             $to,
             $comment,
-            $user,
             $mail_request
         ));
 
