@@ -13,11 +13,6 @@ class SupportRequestNotification extends Notification implements ShouldQueue
 
     public $to;
     public $comment;
-    public $from;
-    public $phone_work;
-    public $phone_mobile;
-    public $position_name;
-    public $fio;
     public $mail;
 
     /**
@@ -25,18 +20,13 @@ class SupportRequestNotification extends Notification implements ShouldQueue
      *
      * @param $to
      * @param $comment
-     * @param $user
+     * @param $mail
      */
-    public function __construct($to, $comment, $user, $mail)
+    public function __construct($to, $comment, $mail)
     {
         $this->to = $to;
         $this->mail = $mail;
         $this->comment = $comment;
-        $this->from = $user->email;
-        $this->phone_work = $user->phone_work;
-        $this->phone_mobile = $user->phone_mobile;
-        $this->position_name = $user->position_name;
-        $this->fio = $user->last_name . ' ' . $user->first_name . ' ' . $user->middle_name;
     }
 
     /**
@@ -58,14 +48,16 @@ class SupportRequestNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        dd($notifiable->portalUser);
+        $user = $notifiable->portalUser;
+        $fio = $user->last_name . ' ' . $user->first_name . ' ' . $user->middle_name;
+
         return (new SupportRequest(
             $this->comment,
-            $this->phone_work,
-            $this->phone_mobile,
-            $this->position_name,
-            $this->fio))
-            ->from($this->from, $this->fio)
+            $user->phone_work,
+            $user->phone_mobile,
+            $user->position_name,
+            $fio))
+            ->from($user->email, $fio)
             ->to($this->to);
 
     }

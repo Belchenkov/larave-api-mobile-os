@@ -520,7 +520,7 @@ Authorization: Bearer <accessToken>
         </tr>
         <tr>
             <td>data.to</td>
-            <td>Почта на которой поступила заявка</td>
+            <td>Почта на которую поступила заявка</td>
         </tr>
         <tr>
             <td>data.is_send</td>
