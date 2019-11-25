@@ -1,19 +1,9 @@
 <?php
 
-use App\Actions\ApprovalTask\NewTaskAction;
 use App\Jobs\HandleNewTask;
-use App\Jobs\Schedule\HandleIsVisitUser;
-use App\Models\Transit\DoTask;
 use App\Models\User;
-use App\Notifications\ApprovalTask\NewTaskNotification;
 use App\Notifications\Push\SendPush;
-use App\Repositories\ApprovalTaskRepository;
-use App\Repositories\User\StatisticVisitRepository;
-use App\Repositories\User\UserRepository;
 use App\Services\ApprovalTask\DocumentStructure;
-use App\Services\Portal\IntranetPortalAPI;
-use App\Structure\User\UserAvatar;
-use Carbon\Carbon;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Hash;
 
