@@ -16,21 +16,21 @@ class KipPortalController extends Controller
     public function getInitiatorKip(Request $request, IntranetPortalAPI $api)
     {
         $res = $api->getInitiatorKip(Auth::user()->portalUser);
-        if (isset($res['error'])) $res = collect();
+        if (isset($res['error']) || !$res) $res = collect();
         return KipResource::collection($res);
     }
 
     public function getExecutorKip(Request $request, IntranetPortalAPI $api)
     {
         $res = $api->getExecutorKip(Auth::user()->portalUser);
-        if (isset($res['error'])) $res = collect();
+        if (isset($res['error']) || !$res) $res = collect();
         return KipResource::collection($res);
     }
 
     public function getKip(Request $request, $kip_id, IntranetPortalAPI $api)
     {
         $res = $api->getKip(Auth::user()->portalUser, $kip_id);
-        if (isset($res['error']))
+        if (isset($res['error']) || !$res)
             throw new ApiException(422, $res['error']);
 
         return new KipResource($res);
@@ -39,7 +39,7 @@ class KipPortalController extends Controller
     public function getFile(Request $request, $file_id, IntranetPortalAPI $api)
     {
         $res = $api->getFile($file_id);
-        if (implode('', $res->getHeader('Content-Type')) == 'application/json; charset=UTF-8')
+        if (implode('', $res->getHeader('Content-Type')) == 'application/json; charset=UTF-8' || !$res)
             throw new ApiException(404, 'File not found.');
 
         return response($res->getBody()->getContents(), 200, $res->getHeaders());
