@@ -42,8 +42,8 @@ Route::group(['prefix' => '/tasks/approval', 'as' => 'approval.tasks.'], functio
 });
 
 Route::group(['prefix' => '/portal/kip', 'as' => 'portal.kip.'], function () {
-    Route::get('/initiator', 'Api\v1\KipPortalController@getgetInitiatorKip')->name('initiator');
-    Route::get('/executor', 'Api\v1\KipPortalController@getgetExecutorKip')->name('executor');
+    Route::get('/initiator', 'Api\v1\KipPortalController@getInitiatorKip')->name('initiator');
+    Route::get('/executor', 'Api\v1\KipPortalController@getExecutorKip')->name('executor');
     Route::get('/get/{kip_id}', 'Api\v1\KipPortalController@getgetKip')->name('get');
     Route::get('/file/{file_id}', 'Api\v1\KipPortalController@getgetFile')->name('file');
 });
