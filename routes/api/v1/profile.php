@@ -40,3 +40,10 @@ Route::group(['prefix' => '/tasks/approval', 'as' => 'approval.tasks.'], functio
     Route::post('/{task_id}', 'Api\v1\ApprovalTaskController@updateTask')->name('update');
     Route::get('/download/{doc_id}', 'Api\v1\ApprovalTaskController@downloadDocument')->name('download');
 });
+
+Route::group(['prefix' => '/portal/kip', 'as' => 'portal.kip.'], function () {
+    Route::get('/initiator', 'Api\v1\KipPortalController@getgetInitiatorKip')->name('initiator');
+    Route::get('/executor', 'Api\v1\KipPortalController@getgetExecutorKip')->name('executor');
+    Route::get('/get/{kip_id}', 'Api\v1\KipPortalController@getgetKip')->name('get');
+    Route::get('/file/{file_id}', 'Api\v1\KipPortalController@getgetFile')->name('file');
+});

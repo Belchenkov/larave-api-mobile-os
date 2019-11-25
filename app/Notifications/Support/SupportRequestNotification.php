@@ -58,7 +58,7 @@ class SupportRequestNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        dd($notifiable);
+        dd($notifiable->portalUser);
         return (new SupportRequest(
             $this->comment,
             $this->phone_work,
