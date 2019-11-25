@@ -66,8 +66,6 @@ class IntranetPortalAPI
             ]
         ], $as_json);
 
-        if (isset($res['error'])) $r = [];
-
         return collect($res);
     }
 
@@ -78,8 +76,6 @@ class IntranetPortalAPI
                 'id_phperson' => $user->getUserPhPerson()
             ]
         ], $as_json);
-
-        if (isset($res['error'])) $r = [];
 
         return collect($res);
     }

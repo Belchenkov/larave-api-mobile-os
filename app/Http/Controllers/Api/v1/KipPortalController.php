@@ -16,12 +16,14 @@ class KipPortalController extends Controller
     public function getInitiatorKip(Request $request, IntranetPortalAPI $api)
     {
         $res = $api->getInitiatorKip(Auth::user()->portalUser);
+        if (isset($res['error'])) $res = collect();
         return KipResource::collection($res);
     }
 
     public function getExecutorKip(Request $request, IntranetPortalAPI $api)
     {
         $res = $api->getExecutorKip(Auth::user()->portalUser);
+        if (isset($res['error'])) $res = collect();
         return KipResource::collection($res);
     }
 
