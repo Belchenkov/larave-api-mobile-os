@@ -46,7 +46,7 @@ class ApprovalTaskActions
             'actions' => [self::TASK_ACCEPT],
             'buttons' => [
                 [
-                    'caption' => 'Выполнено',
+                    'caption' => 'Выполнить',
                     'action' => self::TASK_ACCEPT
                 ],
             ]

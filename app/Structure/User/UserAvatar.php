@@ -7,7 +7,9 @@
 namespace App\Structure\User;
 
 
+use App\Structure\CustomStdObject;
 use Intervention\Image\Facades\Image;
+
 
 class UserAvatar
 {
@@ -32,9 +34,41 @@ class UserAvatar
 
     private $user;
 
-    public function __construct(UserInterface $user)
+    public function __construct(?UserInterface $user)
     {
         $this->user = $user;
+    }
+
+    public function setFakerUser(CustomStdObject $user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    static function fromFaker($last_name, $first_name, $middle_name, $tab_no, $id_phperson) : UserAvatar
+    {
+        $user = new CustomStdObject();
+        $data = [
+            'last_name' => $last_name,
+            'first_name' => $first_name,
+            'middle_name' => $middle_name,
+            'tab_no' => $tab_no,
+            'id_phperson' => $id_phperson,
+        ];
+
+        $user->getUserFullName = function () use ($data) {
+            return $data['last_name'] . ' ' . $data['first_name'] . ' ' . $data['middle_name'];
+        };
+
+        $user->getUserTabNo = function () use ($data) {
+            return $data['tab_no'];
+        };
+
+        $user->getUserPhPerson = function () use ($data) {
+            return $data['id_phperson'];
+        };
+
+        return (new self(null))->setFakerUser($user);
     }
 
     /**
@@ -43,7 +77,7 @@ class UserAvatar
      */
     public function getShortName() : string
     {
-        if (!$name = $this->user->getUserFullname()) return 'NA';
+        if (!$name = $this->user->getUserFullName()) return 'NA';
 
         $name = explode(' ', $name);
         if (count($name) >= 2) {
