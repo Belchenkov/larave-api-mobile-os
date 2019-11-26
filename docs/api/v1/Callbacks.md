@@ -90,3 +90,90 @@ X-Callback-Key: osnova_callback
 ```
 , где `fieldName` - название поля с ошибкой имеет массив ошибок с текстом, что нарушено.
 
+# Уведомления о событиях
+
+## Новый КИП
+```
+[POST] /api/v1/callback/portal/kip/event
+
+[REQUEST]
+
+{
+    "id": "5dd52390673cf700567e1d72",
+    "type": "new_kip",
+    "title": "Создана новая задача КИП",
+    "message": "Стыковка с международной космической лунной станцией.",
+    "users": [
+        "381004a1-d925-11e8-9126-00155d640b22"
+    ]
+}
+
+[RESPONSE]
+
+{
+    "result": true
+}
+
+[ERROR]
+
+{
+    "result": false,
+     "error": {
+        ...
+    },
+}
+```
+
+
+# Сессии авторизации
+
+
+## Получение списка сессии поьзователя
+```
+[GET] /api/v1/callback/sessions/<id_phperson>
+
+[RESPONSE]
+
+{
+    "result": true,
+    "data": [
+        {
+            "id": 10036,
+            "user_agent": "Android; 9; google; Android SDK built for x86_64; Handset; Is Emulator; App Version: 0.7.3;",
+            "ip_address": "192.168.1.74",
+            "access_expire_at": "2019-11-25 20:23:00",
+            "refresh_expire_at": "2019-12-09 14:23:00",
+            "created_at": "2019-11-25 11:43:22",
+            "updated_at": "2019-11-25 14:23:29"
+        }
+    ]
+}
+
+[ERROR]
+
+{
+    "result": false,
+    "error": "User not found.",
+}
+```
+
+## Удаление сессии
+```
+[DELETE] /api/v1/callback/sessions/<id_phperson>?session_id=<session_id>
+[DELETE] /api/v1/callback/sessions/<id_phperson>?all=1
+
+для удаления всех сессий исп. query параметр "all=1"
+
+[RESPONSE]
+
+{
+    "result": true,
+}
+
+[ERROR]
+
+{
+    "result": false,
+    "error": "User not found.",
+}
+```

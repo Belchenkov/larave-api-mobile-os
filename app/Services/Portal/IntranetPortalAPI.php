@@ -66,7 +66,7 @@ class IntranetPortalAPI
             ]
         ], $as_json);
 
-        return collect($res);
+        return $as_json ? collect($res) : $res;
     }
 
     public function getExecutorKip(UserInterface $user, $as_json = true)
@@ -77,7 +77,7 @@ class IntranetPortalAPI
             ]
         ], $as_json);
 
-        return collect($res);
+        return $as_json ? collect($res) : $res;
     }
 
     public function getKip(UserInterface $user, $kip_id, $as_json = true)
@@ -89,7 +89,39 @@ class IntranetPortalAPI
             ]
         ], $as_json);
 
-        return collect($res);
+        return $as_json ? collect($res) : $res;
+    }
+
+    public function commentKip(UserInterface $user, $kip_id, $comment, $as_json = true)
+    {
+        $res = $this->doRequest('zskp/kip/api/set-kip', 'post', [
+            'json' => [
+                'id_phperson' => $user->getUserPhPerson(),
+                'kip' => [
+                    'id' => $kip_id,
+                    'comments' => [
+                        ['text' => $comment]
+                    ]
+                ]
+            ]
+        ], $as_json);
+
+        return $as_json ? collect($res) : $res;
+    }
+
+    public function updateKipStatus(UserInterface $user, $kip_id, $status, $as_json = true)
+    {
+        $res = $this->doRequest('zskp/kip/api/set-kip', 'post', [
+            'json' => [
+                'id_phperson' => $user->getUserPhPerson(),
+                'kip' => [
+                    'id' => $kip_id,
+                    'current_status_id' => intval($status)
+                ]
+            ]
+        ], $as_json);
+
+        return $as_json ? collect($res) : $res;
     }
 
     public function getFile($file_id)

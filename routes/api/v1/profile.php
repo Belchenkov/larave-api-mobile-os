@@ -44,6 +44,10 @@ Route::group(['prefix' => '/tasks/approval', 'as' => 'approval.tasks.'], functio
 Route::group(['prefix' => '/portal/kip', 'as' => 'portal.kip.'], function () {
     Route::get('/initiator', 'Api\v1\KipPortalController@getInitiatorKip')->name('initiator');
     Route::get('/executor', 'Api\v1\KipPortalController@getExecutorKip')->name('executor');
-    Route::get('/get/{kip_id}', 'Api\v1\KipPortalController@getgetKip')->name('get');
     Route::get('/file/{file_id}', 'Api\v1\KipPortalController@getgetFile')->name('file');
+
+    Route::post('/create', 'Api\v1\KipPortalController@newKip')->name('create');
+    Route::get('/{kip_id}', 'Api\v1\KipPortalController@getKip')->name('get');
+    Route::post('/{kip_id}/comment', 'Api\v1\KipPortalController@commentKip')->name('comment');
+    Route::post('/{kip_id}/update/status', 'Api\v1\KipPortalController@updateKipStatus')->name('comment');
 });
