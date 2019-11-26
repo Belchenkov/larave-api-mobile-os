@@ -72,7 +72,24 @@ class KipPortalController extends Controller
 
     public function newKip(Request $request, IntranetPortalAPI $api)
     {
-        // ToDo - обсудить поля + нужен селект пользователей и валидация
+        $this->validate($request, [
+            'theme' => 'required',
+            'note' => 'required',
+            'date_start' => 'required|date|date_format:Y-m-d H:i:s|before:date_end',
+            'date_end' => 'required|date|date_format:Y-m-d H:i:s|after:date_start',
+            'initiator_user' => 'required',
+            'executor_user' => 'required',
+            'assistants' => 'sometimes|array',
+            'observers' => 'sometimes|array',
+        ]);
+
+        $res = $api->createKip(Auth::user()->portalUser, $request->all());
+        if (isset($res['error']) || !$res) {
+            if (is_array($res['error'])) {
+                throw new ApiException(422, implode(' ', $res['error']));
+            } else
+                throw new ApiException(422, $res['error']);
+        }
 
         return $this->apiSuccess();
     }

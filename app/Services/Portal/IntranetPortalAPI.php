@@ -124,6 +124,43 @@ class IntranetPortalAPI
         return $as_json ? collect($res) : $res;
     }
 
+    public function createKip(UserInterface $user, $data, $as_json = true)
+    {
+        $kip = [
+            'theme' => $data['theme'],
+    	    'note' => $data['note'],
+    	    'date_start' => $data['date_start'],
+    	    'date_end' => $data['date_end'],
+    	    'initiator_user' => [
+    	        "id_phperson" => $data['initiator_user']
+            ],
+            'executor_user' => [
+                "id_phperson" => $data['executor_user']
+            ],
+    	];
+
+        if (isset($data['assistants'])) {
+            $kip['assistants'] = [];
+            foreach ($data['assistants'] as $user)
+                $kip['assistants'][] = ["id_phperson" => $user];
+        }
+
+        if (isset($data['observers'])) {
+            $kip['observers'] = [];
+            foreach ($data['observers'] as $user)
+                $kip['observers'][] = ["id_phperson" => $user];
+        }
+
+        $res = $this->doRequest('zskp/kip/api/set-kip', 'post', [
+            'json' => [
+                'id_phperson' => $user->getUserPhPerson(),
+                'kip' => $kip
+            ]
+        ], $as_json);
+
+        return $as_json ? collect($res) : $res;
+    }
+
     public function getFile($file_id)
     {
         return $this->doRequest('zskp/kip/api/get-file', 'get', [
