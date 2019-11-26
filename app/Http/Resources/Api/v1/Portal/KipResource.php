@@ -47,7 +47,7 @@ class KipResource extends JsonResource
                         $this['initiator_user']['first_name'],
                         $this['initiator_user']['middle_name'],
                         $this['initiator_user']['tab_no'],
-                        $this['initiator_user']['id_phperson'],
+                        $this['initiator_user']['id_phperson']
                     )->toArray(),
                 ] : null,
             'executor_user' => $this['executor_user'] ?
@@ -63,7 +63,7 @@ class KipResource extends JsonResource
                         $this['executor_user']['first_name'],
                         $this['executor_user']['middle_name'],
                         $this['executor_user']['tab_no'],
-                        $this['executor_user']['id_phperson'],
+                        $this['executor_user']['id_phperson']
                     )->toArray(),
                 ] : null,
             'is_complete' => $this['is_complete'],
@@ -83,7 +83,7 @@ class KipResource extends JsonResource
                         $item['first_name'],
                         $item['middle_name'],
                         $item['tab_no'],
-                        $item['id_phperson'],
+                        $item['id_phperson']
                     )->toArray(),
                 ];
 
