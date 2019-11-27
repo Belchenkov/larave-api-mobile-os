@@ -496,6 +496,7 @@ Authorization: Bearer <accessToken>
     }
 }
 ```
+
 #### GET /api/v1/tasks/approval/download/{doc_id}
 
 Загрузка файла по doc_id

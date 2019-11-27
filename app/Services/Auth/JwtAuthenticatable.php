@@ -66,7 +66,7 @@ trait JwtAuthenticatable
 
         return $sessions->map(function ($session) use ($current) {
             $session->setAttribute('current', false);
-            if ($session->id == $current->id)
+            if ($current && $session->id == $current->id)
                 $session->setAttribute('current', true);
 
             return $session;

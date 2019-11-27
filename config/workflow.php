@@ -22,9 +22,9 @@ return [
     'doc_download_user' => env('APP_DOC_DOWNLOAD_USER'),
     'doc_download_pass' => env('APP_DOC_DOWNLOAD_PASS'),
 
-    'intranet_base_url' => 'http://testportal.mars.local/',
-    'intranet_auth_login' => 'e.kozhemin',
-    'intranet_auth_password' => 'bh6TgT77',
-    'intranet_login' => 'mobapp',
-    'intranet_password' => 'Pass12345',
+    'intranet_base_url' => env('APP_INTRANET_BASE_URL'),
+    'intranet_auth_login' => env('APP_INTRANET_AUTH_LOGIN'),
+    'intranet_auth_password' => env('APP_INTRANET_AUTH_PASSWORD'),
+    'intranet_login' => env('APP_INTRANET_LOGIN'),
+    'intranet_password' => env('APP_INTRANET_PASSWORD'),
 ];

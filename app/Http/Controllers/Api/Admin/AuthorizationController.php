@@ -58,17 +58,7 @@ class AuthorizationController extends Controller
             throw new ApiException(404, 'User not found.');
 
         return $this->apiSuccess(
-            $user->jwtToken()->orderBy('created_at', 'DESC')->get(
-                [
-                    'id',
-                    'user_agent',
-                    'ip_address',
-                    'access_expire_at',
-                    'refresh_expire_at',
-                    'created_at',
-                    'updated_at'
-                ]
-            )
+            $user->getSessionList()
         );
     }
 
