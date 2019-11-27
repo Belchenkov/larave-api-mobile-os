@@ -426,12 +426,19 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>Название</td>
             <td>Описание</td>
+            <td>Формат</td>
         </tr>
     </thead>
     <tbody>
          <tr>
             <td>kip_id</td>
-            <td>Комментарий</td>
+            <td>ID поручения</td>
+            <td>Обязательно</td>
+        </tr>
+        <tr>
+            <td>status</td>
+            <td>Статус поручения</td>
+            <td>Обязательно</td>
         </tr>
     </tbody>
 </table> 
@@ -480,32 +487,39 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>Название</td>
             <td>Описание</td>
+            <td>Формат</td>
         </tr>
     </thead>
     <tbody>
          <tr>
             <td>theme</td>
             <td>Тема поручения</td>
+            <td>Обязательно</td>
         </tr>
         <tr>
             <td>note</td>
             <td>Содержание поручения</td>
+            <td>Обязательно</td>
         </tr>
         <tr>
             <td>date_start</td>
             <td>Время старта поручения</td>
+            <td>Обязательно</td>
         </tr>
         <tr>
             <td>date_end</td>
             <td>Время окончания поручения</td>
+            <td>Обязательно</td>
         </tr>
         <tr>
             <td>initiator_user</td>
             <td>Сотрудник создающий поручение</td>
+            <td>Обязательно</td>
         </tr>
         <tr>
             <td>executor_user</td>
             <td>Исполнитель поручения</td>
+            <td>Обязательно</td>
         </tr>
         <tr>
             <td>assistants</td>
