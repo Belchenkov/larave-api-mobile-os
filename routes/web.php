@@ -11,6 +11,8 @@
 |
 */
 
+use App\Exceptions\Api\ApiException;
+
 Route::get('/', function () {
     return response()->json([
         'result' => true,
