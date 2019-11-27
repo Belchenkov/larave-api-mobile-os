@@ -97,6 +97,7 @@ class KipPortalController extends Controller
     public function getFile(Request $request, $file_id, IntranetPortalAPI $api)
     {
         $res = $api->getFile($file_id);
+
         if (implode('', $res->getHeader('Content-Type')) == 'application/json; charset=UTF-8' || !$res)
             throw new ApiException(404, 'File not found.');
 

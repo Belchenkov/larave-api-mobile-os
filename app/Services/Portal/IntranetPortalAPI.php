@@ -141,14 +141,14 @@ class IntranetPortalAPI
 
         if (isset($data['assistants'])) {
             $kip['assistants'] = [];
-            foreach ($data['assistants'] as $user)
-                $kip['assistants'][] = ["id_phperson" => $user];
+            foreach ($data['assistants'] as $id_phperson)
+                $kip['assistants'][] = ["id_phperson" => $id_phperson];
         }
 
         if (isset($data['observers'])) {
             $kip['observers'] = [];
-            foreach ($data['observers'] as $user)
-                $kip['observers'][] = ["id_phperson" => $user];
+            foreach ($data['observers'] as $id_phperson)
+                $kip['observers'][] = ["id_phperson" => $id_phperson];
         }
 
         $res = $this->doRequest('zskp/kip/api/set-kip', 'post', [
