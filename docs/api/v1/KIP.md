@@ -464,7 +464,14 @@ Authorization: Bearer <accessToken>
 
 ```
 {
-    "status": 
+    "theme": {String},
+    "note": {String},
+    "date_start": {Datetime [Y-m-d H:i:s] | before:date_end},
+    "date_end": {Datetime [Y-m-d H:i:s] | after:date_start},
+    "initiator_user": {Uuid = id_phperson},
+    "executor_user": {Uuid = id_phperson},
+    "assistants": {Array of id_phperson},
+    "observers": {Array of id_phperson},
 }
 ```
 
@@ -477,8 +484,36 @@ Authorization: Bearer <accessToken>
     </thead>
     <tbody>
          <tr>
-            <td>kip_id</td>
-            <td>Комментарий</td>
+            <td>theme</td>
+            <td>Тема поручения</td>
+        </tr>
+        <tr>
+            <td>note</td>
+            <td>Содержание поручения</td>
+        </tr>
+        <tr>
+            <td>date_start</td>
+            <td>Время старта поручения</td>
+        </tr>
+        <tr>
+            <td>date_end</td>
+            <td>Время окончания поручения</td>
+        </tr>
+        <tr>
+            <td>initiator_user</td>
+            <td>Сотрудник создающий поручение</td>
+        </tr>
+        <tr>
+            <td>executor_user</td>
+            <td>Исполнитель поручения</td>
+        </tr>
+        <tr>
+            <td>assistants</td>
+            <td>Список ассистенов поручения</td>
+        </tr>
+        <tr>
+            <td>observers</td>
+            <td>Список наблюдателей поручения</td>
         </tr>
     </tbody>
 </table> 
