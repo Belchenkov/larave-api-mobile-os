@@ -36,6 +36,4 @@ class ApprovalTasksTest extends TestCase
         }
     }
 
-
-
 }

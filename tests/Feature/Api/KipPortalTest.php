@@ -64,16 +64,16 @@ class KipPortalTest extends TestCase
     }
 
     public function test_get_file()
-        {
-            $user = $this->factoryUser();
-            $file_id = 1;
+    {
+        $user = $this->factoryUser();
+        $file_id = 1;
 
-            $this->be($user, 'api');
+        $this->be($user, 'api');
 
 
-            $response = $this->get('/api/v1/portal/kip/file/' . $file_id);
-            $response->assertStatus(200);
-        }
+        $response = $this->get('/api/v1/portal/kip/file/' . $file_id);
+        $response->assertStatus(200);
+    }
 
     public function test_comment_kip()
     {
@@ -104,6 +104,5 @@ class KipPortalTest extends TestCase
             $response = $this->post('/api/v1/portal/kip/' . $kip['id'] . '/update/status', $data);
             $response->assertStatus(200);
         }
-
     }
 }
