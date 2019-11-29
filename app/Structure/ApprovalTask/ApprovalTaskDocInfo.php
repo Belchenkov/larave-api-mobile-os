@@ -38,13 +38,10 @@ class ApprovalTaskDocInfo
             'executor' => (string) $xml['Ответственный'],
             'project' => (string) $xml['Проект'],
             'article' => (string) $xml['СтатьяДДС'],
-            'files' => collect($xml->xpath('Файлы'))->map(function ($item) {
-                $elem = $item->xpath('ДанныеФайла');
-                if (!isset($elem[0])) return false;
-
+            'files' => collect($xml->xpath('Файлы/ДанныеФайла'))->map(function ($item) {
                 return collect([
-                    'file_id' => (string) $elem[0]['Ссылка'],
-                    'file_name' => (string) $elem[0]['Название']
+                    'file_id' => (string) $item['Ссылка'],
+                    'file_name' => (string) $item['Название'] . (isset($item['Расширение']) ? '.'.$item['Расширение'] : ''),
                 ]);
             }),
             'visitors' => collect($xml->xpath('СписокДоступ/СписокПосетителей'))->map(function ($item) {
