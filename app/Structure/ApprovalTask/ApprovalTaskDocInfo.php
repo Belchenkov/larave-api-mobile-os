@@ -42,6 +42,7 @@ class ApprovalTaskDocInfo
                 return collect([
                     'file_id' => (string) $item['Ссылка'],
                     'file_name' => (string) $item['Название'] . (isset($item['Расширение']) ? '.'.$item['Расширение'] : ''),
+                    'file_ext' => (isset($item['Расширение']) ? '.'.$item['Расширение'] : null),
                 ]);
             }),
             'visitors' => collect($xml->xpath('СписокДоступ/СписокПосетителей'))->map(function ($item) {
