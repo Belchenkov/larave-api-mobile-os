@@ -92,19 +92,22 @@ X-Callback-Key: osnova_callback
 
 # Уведомления о событиях
 
-## Новый КИП
 ```
-[POST] /api/v1/callback/portal/kip/event
+[POST] /api/v1/callback/portal/push/events
 
 [REQUEST]
 
 {
-    "id": "5dd52390673cf700567e1d72",
-    "type": "new_kip",
+    "data": {
+        "id": "5dd52390673cf700567e1d72",
+        ...
+    },
+    "type": "push || kip_new || kip_comment || kip_update",
     "title": "Создана новая задача КИП",
     "message": "Стыковка с международной космической лунной станцией.",
     "users": [
-        "381004a1-d925-11e8-9126-00155d640b22"
+        "381004a1-d925-11e8-9126-00155d640b22",
+        ...
     ]
 }
 

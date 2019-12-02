@@ -11,6 +11,6 @@ Route::group(['prefix' => 'sessions', 'as' => 'callbacks.sessions.'], function (
     Route::delete('{id_phperson}', 'Api\Admin\AuthorizationController@deleteUserSessions')->name('delete');
 });
 
-Route::group(['prefix' => 'portal/kip', 'as' => 'portal.kip.'], function () {
-    Route::post('event', 'Api\v1\Callbacks\PortalController@handleKipEvent')->name('event');
+Route::group(['prefix' => 'portal/push', 'as' => 'portal.push.'], function () {
+    Route::post('events', 'Api\v1\Callbacks\PortalController@handlePushEvent')->name('events');
 });

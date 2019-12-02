@@ -1,37 +1,35 @@
 <?php
 
-namespace App\Jobs\Kip;
+namespace App\Jobs\HandlePush;
 
 use App\Models\User;
-use App\Notifications\Kip\HandleKipNotification;
-use App\Notifications\Kip\UpdateKipNotification;
+use App\Notifications\Kip\HandlePushNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class EventKipNotificateJob implements ShouldQueue
+class EventPushNotificateJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $kip;
+    private $push;
 
     /**
      * Create a new job instance.
      *
-     * @param $kip
-     * @param bool $new_kip
+     * @param $push
      */
-    public function __construct($kip)
+    public function __construct($push)
     {
-        $this->kip = $kip;
+        $this->push = $push;
     }
 
     private function notifyUser($id_phperson)
     {
         if ($user = User::where('id_person', $id_phperson)->first()) {
-            $user->notify(new HandleKipNotification($this->kip));
+            $user->notify(new HandlePushNotification($this->push));
         }
     }
 
@@ -42,7 +40,7 @@ class EventKipNotificateJob implements ShouldQueue
      */
     public function handle()
     {
-        foreach ($this->kip['users'] as $user) {
+        foreach ($this->push['users'] as $user) {
             $this->notifyUser($user);
         }
     }
