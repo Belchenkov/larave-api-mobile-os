@@ -17,7 +17,7 @@ class PassRequestRepository
 
     public function getUserPassRequests(UserInterface $user) : Builder
     {
-        return $user->passHeaders()->with('sprOffice')->getQuery();
+        return $user->passHeaders()->with('sprOffice', 'doSessionPass')->getQuery();
     }
 
     public function getUserPassRequest(UserInterface $user, $pass_id) : ?DoSessionHeader
