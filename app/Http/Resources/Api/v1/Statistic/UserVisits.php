@@ -19,8 +19,10 @@ class UserVisits extends JsonApiResourse
             'data' => UserVisitDay::collection($this->get('days')),
             'meta' => [
                 'schedule' => [
-                    'time_in' => $this->get('schedule')->get('time')->get('date_in') ? $this->get('schedule')->get('time')->get('date_in')->format('H:i') : null,
-                    'time_out' => $this->get('schedule')->get('time')->get('date_out') ? $this->get('schedule')->get('time')->get('date_out')->format('H:i') : null,
+                    'time_in' => $this->get('schedule')->get('time')->get('date_in') ?
+                        $this->get('schedule')->get('time')->get('date_in')->format('H:i') : null,
+                    'time_out' => $this->get('schedule')->get('time')->get('date_out') ?
+                        $this->get('schedule')->get('time')->get('date_out')->format('H:i') : null,
                 ],
                 'previous' => $this->get('previous'),
             ],
