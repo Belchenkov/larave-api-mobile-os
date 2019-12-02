@@ -66,7 +66,7 @@ class IntranetPortalAPI
             ]
         ], $as_json);
 
-        return $as_json ? collect($res) : $res;
+        return $as_json ? collect($res)->sortByDesc('date_start') : $res;
     }
 
     public function getExecutorKip(UserInterface $user, $as_json = true)
@@ -77,7 +77,7 @@ class IntranetPortalAPI
             ]
         ], $as_json);
 
-        return $as_json ? collect($res) : $res;
+        return $as_json ? collect($res)->sortByDesc('date_start') : $res;
     }
 
     public function getKip(UserInterface $user, $kip_id, $as_json = true)

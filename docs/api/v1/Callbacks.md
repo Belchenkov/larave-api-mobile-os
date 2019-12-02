@@ -119,14 +119,23 @@ X-Callback-Key: osnova_callback
     "result": true
 }
 
-[ERROR]
+### Формат ответов с ошибкой
 
++ 422 Unprocessable Entity
+
+При возникновении этой ошибки были нарушены правила валидации. 
+
+```
 {
-    "result": false,
-     "error": {
+    "result": {Boolean},
+    "fieldName": [
+        {String},
         ...
-    },
+    ],
+    ...
 }
+```
+, где `fieldName` - название поля с ошибкой имеет массив ошибок с текстом, что нарушено.
 ```
 
 

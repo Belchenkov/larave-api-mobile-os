@@ -15,6 +15,7 @@ class PassRequest extends JsonApiResourse
      */
     public function toArray($request)
     {
+        dd($this);
         return [
             'id' => $this->id,
             'id_doc' => $this->id_doc_1C,
