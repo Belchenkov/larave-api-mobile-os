@@ -97,19 +97,21 @@ X-Callback-Key: osnova_callback
 
 [REQUEST]
 
-{
-    "data": {
-        "id": "5dd52390673cf700567e1d72",
-        ...
-    },
-    "type": "push || kip_new || kip_comment || kip_update",
-    "title": "Создана новая задача КИП",
-    "message": "Стыковка с международной космической лунной станцией.",
-    "users": [
-        "381004a1-d925-11e8-9126-00155d640b22",
-        ...
-    ]
-}
+[
+    {
+        "data": {
+            "id": "5dd52390673cf700567e1d72",
+            ...
+        },
+        "type": "push || kip_new || kip_comment || kip_update",
+        "title": "Создана новая задача КИП",
+        "message": "Стыковка с международной космической лунной станцией.",
+        "users": [
+            "381004a1-d925-11e8-9126-00155d640b22",
+            ...
+        ]
+    }
+]
 
 [RESPONSE]
 

@@ -26,14 +26,14 @@ class HandlePushEventRequest extends FormRequest
     public function rules()
     {
         return [
-            'data' => 'sometimes',
-            'type' => [
+            '*.data' => 'sometimes',
+            '*.type' => [
                 'required',
                 Rule::in(PortalMessage::$types)
             ],
-            'title' => 'sometimes|max:255',
-            'message' => 'required',
-            'users' => 'required|array',
+            '*.title' => 'sometimes|max:255',
+            '*.message' => 'required',
+            '*.users' => 'required|array',
         ];
     }
 }

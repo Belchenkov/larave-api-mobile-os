@@ -11,13 +11,9 @@ class PortalController extends Controller
 
     public function handlePushEvent(HandlePushEventRequest $request)
     {
-        $this->dispatch(new EventPushNotificateJob($request->all([
-            'data',
-            'type',
-            'title',
-            'message',
-            'users',
-        ])));
+        foreach ($request->all() as $item) {
+            $this->dispatch(new EventPushNotificateJob($item));
+        }
 
         return $this->apiSuccess();
     }
