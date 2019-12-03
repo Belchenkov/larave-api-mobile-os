@@ -25,6 +25,7 @@ Authorization: Bearer <accessToken>
         "id": {Int},
         "id_doc": {Uuid},
         "name": {String},
+        "title": {String},
         "description": {String},
         "pass_type": {String},
         "status": {String},
@@ -86,6 +87,10 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.description</td>
             <td>Комментарий к заявки</td>
+        </tr> 
+        <tr>
+            <td>data.title</td>
+            <td>Заголовок к заявки</td>
         </tr>
         <tr>
             <td>data.pass_type</td>
@@ -211,6 +216,7 @@ Authorization: Bearer <accessToken>
         "id": {Int},
         "id_doc": {Uuid},
         "name": {String},
+        "title": {String},
         "description": {String},
         "pass_type": {String},
         "status": {String},
@@ -258,7 +264,11 @@ Authorization: Bearer <accessToken>
             <td>Название заявки</td>
         </tr>
         <tr>
-            <td>data.name</td>
+            <td>data.title</td>
+            <td>Заголовок к заявке</td>
+        </tr>
+        <tr>
+            <td>data.title</td>
             <td>Название заявки</td>
         </tr>
         <tr>
@@ -464,6 +474,7 @@ Authorization: Bearer <accessToken>
     "data": {
         "id": {Int},
         "user_id": {Int},
+        "title": {String},
         "type_request": {String},
         "comment": {String},
         "from": {String},
@@ -505,6 +516,10 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.user_id</td>
             <td>ID заявителя</td>
+        </tr> 
+        <tr>
+            <td>data.title</td>
+            <td>Заголовок заявки</td>
         </tr> 
         <tr>
             <td>data.type_request</td>
@@ -607,6 +622,7 @@ Authorization: Bearer <accessToken>
         "id": {Int},
         "user_id": {Int},
         "type_request": {String},
+        "title": {String},
         "comment": {String},
         "from": {String},
         "to": {String},
@@ -635,6 +651,10 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.user_id</td>
             <td>ID заявителя</td>
+        </tr> 
+        <tr>
+            <td>data.title</td>
+            <td>Заголовок заявки</td>
         </tr> 
         <tr>
             <td>data.type_request</td>
