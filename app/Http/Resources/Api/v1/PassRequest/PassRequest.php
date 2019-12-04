@@ -16,7 +16,6 @@ class PassRequest extends JsonApiResourse
      */
     public function toArray($request)
     {
-//        dd($this);
         return [
             'id' => $this->id,
             'id_doc' => $this->id_doc_1C,
@@ -56,7 +55,7 @@ class PassRequest extends JsonApiResourse
                 return $item->visitor . ', ' . $item->description;
             }
         ) : ' ';
-        return $visitors->implode(',');
+        return $visitors->implode(', ');
     }
 
     public function getOfficeNameToString()
@@ -66,6 +65,6 @@ class PassRequest extends JsonApiResourse
 
     public function getTitle()
     {
-       return Str::limit($this->getVisitorsToString() . ' ' . $this->getOfficeNameToString(), 40);
+       return trim(Str::limit($this->getVisitorsToString() . ' ' . $this->getOfficeNameToString(), 40));
     }
 }

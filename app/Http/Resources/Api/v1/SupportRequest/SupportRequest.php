@@ -21,7 +21,7 @@ class SupportRequest extends JsonApiResourse
             'title' => Str::limit($this->comment, 40),
             'user_id' => $this->user_id,
             'type_request' => $this->type_request,
-            'comment' => Str::limit($this->comment, 100),
+            'comment' => $this->comment,
             'from' => $this->from,
             'to' => $this->to,
             'is_send' => !!$this->is_send ? true : false,
