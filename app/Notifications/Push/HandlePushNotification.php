@@ -44,7 +44,7 @@ class HandlePushNotification extends Notification implements ShouldQueue
     public function toFirebase($notifiable)
     {
         return new FirebaseMessage(
-            $this->push['title'],
+            isset($this->push['title']) ? $this->push['title'] : '',
             Str::limit($this->push['message'], 255),
             'osnova',
             $this->getData($this->push['type']),
