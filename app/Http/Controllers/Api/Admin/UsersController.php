@@ -26,12 +26,15 @@ class UsersController extends Controller
             $ids = $userRepository->getDepartmentsIds($request->get('dep'));
         }
 
+        $users = $userRepository->getUserCatalog($request->get('search'), $ids);
+
         return UserCatalog::collection(
-            $userRepository->getUserCatalog($request->get('search'), $ids)
-                ->paginate(15)->appends([
-                    'search' => $request->get('search'),
-                    'dep' => $request->get('dep'),
-                ])
+            $request->get('page') == -1
+            ? $users->get()
+            : $users->paginate(15)->appends([
+                'search' => $request->get('search'),
+                'dep' => $request->get('dep'),
+            ])
         );
     }
 

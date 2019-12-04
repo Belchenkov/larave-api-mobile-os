@@ -27,4 +27,7 @@ return [
     'intranet_auth_password' => env('APP_INTRANET_AUTH_PASSWORD'),
     'intranet_login' => env('APP_INTRANET_LOGIN'),
     'intranet_password' => env('APP_INTRANET_PASSWORD'),
+
+    'tableau_url' => env('TABLEAU_URL'),
+    'tableau_user' => env('TABLEAU_USER'),
 ];

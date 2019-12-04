@@ -7,6 +7,10 @@ Route::get('/badges', 'Api\v1\ProfileController@getBadges')->name('badges');
 Route::get('/news', 'Api\v1\NewsController@index')->name('news');
 Route::get('/news/{news}', 'Api\v1\NewsController@show')->name('news.show');
 
+// Tableau
+Route::get('/tableau', 'Api\v1\TableauController@index')->name('tableau');
+Route::get('/tableau/{tableau}', 'Api\v1\TableauController@show')->name('tableau.show');
+
 Route::get('/information/offices', 'Api\v1\OfficesController@index')->name('offices');
 
 // Заявки

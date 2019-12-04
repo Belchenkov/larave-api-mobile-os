@@ -11,7 +11,8 @@
 |
 */
 
-use App\Exceptions\Api\ApiException;
+use App\Models\User;
+use App\Services\Tableau\TableauAPI;
 
 Route::get('/', function () {
     return response()->json([
