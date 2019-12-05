@@ -39,7 +39,9 @@ class TableauAPI
     public function getTicket()
     {
         $res = $this->doPostRequest('trusted', [
-            'username' => $this->user_name
+            'form_params' => [
+                'username' => $this->user_name
+            ]
         ]);
 
         if ($res !== false && $res->getStatusCode() == 200) {
