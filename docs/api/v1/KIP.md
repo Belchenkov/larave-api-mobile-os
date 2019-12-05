@@ -547,7 +547,7 @@ Authorization: Bearer <accessToken>
 }
 ```
 
-#### GET /api/v1/file/{file_id}
+#### GET /api/v1/portal/kip/file/{file_id}
 
 Загрузка файла по file_id
 
