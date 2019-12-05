@@ -30,6 +30,12 @@ Route::group(['middleware' => ['protector']], function () {
         Route::patch('/news/{news}', 'Api\Admin\NewsController@update')->name('news.update');
         Route::delete('/news/{news}', 'Api\Admin\NewsController@delete')->name('news.delete');
 
+        Route::get('/tableau', 'Api\Admin\TableauController@index')->name('tableau');
+        Route::post('/tableau/create', 'Api\Admin\TableauController@store')->name('tableau.create');
+        Route::get('/tableau/{tableau}', 'Api\Admin\TableauController@show')->name('tableau.show');
+        Route::patch('/tableau/{tableau}', 'Api\Admin\TableauController@update')->name('tableau.update');
+        Route::delete('/tableau/{tableau}', 'Api\Admin\TableauController@delete')->name('tableau.delete');
+
         Route::post('/files/upload', 'Api\Admin\FileUploadController@upload')->name('file.upload');
         Route::delete('/files/delete/{id}', 'Api\Admin\FileUploadController@uploadDelete')->name('file.delete');
     });

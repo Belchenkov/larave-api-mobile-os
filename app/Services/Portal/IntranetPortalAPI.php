@@ -191,6 +191,7 @@ class IntranetPortalAPI
 
         try {
             $client = new Client([
+                'verify' => false,
                 'base_uri' => $this->base_url,
                 'timeout' => 15.0,
                 'auth' => [

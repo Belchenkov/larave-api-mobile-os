@@ -95,5 +95,17 @@ class User extends Authenticatable
         return $this->hasMany(RequestSupport::class, 'user_id', 'id');
     }
 
+    public function tableau()
+    {
+        return $this->hasManyThrough(
+            Tableau::class,
+            TableauUsers::class,
+            'id_phperson',
+            'id',
+            'id_person',
+            'tableau_id'
+        );
+    }
+
 
 }
