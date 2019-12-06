@@ -11,9 +11,6 @@
 |
 */
 
-use App\Models\User;
-use App\Services\Tableau\TableauAPI;
-
 Route::get('/', function () {
     return response()->json([
         'result' => true,

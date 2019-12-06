@@ -109,7 +109,7 @@ class DoTask extends  TransitionModel
      */
     public function relatedTasks() : HasMany
     {
-        return $this->hasMany(DoTask::class, 'id_process_1C_parent', 'id_process_1C_parent');
+        return $this->hasMany(DoTask::class, 'id_process_1C', 'id_process_1C');
     }
 
     /**
