@@ -81,6 +81,15 @@ class User extends Authenticatable
         return $this->hasOne(ForUser::class, 'id_phperson', 'id_person');
     }
 
+    /**
+     * Get User Options from user_options (Mobile DB)
+     * @return HasOne
+     */
+    public function userOptions() : HasOne
+    {
+        return $this->hasOne(UserOption::class, 'id_phperson', 'id_person');
+    }
+
     public function handleEvent() : HasOne
     {
         return $this->hasOne(EventHandle::class, 'event_id', 'id_person');

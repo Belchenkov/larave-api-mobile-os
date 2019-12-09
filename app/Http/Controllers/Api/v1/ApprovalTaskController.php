@@ -88,5 +88,4 @@ class ApprovalTaskController extends Controller
             throw new ApiException(404, 'File not found.');
         }
     }
-
 }

@@ -71,6 +71,9 @@ class ApprovalTaskRepository
                 'relatedTasks.executor.employee',
                 'relatedTasks' => function ($query) use ($task_id) {
                     $query->where('id_task_1C', '<>', $task_id)->whereNotNull('id_process_1C');
+                },
+                'relatedTasksParent' => function ($query) use ($task_id) {
+                    $query->where('id_task_1C', '<>', $task_id)->whereNotNull('id_process_1C');
                 }
             ])
             ->where('id_task_1C', $task_id)

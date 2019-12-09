@@ -26,8 +26,10 @@ class UserCatalogController extends Controller
     public function getCatalog(Request $request, UserRepository $userRepository)
     {
         $ids = null;
+        $user_options = Auth::user()->userOptions;
+        $kip_global = !!$user_options ? (bool) $user_options->kip_global : false;
 
-        if ($request->get('my')) {
+        if ($request->get('my') && !$kip_global) {
             $ids = Cache::remember(
                 'user.catalog.my.ids.'.Auth::user()->id_person,
                 config('cache.cache_time'),

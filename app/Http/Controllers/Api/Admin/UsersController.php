@@ -9,6 +9,7 @@ use App\Http\Resources\Api\v1\User\UserCatalog;
 use App\Http\Resources\Api\v1\User\UserProfile;
 use App\Models\Transit\Portal\ForUser;
 use App\Models\User;
+use App\Models\UserOption;
 use App\Repositories\ApprovalTaskRepository;
 use App\Repositories\User\StatisticVisitRepository;
 use App\Repositories\User\UserRepository;
@@ -74,6 +75,39 @@ class UsersController extends Controller
         return ApprovalTask::collection(
           $approvalTaskRepository->getUserTasks($user)->get()
         );
+    }
+
+    public function getSettingsForUser(Request $request, $id_phperson)
+    {
+        if (!$userOptions = UserOption::where('id_phperson', $id_phperson)->first()) {
+            throw new ApiException(404, 'User options not found.');
+        }
+        return $this->apiSuccess($userOptions);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
+     * Change checkbox - Show to KIP
+     */
+    public function showKipChange(Request $request)
+    {
+        $this->validate($request, [
+            'id_phperson' => 'required|max:100',
+            'show_kip' => 'required'
+        ]);
+
+        UserOption::updateOrCreate(
+            [
+                'id_phperson' => $request->input('id_phperson')
+            ],
+            [
+                'kip_global' => (int) $request->input('show_kip')
+            ]
+        )->touch();
+
+        return $this->apiSuccess();
     }
 
 }

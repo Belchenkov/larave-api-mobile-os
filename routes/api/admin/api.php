@@ -14,6 +14,10 @@ Route::group(['middleware' => ['protector']], function () {
         Route::get('sessions/{id_phperson}', 'Api\Admin\AuthorizationController@showUserSessions')->name('sessions');
         Route::post('sessions/{id_phperson}', 'Api\Admin\AuthorizationController@deleteUserSessions')->name('sessions.delete');
 
+        // Settings
+        Route::get('settings/{id_phperson}', 'Api\Admin\UsersController@getSettingsForUser')->name('settings.get');
+        Route::post('settings/show-kip-change', 'Api\Admin\UsersController@showKipChange')->name('settings.show.kip.change');
+
         Route::get('admins/list', 'Api\Admin\AdminsController@index')->name('admins');
 
         Route::get('/users/catalog', 'Api\Admin\UsersController@getCatalog')->name('users');

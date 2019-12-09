@@ -113,6 +113,15 @@ class DoTask extends  TransitionModel
     }
 
     /**
+     * Get Related Tasks from do_tasks  (Transit DB)
+     * @return HasMany
+     */
+    public function relatedTasksParent() : HasMany
+    {
+        return $this->hasMany(DoTask::class, 'id_process_1C_parent', 'id_process_1C');
+    }
+
+    /**
      * Get Sended Pushes Tasks from do_task_handle (Mobile DB)
      * @return HasOne
      */

@@ -14,6 +14,14 @@ class ApprovalTask extends JsonApiResourse
      */
     public function toArray($request)
     {
+        $relatedTask = null;
+
+        if ($this->relationLoaded('relatedTasksParent') && $this->relatedTasksParent->count() > 0) {
+            $relatedTask = $this->relatedTasksParent;
+        } elseif ($this->relationLoaded('relatedTasks') && $this->relatedTasks->count() > 0) {
+            $relatedTask = $this->relatedTasks;
+        }
+
         return [
             'id' => $this->id_task_1C,
             'name' => $this->name_task_1C,
@@ -32,7 +40,7 @@ class ApprovalTask extends JsonApiResourse
             'executor' => $this->executor_employee,
             'status' => $this->task_status,
             'actions' => $this->getRelevantActions('buttons'),
-            'related_tasks' => $this->relationLoaded('relatedTasks') ? $this->relatedTasks->map(function($item) {
+            'related_tasks' => $relatedTask ? $relatedTask->map(function($item) {
                 return [
                     'status' => $item->task_status,
                     'comment' => $item->task_comment_execution,
