@@ -87,6 +87,12 @@ Authorization: Bearer <accessToken>
                 "planned_date": {Datetime},
                 "fact_date": {Datetime},
                 "current_status_id": {Int},
+                "actions": [
+                    {
+                        "caption": {String},
+                        "action": {Int}
+                     },
+                ],
                 "projectd": {
                     "project_id": {Int},
                     "nm": {String},
@@ -152,6 +158,14 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.current_status_id</td>
             <td>Текущий статус id</td>
+        </tr>
+        <tr>
+            <td>data.actions.caption</td>
+            <td>Текст кнопки</td>
+        </tr>
+        <tr>
+            <td>data.actions.action</td>
+            <td>Идентификатор действия совершенного пользователем (отправить на сервер при нажатии кнопки)</td>
         </tr>
         <tr>
             <td>data.date_start</td>

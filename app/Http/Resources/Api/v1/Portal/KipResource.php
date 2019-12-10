@@ -2,13 +2,14 @@
 
 namespace App\Http\Resources\Api\v1\Portal;
 
+use App\Services\Portal\Kip\KipStatuses;
 use App\Structure\User\UserAvatar;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class KipResource extends JsonResource
 {
-
     public static function userFromItem($item)
     {
         try {
@@ -52,6 +53,7 @@ class KipResource extends JsonResource
             'planned_date' => $this['planned_date'] ? Carbon::parse($this['planned_date']) : null,
             'fact_date' => $this['fact_date'] ? Carbon::parse($this['fact_date']) : null,
             'current_status_id' => $this['current_status_id'],
+            'actions' => (new KipStatuses())->getRelevantActions($this['current_status_id'], $this->checkRoleKip(Auth::user())),
             'projectd' => $this['projectd'] ?
                 [
                     'project_id' => $this['projectd']['project_id'],
@@ -77,5 +79,15 @@ class KipResource extends JsonResource
                 return $item;
             }),
         ];
+    }
+
+    public function checkRoleKip($current_user)
+    {
+        if ($current_user->id_person === $this['initiator_user']['id_phperson']) {
+            return KipStatuses::INITIATOR;
+        } elseif ($current_user->id_person === $this['executor_user']['id_phperson']) {
+            return KipStatuses::EXECUTOR;
+        }
+        return null;
     }
 }
