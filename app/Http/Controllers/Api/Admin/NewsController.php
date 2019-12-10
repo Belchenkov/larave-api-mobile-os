@@ -23,7 +23,7 @@ class NewsController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:255',
-            'content' => 'required',
+            'content' => 'sometimes',
             'publish' => 'required|in:0,1',
         ]);
 
@@ -46,7 +46,7 @@ class NewsController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:255',
-            'content' => 'required',
+            'content' => 'sometimes',
             'publish' => 'required|in:0,1',
         ]);
 
