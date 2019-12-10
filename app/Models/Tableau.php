@@ -3,11 +3,10 @@
 namespace App\Models;
 
 use App\Services\MsSQL\MillesecondFixTrait;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 
-class Tableau extends Model
+class Tableau extends LocalDBModel
 {
     use MillesecondFixTrait, Notifiable;
 
@@ -21,6 +20,4 @@ class Tableau extends Model
     {
         return $this->hasMany(TableauUsers::class, 'tableau_id', 'id');
     }
-
-
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\Tableau;
+use App\Notifications\Tableau\TableauNotification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -25,13 +26,13 @@ class TableauController extends Controller
         $tableau = Tableau::create($request->all(['title', 'tableau_url']));
 
         if (is_array($request->get('users'))) {
+
+            $tableau->notify(new TableauNotification('Добавлен отчет'));
+
             foreach ($request->get('users') as $id_phperson)
                 $tableau->users()->create(['id_phperson' => $id_phperson]);
         }
 
-        // Send Push For users!!!
-        //if ($request->get('publish'))
-        //    $news->notify(new NewNewsNotification());
 
         return $this->apiSuccess([
             'id' => $tableau->id
