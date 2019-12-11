@@ -2,6 +2,7 @@
 
 use App\Jobs\HandleNewTask;
 use App\Models\User;
+use App\Notifications\Kip\HandlePushNotification;
 use App\Notifications\Push\SendPush;
 use App\Services\ApprovalTask\DocumentStructure;
 use Illuminate\Foundation\Inspiring;
@@ -45,8 +46,3 @@ Artisan::command('jobs:init', function () {
 Artisan::command('jobs:clear', function () {
     DB::table('jobs')->delete();
 })->describe('Clear jobs db table');
-
-Artisan::command('jobs:test', function () {
-    $t = \App\Models\Tableau::find(1);
-    $t->notify(new \App\Notifications\Tableau\TableauNotification('Добален отчет'));
-})->describe('Send push');

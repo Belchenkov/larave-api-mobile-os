@@ -58,9 +58,8 @@ class HandlePushNotification extends Notification implements ShouldQueue
      */
     public function getData(string $type_push): array
     {
-        $data = [
-            'data' => $this->push['data']
-        ];
+        $data = [];
+        $data += $this->push['data'];
 
         switch ($type_push) {
             case PortalMessage::KIP_NEW:
@@ -74,7 +73,7 @@ class HandlePushNotification extends Notification implements ShouldQueue
                 $data += ['screen' => 'OSNOVA_MAIN_SCREEN'];
                 break;
         }
-
+        dd($data);
         return $data;
     }
 }
