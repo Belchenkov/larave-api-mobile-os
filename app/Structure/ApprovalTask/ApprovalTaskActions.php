@@ -32,6 +32,30 @@ class ApprovalTaskActions
 
     private $statusStruct = [
         [
+            'name' => 'Согласовать',
+            'actions' => [self::TASK_CANCEL, self::TASK_APPLY],
+            'buttons' => [
+                [
+                    'caption' => 'Согласовать',
+                    'action' => self::TASK_APPLY
+                ],
+                [
+                    'caption' => 'Отказать',
+                    'action' => self::TASK_CANCEL
+                ],
+            ]
+        ],
+        [
+            'name' => 'Обработать резолюцию',
+            'actions' => [self::TASK_ACCEPT],
+            'buttons' => [
+                [
+                    'caption' => 'Выполнено',
+                    'action' => self::TASK_ACCEPT
+                ]
+            ]
+        ],
+        [
             'name' => 'Ознакомиться',
             'actions' => [self::TASK_ACCEPT],
             'buttons' => [
@@ -42,26 +66,32 @@ class ApprovalTaskActions
             ]
         ],
         [
-            'name' => 'Исполнить',
+            'name' => 'Ответственное исполнение',
             'actions' => [self::TASK_ACCEPT],
             'buttons' => [
                 [
-                    'caption' => 'Выполнить',
+                    'caption' => 'Выполнено',
                     'action' => self::TASK_ACCEPT
                 ],
             ]
         ],
         [
-            'name' => 'Согласовать',
-            'actions' => [self::TASK_CANCEL, self::TASK_APPLY],
+            'name' => 'Исполнить',
+            'actions' => [self::TASK_ACCEPT],
             'buttons' => [
                 [
-                    'caption' => 'Согласовать',
-                    'action' => self::TASK_APPLY
+                    'caption' => 'Выполнено',
+                    'action' => self::TASK_ACCEPT
                 ],
+            ]
+        ],
+        [
+            'name' => 'Ознакомиться с регистрацией',
+            'actions' => [self::TASK_ACCEPT],
+            'buttons' => [
                 [
-                    'caption' => 'Отклонить',
-                    'action' => self::TASK_CANCEL
+                    'caption' => 'Ознакомлен',
+                    'action' => self::TASK_ACCEPT
                 ],
             ]
         ],
@@ -76,21 +106,7 @@ class ApprovalTaskActions
             ]
         ],
         [
-            'name' => 'Утвердить',
-            'actions' => [self::TASK_CANCEL, self::TASK_APPLY],
-            'buttons' => [
-                [
-                    'caption' => 'Утверждено',
-                    'action' => self::TASK_APPLY
-                ],
-                [
-                    'caption' => 'Не утверждено',
-                    'action' => self::TASK_CANCEL
-                ],
-            ]
-        ],
-        [
-            'name' => 'Рассмотреть вопрос',
+            'name' => 'Зарегистрировать',
             'actions' => [self::TASK_ACCEPT],
             'buttons' => [
                 [
@@ -100,8 +116,28 @@ class ApprovalTaskActions
             ]
         ],
         [
-            'name' => 'Рассмотрение',
+            'name' => 'Ознакомиться с результатом утверждения',
             'actions' => [self::TASK_ACCEPT],
+            'buttons' => [
+                [
+                    'caption' => 'Ознакомлен',
+                    'action' => self::TASK_ACCEPT
+                ],
+            ]
+        ],
+        [
+            'name' => 'Ознакомиться с результатом согласования',
+            'actions' => [self::TASK_ACCEPT],
+            'buttons' => [
+                [
+                    'caption' => 'Ознакомлен',
+                    'action' => self::TASK_ACCEPT
+                ],
+            ]
+        ],
+        [
+            'name' => 'Рассмотреть',
+            'actions' => [self::TASK_APPLY, self::TASK_CANCEL],
             'buttons' => [
                 [
                     'caption' => 'Согласовать',
@@ -113,6 +149,20 @@ class ApprovalTaskActions
                 ],
             ]
         ],
+        [
+            'name' => 'Утвердить',
+            'actions' => [self::TASK_CANCEL, self::TASK_APPLY],
+            'buttons' => [
+                [
+                    'caption' => 'Утвердить',
+                    'action' => self::TASK_APPLY
+                ],
+                [
+                    'caption' => 'Отказать',
+                    'action' => self::TASK_CANCEL
+                ],
+            ]
+        ]
     ];
 
     /**
