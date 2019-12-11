@@ -73,7 +73,7 @@ class HandlePushNotification extends Notification implements ShouldQueue
                 $data += ['screen' => 'OSNOVA_MAIN_SCREEN'];
                 break;
         }
-        dd($data);
+
         return $data;
     }
 }
