@@ -56,6 +56,7 @@ class KipPortalController extends Controller
             'status' => [
                 Rule::in([
                     KipStatuses::STATUS_WAITING_CONTROL,
+                    KipStatuses::STATUS_IN_WORK,
                     KipStatuses::STATUS_DEFER,
                     KipStatuses::STATUS_COMPLETED
                 ]),

@@ -193,6 +193,11 @@ class ForUser extends TransitionModel implements UserInterface
         return $this->position_name;
     }
 
+    public function getOrders(): ?string
+    {
+        return $this->show_attribut_1 ? $this->attribut_1 : null;
+    }
+
     public function getUserUnit(): ?string
     {
         if ($this->department_name) {

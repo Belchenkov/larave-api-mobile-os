@@ -20,11 +20,11 @@ class ApprovalTaskActions
         'actions' => [self::TASK_ACCEPT, self::TASK_CANCEL],
         'buttons' => [
             [
-                'caption' => 'Выполнено',
-                'action' => self::TASK_ACCEPT
+                'caption' => 'Согласовать',
+                'action' => self::TASK_APPLY
             ],
             [
-                'caption' => 'Отклонено',
+                'caption' => 'Отказать',
                 'action' => self::TASK_CANCEL
             ],
         ]
@@ -96,6 +96,20 @@ class ApprovalTaskActions
                 [
                     'caption' => 'Выполнено',
                     'action' => self::TASK_ACCEPT
+                ],
+            ]
+        ],
+        [
+            'name' => 'Рассмотрение',
+            'actions' => [self::TASK_ACCEPT],
+            'buttons' => [
+                [
+                    'caption' => 'Согласовать',
+                    'action' => self::TASK_APPLY
+                ],
+                [
+                    'caption' => 'Отказать',
+                    'action' => self::TASK_CANCEL
                 ],
             ]
         ],
