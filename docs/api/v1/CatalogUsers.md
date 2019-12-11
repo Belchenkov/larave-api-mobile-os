@@ -1,7 +1,7 @@
 # Api методов получения справочника сотрудников для МБ ГК Основа
 
 #### GET /api/v1/users/catalog
-
+workflow_server
 Метод для получения справочника сотрудников. Поиск возможен по ФИО сотрудников, должностям и подразделениям.
 
 <b>HEADERS</b>
@@ -17,7 +17,6 @@ Authorization: Bearer <accessToken>
     "my": {Boolean|null}
 }
 ```
-
 <table>
     <thead>
         <tr>
@@ -54,6 +53,8 @@ Authorization: Bearer <accessToken>
             "image": {String}
         },
         "position": {String},
+        "achive_has": {String},
+        "achive_show": {Int},
         "tab_no": {String},
         "id_phperson": {String},
         "department_guid": {String}
@@ -102,6 +103,14 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.position</td>
             <td>Должность</td>
+        </tr>
+        <tr>
+            <td>data.achive_has</td>
+            <td>Текстовое содержание достижения</td>
+        </tr>
+        <tr>
+            <td>data.achive_show</td>
+            <td>Отображать достижение если === 1, в остальные случаях не показываем</td>
         </tr>
         <tr>
             <td>data.tab_no</td>

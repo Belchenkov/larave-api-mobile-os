@@ -20,7 +20,6 @@ class UserProfile extends JsonApiResourse
      */
     public function toArray($request)
     {
-        //dd($this->getOrders());
         return [
             'in_office' => $this->getUserOnline(),
             'online_office' => $this->getUserOnline() ? $this->getUserOnlineOfficeName() : null,
@@ -32,7 +31,8 @@ class UserProfile extends JsonApiResourse
             ],
             'avatar' => $this->getUserAvatar()->toArray(true),
             'position' => $this->getUserPosition(),
-            'orders' => $this->getOrders(),
+            'achive_has' => $this->attribut_1,
+            'achive_show' => $this->show_attribut_1,
             'unit' => $this->getUserUnit(),
             'email' => $this->email,
             'office_address' => $this->getUserOfficeTerritory(),

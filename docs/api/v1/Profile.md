@@ -31,6 +31,8 @@ Authorization: Bearer <accessToken>
             "image": {String}
         },
         "position": {String},
+        "achive_has": {String},
+        "achive_show": {Int},
         "unit": {String},
         "email": {String},
         "office_address": {String},
@@ -87,6 +89,14 @@ Authorization: Bearer <accessToken>
         <tr>
             <td>data.position</td>
             <td>Должность</td>
+        </tr>
+        <tr>
+            <td>data.achive_has</td>
+            <td>Текстовое содержание достижения</td>
+        </tr>
+        <tr>
+            <td>data.achive_show</td>
+            <td>Отображать достижение если === 1, в остальные случаях не показываем</td>
         </tr>
         <tr>
             <td>data.unit</td>
