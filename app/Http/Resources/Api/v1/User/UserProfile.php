@@ -32,7 +32,7 @@ class UserProfile extends JsonApiResourse
             'avatar' => $this->getUserAvatar()->toArray(true),
             'position' => $this->getUserPosition(),
             'achive_has' => $this->attribut_1,
-            'achive_show' => $this->show_attribut_1,
+            'achive_show' => $this->show_attribut_1 == 1,
             'unit' => $this->getUserUnit(),
             'email' => $this->email,
             'office_address' => $this->getUserOfficeTerritory(),
