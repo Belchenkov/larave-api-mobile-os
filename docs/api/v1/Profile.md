@@ -32,6 +32,7 @@ Authorization: Bearer <accessToken>
         },
         "position": {String},
         "achive_has": {String},
+        "achive_desc": {String},
         "achive_show": {Bool},
         "unit": {String},
         "email": {String},
@@ -92,11 +93,15 @@ Authorization: Bearer <accessToken>
         </tr>
         <tr>
             <td>data.achive_has</td>
-            <td>Текстовое содержание достижения</td>
+            <td>Текстовое название премии</td>
+        </tr>
+        <tr>
+            <td>data.achive_desc</td>
+            <td>Текстовое описание за что</td>
         </tr>
         <tr>
             <td>data.achive_show</td>
-            <td>Отображать достижение achive_has</td>
+            <td>Отображать достижение achive_has и achive_desc</td>
         </tr>
         <tr>
             <td>data.unit</td>
