@@ -32,7 +32,7 @@ Authorization: Bearer <accessToken>
         },
         "position": {String},
         "achive_has": {String},
-        "achive_show": {Int},
+        "achive_show": {Bool},
         "unit": {String},
         "email": {String},
         "office_address": {String},
@@ -96,7 +96,7 @@ Authorization: Bearer <accessToken>
         </tr>
         <tr>
             <td>data.achive_show</td>
-            <td>Отображать достижение если === 1, в остальные случаях не показываем</td>
+            <td>Отображать достижение achive_has</td>
         </tr>
         <tr>
             <td>data.unit</td>
