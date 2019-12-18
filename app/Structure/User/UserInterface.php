@@ -18,6 +18,7 @@ interface UserInterface
     public function approvalTasksExecutor() : HasMany;
     public function approvalTasksInitiator() : HasMany;
     public function passHeaders() : HasMany;
+    public function delegationExecutors() : HasMany;
 
     public function getUserTabNo() : string;
     public function getUserAdLogin() : string;

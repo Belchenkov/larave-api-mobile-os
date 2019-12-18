@@ -45,6 +45,15 @@ Route::group(['prefix' => '/tasks/approval', 'as' => 'approval.tasks.'], functio
     Route::get('/download/{doc_id}', 'Api\v1\ApprovalTaskController@downloadDocument')->name('download');
 });
 
+// Делегирование полномочий
+Route::group(['prefix' => '/delegation', 'as' => 'delegation.'], function () {
+    Route::get('/', 'Api\v1\DelegationRightsController@index')->name('list');
+    Route::get('/{id}', 'Api\v1\DelegationRightsController@show')->name('show');
+    Route::post('/', 'Api\v1\DelegationRightsController@create')->name('create');
+    Route::post('/{id}', 'Api\v1\DelegationRightsController@update')->name('update');
+});
+
+// КИП
 Route::group(['prefix' => '/portal/kip', 'as' => 'portal.kip.'], function () {
     Route::get('/initiator', 'Api\v1\KipPortalController@getInitiatorKip')->name('initiator');
     Route::get('/executor', 'Api\v1\KipPortalController@getExecutorKip')->name('executor');

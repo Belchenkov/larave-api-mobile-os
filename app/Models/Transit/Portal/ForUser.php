@@ -9,6 +9,7 @@ use App\Models\Transit\_1C\Transit1cEmployee;
 use App\Models\Transit\_1C\Transit1cEmployeeStatus;
 use App\Models\Transit\_1C\Transit1cPhPerson;
 use App\Models\Transit\_1C\Transit1cScheduleEmployee;
+use App\Models\Transit\DoDelegationRight;
 use App\Models\Transit\DoSessionHeader;
 use App\Models\Transit\DoSessionPass;
 use App\Models\Transit\DoTask;
@@ -116,6 +117,15 @@ class ForUser extends TransitionModel implements UserInterface
     public function approvalTasksInitiator() : HasMany
     {
         return $this->hasMany(DoTask::class, 'employee', 'user_ad_login');
+    }
+
+    /**
+     * Get Delegation Executor Data from do_delegation_rights (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function delegationExecutors() : HasMany
+    {
+        return $this->hasMany(DoDelegationRight::class, 'FromWhom', 'user_ad_login');
     }
 
     /**

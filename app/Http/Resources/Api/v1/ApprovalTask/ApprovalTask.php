@@ -21,7 +21,6 @@ class ApprovalTask extends JsonApiResourse
         } elseif ($this->relationLoaded('relatedTasks') && $this->relatedTasks->count() > 0) {
             $relatedTask = $this->relatedTasks;
         }
-
         return [
             'id' => $this->id_task_1C,
             'name' => $this->name_task_1C,
