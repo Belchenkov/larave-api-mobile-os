@@ -46,7 +46,7 @@ Route::group(['prefix' => '/tasks/approval', 'as' => 'approval.tasks.'], functio
 });
 
 // Делегирование полномочий
-Route::group(['prefix' => '/delegation', 'as' => 'delegation.'], function () {
+Route::group(['prefix' => '/delegations', 'as' => 'delegation.'], function () {
     Route::get('/', 'Api\v1\DelegationRightsController@index')->name('list');
     Route::get('/{id}', 'Api\v1\DelegationRightsController@show')->name('show');
     Route::post('/', 'Api\v1\DelegationRightsController@create')->name('create');
