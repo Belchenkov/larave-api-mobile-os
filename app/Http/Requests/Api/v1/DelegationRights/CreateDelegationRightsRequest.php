@@ -27,7 +27,7 @@ class CreateDelegationRightsRequest extends FormRequest
             'period_start' => 'required|date|date_format:Y-m-d H:i:s|before:period_end',
             'period_end' => 'required|date|date_format:Y-m-d H:i:s|after:period_start',
             'is_active' => 'required|int',
-            'on_whom' => 'required|array'
+            'on_whom' => 'required|string|max:50'
         ];
     }
 }

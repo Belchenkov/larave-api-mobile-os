@@ -2,8 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
+use App\Models\Transit\DoDelegationRight;
 use App\Structure\User\UserInterface;
+use Carbon\Carbon;
 
 /**
  * Class DelegationRightsRepository
@@ -47,7 +48,7 @@ class DelegationRightsRepository
 
     /**
      * @param UserInterface $user
-     * @param array $on_whom
+     * @param string $on_whom
      * @param string $period_start
      * @param string $period_end
      * @param int $is_active
@@ -55,12 +56,35 @@ class DelegationRightsRepository
      */
     public function createDelegationRight(
         UserInterface $user,
-        array $on_whom,
+        string $on_whom,
         string $period_start,
         string $period_end,
         int $is_active
-    ) {
-        //dd($user);
+    )
+    {
+        DoDelegationRight::create([
+            'OnWhom' => $on_whom,
+            'FromWhom' => $user->user_ad_login,
+            'PeriodStart' => Carbon::parse($period_start)->format('Y-m-d H:i:s'),
+            'PeriodEnd' => Carbon::parse($period_end)->format('Y-m-d H:i:s'),
+            'is_active' => $is_active,
+            'base' => 'Mobapp',
+            'dt' => Carbon::now()->format('Y-m-d H:i:s'),
+            'Name_source' => 'Mobapp'
+        ]);
+
+        return true;
+    }
+
+    /**
+     * @param DoDelegationRight $delegation
+     * @param int $is_active
+     * @return bool
+     */
+    public function updateDelegationRight(DoDelegationRight $delegation, int $is_active)
+    {
+        $delegation->setPrimaryKey()->update(['is_active' => $is_active]);
+
         return true;
     }
 }

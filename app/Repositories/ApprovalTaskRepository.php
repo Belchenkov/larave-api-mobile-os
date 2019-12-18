@@ -9,6 +9,7 @@ namespace App\Repositories;
 
 use App\Models\EventHandle;
 use App\Models\Transit\DoTask;
+use App\Models\User;
 use App\Structure\ApprovalTask\ApprovalTaskActions;
 use App\Structure\User\UserInterface;
 use Carbon\Carbon;
@@ -30,9 +31,9 @@ class ApprovalTaskRepository
     public function getUserTasks(UserInterface $user, bool $archive = false)
     {
         if ($archive) {
-            $tasks = $user->approvalTasksExecutor()->where('task_status', '<>', ApprovalTaskActions::TASK_CAN_EDIT);
+            $tasks = DoTask::whereIn('executor_employee', $this->getDelegationTaskLogins($user))->where('task_status', '<>', ApprovalTaskActions::TASK_CAN_EDIT);
         } else {
-            $tasks = $user->approvalTasksExecutor()->where('task_status', '=', ApprovalTaskActions::TASK_CAN_EDIT);
+            $tasks = DoTask::whereIn('executor_employee', $this->getDelegationTaskLogins($user))->where('task_status', '=', ApprovalTaskActions::TASK_CAN_EDIT);
         }
         $tasks->with(['initiator']);
 
@@ -64,8 +65,7 @@ class ApprovalTaskRepository
      */
     public function getUserTask(UserInterface $user, $task_id) : ?DoTask
     {
-        return $user
-            ->approvalTasksExecutor()
+        return DoTask::whereIn('executor_employee', $this->getDelegationTaskLogins($user))
             ->with([
                 'initiator.employee',
                 'relatedTasks.executor.employee',
@@ -123,6 +123,21 @@ class ApprovalTaskRepository
         }
 
         return $tasks;
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return mixed
+     * Get Logins Delegation
+     */
+    public function getDelegationTaskLogins(UserInterface $user)
+    {
+        return $user->delegationOnWhom()
+            ->where('PeriodStart', '<=', Carbon::now())
+            ->where('PeriodEnd', '>=', Carbon::now())
+            ->where('is_active', 1)
+            ->pluck('FromWhom')
+            ->push($user->user_ad_login);
     }
 
 }

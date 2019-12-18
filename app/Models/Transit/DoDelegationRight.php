@@ -7,13 +7,16 @@
 namespace App\Models\Transit;
 
 use App\Models\Transit\Portal\ForUser;
+use App\Services\MsSQL\OriginalColumns;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DoDelegationRight extends TransitionModel
 {
+    use OriginalColumns;
+
     protected $table = 'do_delegation_rights';
     public $timestamps = false;
+    private $originalColumns = ['KeyRow'];
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +33,12 @@ class DoDelegationRight extends TransitionModel
         'Name_source',
         'dt'
     ];
+
+    public function setPrimaryKey()
+    {
+        $this->primaryKey = 'KeyRow';
+        return $this;
+    }
 
     /**
      * Get Chief Delegation Data from for_users (Transit DB)
@@ -48,4 +57,5 @@ class DoDelegationRight extends TransitionModel
     {
         return $this->belongsTo(ForUser::class, 'OnWhom', 'user_ad_login');
     }
+
 }

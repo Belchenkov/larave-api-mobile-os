@@ -129,6 +129,15 @@ class ForUser extends TransitionModel implements UserInterface
     }
 
     /**
+     * Get Delegation Executor Data from do_delegation_rights (Transit DB)
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function delegationOnWhom() : HasMany
+    {
+        return $this->hasMany(DoDelegationRight::class, 'OnWhom', 'user_ad_login');
+    }
+
+    /**
      * @return HasMany
      */
     public function passHeaders() : HasMany

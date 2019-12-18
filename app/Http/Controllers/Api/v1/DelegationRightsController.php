@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Actions\DelegationRights\NewDelegationRightAction;
+use App\Actions\DelegationRights\UpdateDelegationRightAction;
 use App\Exceptions\Api\ApiException;
 use App\Http\Requests\Api\v1\DelegationRights\CreateDelegationRightsRequest;
 use App\Http\Requests\Api\v1\DelegationRights\UpdateDelegationRightsRequest;
@@ -66,9 +67,19 @@ class DelegationRightsController extends Controller
         )->apiSuccess();
     }
 
-    public function update(UpdateDelegationRightsRequest $request)
+    /**
+     * @param $delegation_id
+     * @param UpdateDelegationRightsRequest $request
+     * @param UpdateDelegationRightAction $action
+     * @return \Illuminate\Http\JsonResponse
+     * Update Delegation Right
+     */
+    public function update($delegation_id, UpdateDelegationRightsRequest $request, UpdateDelegationRightAction $action)
     {
-        dump('Update');
-        dd($request->all());
+        return $action->execute(
+            Auth::user()->portalUser,
+            $delegation_id,
+            $request->get('is_active')
+        )->apiSuccess();
     }
 }
