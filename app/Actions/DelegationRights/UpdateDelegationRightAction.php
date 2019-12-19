@@ -33,11 +33,7 @@ class UpdateDelegationRightAction extends BaseAction
             throw new ApiException(404, 'Delegation right not found');
         }
 
-        $this->delegationRightsRepository->updateDelegationRight(
-            $user,
-            $delegation,
-            $is_active
-        );
+        $delegation->setPrimaryKey()->update(['is_active' => $is_active]);
 
         return $this;
     }

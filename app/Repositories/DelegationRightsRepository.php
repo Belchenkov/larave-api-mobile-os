@@ -75,16 +75,4 @@ class DelegationRightsRepository
 
         return true;
     }
-
-    /**
-     * @param DoDelegationRight $delegation
-     * @param int $is_active
-     * @return bool
-     */
-    public function updateDelegationRight(DoDelegationRight $delegation, int $is_active)
-    {
-        $delegation->setPrimaryKey()->update(['is_active' => $is_active]);
-
-        return true;
-    }
 }
