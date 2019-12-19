@@ -46,7 +46,7 @@ class ApprovalTask extends JsonApiResourse
                     'user' => $item->executor ? [
                         'id_phperson' => $item->executor->getUserPhPerson(),
                         'full_name' => $item->executor->getUserFullName(),
-                        'avatar' => $this->executor->getUserAvatar()->toArray(),
+                        'avatar' => $item->executor->getUserAvatar()->toArray(),
                     ] : null
                 ];
             }) : [],

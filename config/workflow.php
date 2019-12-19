@@ -4,7 +4,6 @@
  * Date: 04/09/2019
  */
 
-
 return [
 
     'pin' => [
@@ -14,8 +13,8 @@ return [
     'admin_ip_range' => env('ADMIN_IP_RANGE'),
 
     'avatars_path' => env('APP_AVATARS_PATH'),
-    'time_update_new_approval_tasks' => 5,
-    'time_update_late_users' => 5,
+    'time_update_new_approval_tasks' => 1,
+    'time_update_late_users' => 1,
     'callback_key' => env('APP_CALLBACK_KEY'),
 
     'doc_download' => env('APP_DOC_DOWNLOAD_URL'),
