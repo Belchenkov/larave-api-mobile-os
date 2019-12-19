@@ -49,7 +49,7 @@ class RequestSupportAction extends BaseAction
         );
 
         $user->user->notify(new SupportRequestNotification(
-            'belchenkov@yksoft.ru',
+            $to,
             $comment,
             $mail_request
         ));

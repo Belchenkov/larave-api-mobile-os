@@ -46,3 +46,8 @@ Artisan::command('jobs:init', function () {
 Artisan::command('jobs:clear', function () {
     DB::table('jobs')->delete();
 })->describe('Clear jobs db table');
+
+/*Artisan::command('jobs:test', function () {
+    $u = User::where('id_person', '381004a1-d925-11e8-9126-00155d640b22')->first();
+    $u->notify(new \App\Notifications\Support\SupportRequestNotification('s.chursin@gk-osnova.ru', 'comment', 'mail'));
+})->describe('Clear jobs db table');*/
