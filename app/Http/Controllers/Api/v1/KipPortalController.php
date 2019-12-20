@@ -67,8 +67,11 @@ class KipPortalController extends Controller
 
         $res = $api->updateKipStatus(Auth::user()->portalUser, $kip_id, $request->get('status'));
 
-        if (isset($res['error']) || !$res)
-            throw new ApiException(422, $res['error']);
+        if (isset($res['error']) || !$res) {
+            if (isset($res['error']['current_status_id'])) {
+                throw new ApiException(422,  $res['error']['current_status_id'][0]);
+            }
+        }
 
         return $this->apiSuccess();
     }
